@@ -1,15 +1,3 @@
-<?php
-session_start();
-
-// Sprawdź czy użytkownik jest zalogowany
-if (!isset($_SESSION['user'])) {
-    header("Location: logowanie.php");
-    exit();
-}
-
-// Przykładowe dane użytkownika – normalnie pobierane z bazy danych
-$user = $_SESSION['user']; // np. ['email' => 'jan@example.com', 'name' => 'Jan', 'surname' => 'Kowalski']
-?>
 
 <!DOCTYPE html>
 <html lang="pl">
