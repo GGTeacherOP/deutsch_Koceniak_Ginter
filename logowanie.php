@@ -2,7 +2,7 @@
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Rejestracja – Portal z ofertami pracy</title>
+    <title>Logowanie – Portal z ofertami pracy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styleindex.css">
 </head>
@@ -24,7 +24,7 @@
 </header>
 
 <main>
-    <h2>Rejestracja użytkownika</h2>
+    <h2>Logowanie do konta</h2>
 
     <form action="#" method="post">
         <label for="email">Adres e-mail:</label><br>
@@ -33,16 +33,10 @@
         <label for="password">Hasło:</label><br>
         <input type="password" name="password" id="password" required><br><br>
 
-        <label for="confirm">Powtórz hasło:</label><br>
-        <input type="password" name="confirm" id="confirm" required><br><br>
-
-        <label>
-            <input type="checkbox" name="regulamin" required>
-            Akceptuję <a href="regulamin.php">regulamin</a>
-        </label><br><br>
-
-        <button type="submit">Zarejestruj się</button>
+        <button type="submit">Zaloguj się</button>
     </form>
+
+    <p>Nie masz jeszcze konta? <a href="rejestracja.php">Zarejestruj się</a></p>
 </main>
 
 <footer>
