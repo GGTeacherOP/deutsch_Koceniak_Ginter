@@ -31,9 +31,9 @@
 
         <div class="dane-osobowe">
             <h3>Dane osobowe</h3>
-            <p><strong>Imię:</strong> <?= htmlspecialchars($user['name']) ?></p>
-            <p><strong>Nazwisko:</strong> <?= htmlspecialchars($user['surname']) ?></p>
-            <p><strong>Email:</strong> <?= htmlspecialchars($user['email']) ?></p>
+            <p><strong>Imię:</strong> </p>
+            <p><strong>Nazwisko:</strong> </p>
+            <p><strong>Email:</strong> </p>
         </div>
 
         <div class="ustawienia-konta">
