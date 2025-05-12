@@ -1,31 +1,27 @@
-let aktualnaOpinia = 0;
-const opinie = document.querySelectorAll('.opinia');
-const totalOpinie = opinie.length;
+document.addEventListener('DOMContentLoaded', function() {
+    const opinie = document.querySelectorAll('.opinia');
+    const btnPoprzednia = document.getElementById('poprzednia');
+    const btnNastepna = document.getElementById('nastepna');
+    let aktualnaOpinia = 0;
 
-// Funkcja inicjalizująca slider (pokazuje pierwszą opinię)
-function inicjalizujSlider() {
-    opinie.forEach((opinia, index) => {
-        if (index === 0) {
-            opinia.classList.add('aktywna');
-        } else {
-            opinia.classList.remove('aktywna');
-        }
+    // Funkcja pokazująca opinię
+    function pokazOpinie(index) {
+        opinie.forEach((opinia, i) => {
+            opinia.classList.toggle('aktywna', i === index);
+        });
+    }
+
+    // Inicjalizacja - pokaż pierwszą opinię
+    pokazOpinie(0);
+
+    // Nasłuchiwanie przycisków
+    btnPoprzednia.addEventListener('click', function() {
+        aktualnaOpinia = (aktualnaOpinia - 1 + opinie.length) % opinie.length;
+        pokazOpinie(aktualnaOpinia);
     });
-}
 
-// Przejście do poprzedniej opinii
-function poprzednia() {
-    opinie[aktualnaOpinia].classList.remove('aktywna');
-    aktualnaOpinia = (aktualnaOpinia - 1 + totalOpinie) % totalOpinie;
-    opinie[aktualnaOpinia].classList.add('aktywna');
-}
-
-// Przejście do następnej opinii
-function nastepna() {
-    opinie[aktualnaOpinia].classList.remove('aktywna');
-    aktualnaOpinia = (aktualnaOpinia + 1) % totalOpinie;
-    opinie[aktualnaOpinia].classList.add('aktywna');
-}
-
-// Inicjalizacja slidera po załadowaniu strony
-document.addEventListener('DOMContentLoaded', inicjalizujSlider);
+    btnNastepna.addEventListener('click', function() {
+        aktualnaOpinia = (aktualnaOpinia + 1) % opinie.length;
+        pokazOpinie(aktualnaOpinia);
+    });
+});
