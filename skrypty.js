@@ -2,7 +2,7 @@ let aktualnaOpinia = 0;
 const opinie = document.querySelectorAll('.opinia');
 const totalOpinie = opinie.length;
 
-// Inicjalizacja - ukryj wszystkie opinie poza pierwszą
+// Funkcja inicjalizująca slider (pokazuje pierwszą opinię)
 function inicjalizujSlider() {
     opinie.forEach((opinia, index) => {
         if (index === 0) {
@@ -13,25 +13,17 @@ function inicjalizujSlider() {
     });
 }
 
+// Przejście do poprzedniej opinii
 function poprzednia() {
-    // Ukrywamy obecną opinię
     opinie[aktualnaOpinia].classList.remove('aktywna');
-    
-    // Przechodzimy do poprzedniej opinii, z uwzględnieniem cykliczności
     aktualnaOpinia = (aktualnaOpinia - 1 + totalOpinie) % totalOpinie;
-    
-    // Pokazujemy nową opinię
     opinie[aktualnaOpinia].classList.add('aktywna');
 }
 
+// Przejście do następnej opinii
 function nastepna() {
-    // Ukrywamy obecną opinię
     opinie[aktualnaOpinia].classList.remove('aktywna');
-    
-    // Przechodzimy do następnej opinii, z uwzględnieniem cykliczności
     aktualnaOpinia = (aktualnaOpinia + 1) % totalOpinie;
-    
-    // Pokazujemy nową opinię
     opinie[aktualnaOpinia].classList.add('aktywna');
 }
 

@@ -168,6 +168,7 @@ input:focus, textarea:focus {
     border: 1px solid #0073e6;
     box-shadow: 0 0 5px rgba(0, 115, 230, 0.4);
 }
+
 /* Opinie - Slider */
 #opinie {
     text-align: center;
@@ -182,7 +183,7 @@ input:focus, textarea:focus {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    min-height: 150px; /* Dodane dla lepszego wyglądu */
+    min-height: 150px;
 }
 
 .opinia {
