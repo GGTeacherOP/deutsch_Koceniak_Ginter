@@ -82,6 +82,7 @@ section h2 {
     border: 1px solid #ccc;
     border-radius: 4px;
 }
+
 /* Oferty */
 .oferta {
     border: 1px solid #ddd;
@@ -141,6 +142,8 @@ footer a {
 footer a:hover {
     text-decoration: underline;
 }
+
+/* Przycisk */
 button {
     padding: 10px 20px;
     background-color: #0073e6;
@@ -156,6 +159,7 @@ button:hover {
     transform: scale(1.15);
 }
 
+/* Formularze */
 input, textarea {
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
@@ -163,4 +167,50 @@ input, textarea {
 input:focus, textarea:focus {
     border: 1px solid #0073e6;
     box-shadow: 0 0 5px rgba(0, 115, 230, 0.4);
+}
+/* Opinie - Slider */
+#opinie {
+    text-align: center;
+    margin: 40px auto;
+    max-width: 700px;
+}
+
+.slider {
+    position: relative;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+    min-height: 150px; /* Dodane dla lepszego wyglądu */
+}
+
+.opinia {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.opinia.aktywna {
+    display: block;
+    opacity: 1;
+}
+
+.slider-buttons {
+    margin-top: 10px;
+}
+
+.slider-buttons button {
+    padding: 10px 20px;
+    background-color: #004080;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.slider-buttons button:hover {
+    background-color: #005bb5;
 }

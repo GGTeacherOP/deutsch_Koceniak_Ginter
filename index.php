@@ -53,24 +53,31 @@
     </section>
 
     <!-- Opinie użytkowników -->
-    <section id="opinie">
-        <h2>Opinie użytkowników</h2>
-        <blockquote>
-            <p>"Dzięki temu portalowi znalazłem świetną pracę w Hamburgu!"</p>
-            <footer>– Jan Kowalski</footer>
-        </blockquote>
-        <blockquote>
-            <p>"Przejrzyste oferty, łatwa aplikacja. Polecam każdemu!"</p>
-            <footer>– Anna Nowak</footer>
-        </blockquote>
-    </section>
-</main>
-
+   <section id="opinie">
+  <h2>Opinie użytkowników</h2>
+  <div class="slider">
+    <div class="opinia aktywna">
+      <blockquote>"Świetna strona! Pracę znalazłem w tydzień."</blockquote>
+      <footer>– Janek z Krakowa</footer>
+    </div>
+    <div class="opinia">
+      <blockquote>"Prosta obsługa, dobre oferty, polecam!"</blockquote>
+      <footer>– Kasia z Wrocławia</footer>
+    </div>
+    <div class="opinia">
+      <blockquote>"Dzięki tej stronie zacząłem pracę w Monachium!"</blockquote>
+      <footer>– Marek z Gdańska</footer>
+    </div>
+  </div>
+  <div class="slider-buttons">
+    <button onclick="poprzednia()">←</button>
+    <button onclick="nastepna()">→</button>
+  </div>
+</section>
 <footer>
     <p>&copy; 2025 ginterkoceniakXDDDDD3wnocy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
 </footer>
-
 <script src="skrypty.js"></script>
 </body>
 </html>
