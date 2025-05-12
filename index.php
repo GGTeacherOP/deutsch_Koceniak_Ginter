@@ -49,27 +49,25 @@
         </div>
     </section>
 
-    <section id="opinie">
+  <section id="opinie">
     <h2>Opinie użytkowników</h2>
     <div class="slider-container">
-        <div class="slider-opinie">
-            <div class="opinia aktywna">
-                <blockquote>"Świetna strona! Pracę znalazłem w tydzień."</blockquote>
-                <footer>– Janek z Krakowa</footer>
-            </div>
-            <div class="opinia">
-                <blockquote>"Prosta obsługa, dobre oferty, polecam!"</blockquote>
-                <footer>– Kasia z Wrocławia</footer>
-            </div>
-            <div class="opinia">
-                <blockquote>"Dzięki tej stronie zacząłem pracę w Monachium!"</blockquote>
-                <footer>– Marek z Gdańska</footer>
-            </div>
+        <div class="opinia aktywna">
+            <blockquote>"Świetna strona! Pracę znalazłem w tydzień."</blockquote>
+            <footer>– Janek z Krakowa</footer>
+        </div>
+        <div class="opinia">
+            <blockquote>"Prosta obsługa, dobre oferty, polecam!"</blockquote>
+            <footer>– Kasia z Wrocławia</footer>
+        </div>
+        <div class="opinia">
+            <blockquote>"Dzięki tej stronie zacząłem pracę w Monachium!"</blockquote>
+            <footer>– Marek z Gdańska</footer>
         </div>
         <div class="slider-nav">
-            <button id="poprzednia">← Poprzednia</button>
-            <button id="nastepna">Następna →</button>
-        </div>
+    <button id="poprzednia">Poprzednia</button>
+    <button id="nastepna">Następna</button>
+</div>
     </div>
 </section>
 </main>

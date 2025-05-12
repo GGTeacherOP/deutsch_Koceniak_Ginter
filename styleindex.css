@@ -169,53 +169,68 @@ input:focus, textarea:focus {
     box-shadow: 0 0 5px rgba(0, 115, 230, 0.4);
 }
 
-/* Slider Opinii */
-#opinie {
-    text-align: center;
-    margin: 40px auto;
-    max-width: 700px;
-}
-
+/* Naprawiony slider */
 .slider-container {
     position: relative;
     min-height: 200px;
-}
-
-.slider-opinie {
-    position: relative;
+    overflow: hidden;
 }
 
 .opinia {
-    position: absolute;
+    display: none;
     width: 100%;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
     padding: 20px;
     background: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    transition: opacity 0.5s ease;
 }
 
 .opinia.aktywna {
-    opacity: 1;
-    position: relative;
+    display: block;
+    animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .slider-nav {
-    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 25px;
 }
 
 .slider-nav button {
     background: #004080;
     color: white;
     border: none;
-    padding: 10px 15px;
-    margin: 0 5px;
+    padding: 10px 20px;
     border-radius: 4px;
     cursor: pointer;
-    font-size: 16px;
+    font-size: 15px;
+    font-weight: normal;
+    transition: all 0.2s ease;
+    min-width: 110px;
 }
 
 .slider-nav button:hover {
     background: #005bb5;
+}
+
+.slider-nav button:active {
+    transform: translateY(1px);
+}
+
+/* Strzałki - bardziej subtelne */
+.slider-nav button#poprzednia::before {
+    content: '← ';
+    opacity: 0.8;
+}
+
+.slider-nav button#nastepna::after {
+    content: ' →';
+    opacity: 0.8;
 }
