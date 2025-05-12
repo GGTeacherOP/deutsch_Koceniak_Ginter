@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moje konto – Portal z ofertami pracy w Niemczech</title>
     <link rel="stylesheet" href="styleindex.css">
-    <link rel="stylesheet" href="account.css">
+    <link rel="stylesheet" href="konto.css">
 </head>
 <body>
 
