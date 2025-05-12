@@ -23,7 +23,39 @@
     </nav>
 </header>
 
+<main>
+    <h2>Polityka prywatności</h2>
 
+    <section>
+        <h3>1. Informacje ogólne</h3>
+        <p>Twoja prywatność jest dla nas ważna. Niniejsza polityka prywatności wyjaśnia, jakie dane gromadzimy, jak je przechowujemy i wykorzystujemy.</p>
+    </section>
+
+    <section>
+        <h3>2. Gromadzenie danych</h3>
+        <p>Gromadzimy dane takie jak imię, nazwisko, adres e-mail, numer telefonu i dane dotyczące ofert pracy podczas rejestracji i korzystania z portalu.</p>
+    </section>
+
+    <section>
+        <h3>3. Wykorzystanie danych</h3>
+        <p>Przetwarzamy dane użytkowników tylko w zakresie niezbędnym do świadczenia usług, kontaktu oraz administracji kontem.</p>
+    </section>
+
+    <section>
+        <h3>4. Udostępnianie danych</h3>
+        <p>Nie udostępniamy Twoich danych osobowych osobom trzecim bez Twojej wyraźnej zgody, chyba że jest to wymagane przepisami prawa.</p>
+    </section>
+
+    <section>
+        <h3>5. Pliki cookies</h3>
+        <p>Portal korzysta z plików cookies w celu poprawy działania strony i dostosowania jej do preferencji użytkowników.</p>
+    </section>
+
+    <section>
+        <h3>6. Zmiany polityki prywatności</h3>
+        <p>Zastrzegamy sobie prawo do wprowadzania zmian w polityce prywatności. Zmiany będą publikowane na tej stronie.</p>
+    </section>
+</main>
 
 <footer>
     <p>&copy; 2025 ginterkoceniakXDDDDD3wnocy – Wszystkie prawa zastrzeżone</p>
