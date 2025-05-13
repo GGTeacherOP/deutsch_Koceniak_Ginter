@@ -7,8 +7,8 @@
 
 /* Ogólne */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f8f9fa;
     color: #333;
     line-height: 1.6;
     padding: 0;
@@ -17,172 +17,170 @@ body {
 
 /* Nagłówek */
 header {
-    background-color: #004080;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
     color: #fff;
-    padding: 20px 0;
+    padding: 1.5rem 0;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
+    font-size: 2.2rem;
+    font-weight: 700;
 }
 
 nav ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 1rem 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 nav ul li {
-    display: inline-block;
-    margin: 0 10px;
+    margin: 0.5rem 1rem;
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    position: relative;
+    transition: color 0.3s ease;
 }
 
 nav ul li a:hover {
-    text-decoration: underline;
+    color: #ffcc00;
+}
+
+nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: #ffcc00;
+    transition: width 0.3s ease;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
 }
 
 /* Sekcje */
 main {
-    padding: 20px;
-    max-width: 1000px;
-    margin: auto;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
     background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
 }
 
 section {
-    margin-bottom: 40px;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    border-radius: 6px;
+    background-color: #fff;
 }
 
 section h2 {
-    border-bottom: 2px solid #004080;
-    margin-bottom: 15px;
-    padding-bottom: 5px;
+    border-bottom: 3px solid #004080;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
     color: #004080;
+    font-size: 1.8rem;
+    font-weight: 600;
 }
 
 /* Wyszukiwarka */
 #wyszukiwarka form {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 20px;
+    gap: 1rem;
+    margin-bottom: 2rem;
 }
 
 #wyszukiwarka input[type="text"] {
     flex: 1;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    min-width: 200px;
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+#wyszukiwarka input[type="text"]:focus {
+    border-color: #004080;
+    box-shadow: 0 0 0 3px rgba(0, 64, 128, 0.2);
+    background-color: #fff;
+    outline: none;
 }
 
 /* Oferty */
 .oferta {
-    border: 1px solid #ddd;
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 5px;
-    background-color: #fafafa;
+    border: 1px solid #e0e0e0;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.oferta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border-color: #004080;
 }
 
 .oferta h3 {
-    margin-bottom: 5px;
+    margin-bottom: 0.5rem;
     color: #004080;
+    font-size: 1.3rem;
 }
 
 .oferta p {
-    margin-bottom: 10px;
-}
-
-.oferta a {
-    text-decoration: none;
-    color: #0073e6;
-}
-
-.oferta a:hover {
-    text-decoration: underline;
-}
-
-/* Opinie */
-blockquote {
-    border-left: 5px solid #ccc;
-    padding-left: 15px;
-    margin-bottom: 20px;
-    font-style: italic;
+    margin-bottom: 1rem;
     color: #555;
 }
 
-blockquote footer {
-    font-size: 0.9em;
-    color: #333;
-    margin-top: 5px;
-}
-
-/* Stopka */
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #004080;
-    color: #fff;
-    margin-top: 20px;
-}
-
-footer a {
-    color: #ffcc00;
+.oferta a {
+    display: inline-block;
     text-decoration: none;
+    color: #0073e6;
+    font-weight: 500;
+    padding: 0.5rem 0;
+    transition: color 0.3s ease;
 }
 
-footer a:hover {
+.oferta a:hover {
+    color: #004080;
     text-decoration: underline;
 }
 
-/* Przycisk */
-button {
-    padding: 10px 20px;
-    background-color: #0073e6;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #005bb5;
-    transform: scale(1.15);
-}
-
-/* Formularze */
-input, textarea {
-    transition: border 0.3s ease, box-shadow 0.3s ease;
-}
-
-input:focus, textarea:focus {
-    border: 1px solid #0073e6;
-    box-shadow: 0 0 5px rgba(0, 115, 230, 0.4);
-}
-
-/* Naprawiony slider */
+/* Opinie - zachowany oryginalny slider */
 .slider-container {
     position: relative;
     min-height: 200px;
     overflow: hidden;
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
 }
 
 .opinia {
     display: none;
     width: 100%;
-    padding: 20px;
+    padding: 1.5rem;
     background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
     transition: opacity 0.5s ease;
 }
 
@@ -196,41 +194,143 @@ input:focus, textarea:focus {
     to { opacity: 1; }
 }
 
+blockquote {
+    border-left: 4px solid #004080;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    font-style: italic;
+    color: #555;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+blockquote footer {
+    font-size: 0.9rem;
+    color: #333;
+    margin-top: 0.5rem;
+    font-weight: 500;
+    font-style: normal;
+}
+
 .slider-nav {
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-top: 25px;
+    gap: 1rem;
+    margin-top: 1.5rem;
 }
 
 .slider-nav button {
-    background: #004080;
+    background: linear-gradient(to right, #004080, #0066cc);
     color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
+    padding: 0.8rem 1.5rem;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 15px;
-    font-weight: normal;
-    transition: all 0.2s ease;
-    min-width: 110px;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .slider-nav button:hover {
-    background: #005bb5;
+    background: linear-gradient(to right, #0066cc, #004080);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
 .slider-nav button:active {
     transform: translateY(1px);
 }
 
-/* Strzałki - bardziej subtelne */
 .slider-nav button#poprzednia::before {
     content: '← ';
-    opacity: 0.8;
+    opacity: 0.9;
 }
 
 .slider-nav button#nastepna::after {
     content: ' →';
-    opacity: 0.8;
+    opacity: 0.9;
+}
+
+/* Stopka */
+footer {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    color: #fff;
+    margin-top: 2rem;
+}
+
+footer p {
+    margin-bottom: 1rem;
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #fff;
+    text-decoration: underline;
+}
+
+/* Przyciski */
+button {
+    padding: 0.8rem 1.5rem;
+    background: linear-gradient(to right, #0073e6, #004080);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background: linear-gradient(to right, #004080, #0073e6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    nav ul li {
+        margin: 0.3rem 0;
+    }
+    
+    main {
+        padding: 1rem;
+        margin: 1rem;
+    }
+    
+    section {
+        padding: 1rem;
+    }
+    
+    #wyszukiwarka form {
+        flex-direction: column;
+    }
+    
+    .oferta {
+        padding: 1rem;
+    }
 }
