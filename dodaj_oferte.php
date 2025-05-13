@@ -7,52 +7,89 @@
     <link rel="stylesheet" href="style_dodaj_oferte.css">
 </head>
 <body>
+    <header>
+        <h1>Portal z ofertami pracy w Dojczlandzie</h1>
+        <nav>
+            <ul>
+                <li><a href="index.php">Strona główna</a></li>
+                <li><a href="lista_ofert.php">Oferty pracy</a></li>
+                <li><a href="dodaj_oferte.php">Dodaj ofertę</a></li>
+                <li><a href="konto.php">Moje konto</a></li>
+                <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
+                <li><a href="kontakt.php">Kontakt</a></li>
+                <li><a href="o_nas.php">O nas</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<header>
-    <h1>Portal z ofertami pracy w Dojczlandzie</h1>
-    <nav>
+    <!-- Lewy animowany blok -->
+    <div class="side-block left-block">
+        <h3>Najczęstsze wymagania</h3>
         <ul>
-            <li><a href="index.php">Strona główna</a></li>
-            <li><a href="lista_ofert.php">Oferty pracy</a></li>
-            <li><a href="dodaj_oferte.php">Dodaj ofertę</a></li>
-            <li><a href="konto.php">Moje konto</a></li>
-            <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
-            <li><a href="kontakt.php">Kontakt</a></li>
-            <li><a href="o_nas.php">O nas</a></li>
+            <li>Znajomość języka niemieckiego</li>
+            <li>Doświadczenie w zawodzie</li>
+            <li>Prawko kat. B</li>
+            <li>Gotowość do relokacji</li>
+            <li>Umiejętność pracy w zespole</li>
         </ul>
-    </nav>
-</header>
+    </div>
 
-<main>
-    <h2>Dodaj nową ofertę pracy</h2>
+    <!-- Główna zawartość -->
+    <main>
+        <h2>Dodaj nową ofertę pracy</h2>
 
-    <form action="#" method="post">
-        <label for="tytul">Tytuł oferty:</label><br>
-        <input type="text" id="tytul" name="tytul" required><br><br>
+        <form action="#" method="post">
+            <div class="form-group">
+                <label for="tytul">Tytuł oferty:</label>
+                <input type="text" id="tytul" name="tytul" required>
+            </div>
 
-        <label for="firma">Nazwa firmy:</label><br>
-        <input type="text" id="firma" name="firma" required><br><br>
+            <div class="form-group">
+                <label for="firma">Nazwa firmy:</label>
+                <input type="text" id="firma" name="firma" required>
+            </div>
 
-        <label for="lokalizacja">Lokalizacja:</label><br>
-        <input type="text" id="lokalizacja" name="lokalizacja" required><br><br>
+            <div class="form-group">
+                <label for="lokalizacja">Lokalizacja:</label>
+                <input type="text" id="lokalizacja" name="lokalizacja" required>
+            </div>
 
-        <label for="opis">Opis oferty:</label><br>
-        <textarea id="opis" name="opis" rows="6" required></textarea><br><br>
+            <div class="form-group">
+                <label for="opis">Opis oferty:</label>
+                <textarea id="opis" name="opis" rows="6" required></textarea>
+            </div>
 
-        <label for="wymagania">Wymagania:</label><br>
-        <textarea id="wymagania" name="wymagania" rows="4"></textarea><br><br>
+            <div class="form-group">
+                <label for="wymagania">Wymagania:</label>
+                <textarea id="wymagania" name="wymagania" rows="4"></textarea>
+            </div>
 
-        <label for="kontakt">E-mail kontaktowy:</label><br>
-        <input type="email" id="kontakt" name="kontakt" required><br><br>
+            <div class="form-group">
+                <label for="kontakt">E-mail kontaktowy:</label>
+                <input type="email" id="kontakt" name="kontakt" required>
+            </div>
 
-        <button type="submit">Dodaj ofertę</button>
-    </form>
-</main>
+            <button type="submit">Dodaj ofertę</button>
+        </form>
+    </main>
 
-<footer>
-    <p>&copy; 2025 ginterkoceniakXDDDDD3wnocy – Wszystkie prawa zastrzeżone</p>
-    <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
-</footer>
+    <!-- Prawy animowany blok -->
+    <div class="side-block right-block">
+        <h3>Najpopularniejsze stanowiska</h3>
+        <ul>
+            <li>Pracownik magazynowy</li>
+            <li>Opiekunka osób starszych</li>
+            <li>Kierowca</li>
+            <li>Pracownik budowlany</li>
+            <li>Spawacz</li>
+        </ul>
+    </div>
 
+    <footer>
+        <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
+        <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
+    </footer>
+
+    <script src="skrypty.js"></script>
 </body>
 </html>

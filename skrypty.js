@@ -34,3 +34,9 @@ if (document.readyState === 'loading') {
 } else {
     initSlider();
 }
+// Obsługa formularza (przykładowa)
+document.querySelector('form')?.addEventListener('submit', function(e) {
+    e.preventDefault();
+    alert('Formularz został wysłany!');
+    // Tutaj można dodać faktyczną logikę wysyłania formularza
+});
