@@ -80,6 +80,9 @@ if (isset($_GET['wyloguj'])) {
             <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
+            <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
+            <li><a href="admin_panel.php">Panel Admina</a></li>
+        <?php endif; ?>
         </ul>
     </nav>
 </header>
