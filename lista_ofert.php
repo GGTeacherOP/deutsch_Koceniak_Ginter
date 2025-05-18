@@ -8,17 +8,19 @@ ini_set('display_errors', 1);
 // Pobierz parametry filtrowania z GET
 $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
 $location = isset($_GET['location']) ? trim($_GET['location']) : '';
-$category = isset($_GET['category']) ? intval($_GET['category']) : 0;
+$category = isset($_GET['category']) ? trim($_GET['category']) : '';
 
-// Pobierz kategorie dla selecta
+// Pobierz unikalne kategorie z ofert dla selecta
 $categories = [];
 try {
-    $stmt = $conn->prepare("SELECT id, nazwa FROM kategorie ORDER BY nazwa");
+    $stmt = $conn->prepare("SELECT DISTINCT kategoria FROM oferty WHERE kategoria IS NOT NULL AND kategoria != '' ORDER BY kategoria");
     $stmt->execute();
     $result = $stmt->get_result();
     
     while ($row = $result->fetch_assoc()) {
-        $categories[] = $row;
+        if (!empty($row['kategoria'])) {
+            $categories[] = $row['kategoria'];
+        }
     }
     
     $stmt->close();
@@ -34,11 +36,8 @@ if (isset($_GET['ajax'])) {
 
 function getFilteredOffers($keyword, $location, $category, $conn) {
     // Przygotuj zapytanie SQL z filtrami
-    $query = "SELECT o.id, o.tytul, o.opis, o.firma, o.lokalizacja, o.data_dodania, 
-                     GROUP_CONCAT(k.nazwa SEPARATOR ', ') AS kategorie
+    $query = "SELECT o.id, o.tytul, o.opis, o.firma, o.lokalizacja, o.data_dodania, o.kategoria
               FROM oferty o
-              LEFT JOIN oferty_kategorie ok ON o.id = ok.id_oferty
-              LEFT JOIN kategorie k ON ok.id_kategorii = k.id
               WHERE 1=1";
 
     $params = [];
@@ -59,17 +58,14 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
         $types .= 's';
     }
 
-    if ($category > 0) {
-        $query .= " AND ok.id_kategorii = ?";
+    if (!empty($category)) {
+        $query .= " AND o.kategoria = ?";
         $params[] = $category;
-        $types .= 'i';
+        $types .= 's';
     }
 
-    // Grupuj wyniki i sortuj
-    $query .= " GROUP BY o.id ORDER BY o.data_dodania DESC";
-
-    // Debugowanie: Wyświetlenie zapytania SQL
-    
+    // Sortuj wyniki
+    $query .= " ORDER BY o.data_dodania DESC";
 
     // Pobierz oferty z bazy
     $offers = [];
@@ -104,10 +100,10 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             echo '<h3>' . htmlspecialchars($offer['tytul']) . '</h3>';
             echo '<p class="firma">' . htmlspecialchars($offer['firma']) . '</p>';
             echo '<p class="lokalizacja">📍 ' . htmlspecialchars($offer['lokalizacja']) . '</p>';
-            if (!empty($offer['kategorie'])) {
-                echo '<p class="kategorie">🏷️ ' . htmlspecialchars($offer['kategorie']) . ' - Kategoria: ' . htmlspecialchars($offer['kategorie']) . '</p>';
+            if (!empty($offer['kategoria'])) {
+                echo '<p class="kategoria">🏷️ Kategoria: ' . htmlspecialchars($offer['kategoria']) . '</p>';
             } else {
-                echo '<p class="kategorie">🏷️ Brak kategorii</p>'; // Dodaj tę linię, aby sprawdzić, czy kategorie są puste
+                echo '<p class="kategoria">🏷️ Brak kategorii</p>';
             }
             echo '<p class="data">📅 ' . date('d.m.Y', strtotime($offer['data_dodania'])) . '</p>';
             echo '<a href="oferta_szczegoly.php?id=' . $offer['id'] . '">Zobacz szczegóły</a>';
@@ -268,10 +264,10 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             <div class="form-group">
                 <label for="category">Kategoria:</label>
                 <select id="category" name="category">
-                    <option value="0">Wszystkie kategorie</option>
+                    <option value="">Wszystkie kategorie</option>
                     <?php foreach ($categories as $cat): ?>
-                        <option value="<?= $cat['id'] ?>" <?= $category == $cat['id'] ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($cat['nazwa']) ?>
+                        <option value="<?= htmlspecialchars($cat) ?>" <?= $category == $cat ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($cat) ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
