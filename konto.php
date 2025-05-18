@@ -84,6 +84,7 @@ if (isset($_GET['wyloguj'])) {
     <title>Moje konto – Portal z ofertami pracy w Niemczech</title>
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
     <link rel="stylesheet" href="konto.css"> <!-- Dodatkowe style dla panelu konta -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

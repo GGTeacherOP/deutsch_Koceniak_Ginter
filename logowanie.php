@@ -83,6 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Logowanie – Portal z ofertami pracy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
         /* Style dla komunikatów o błędach */
         .error {

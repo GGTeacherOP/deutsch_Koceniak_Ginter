@@ -60,6 +60,7 @@ $result = $stmt->get_result(); // Pobranie wyników zapytania
     <meta charset="UTF-8">
     <title>Panel Admina</title>
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny plik CSS -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
         /* Style specyficzne dla panelu admina */
         table {

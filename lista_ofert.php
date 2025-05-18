@@ -140,6 +140,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista ofert pracy – Dojczland</title>
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
         /* Style specyficzne dla listy ofert */
         #wyszukiwarka {

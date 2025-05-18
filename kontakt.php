@@ -65,6 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt – Dojczland Praca</title>
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

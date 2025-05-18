@@ -39,6 +39,7 @@ try {
     <title>Potwierdzenie aplikacji - <?= htmlspecialchars($oferta['tytul']) ?></title>
     <!-- Link do arkusza stylów -->
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

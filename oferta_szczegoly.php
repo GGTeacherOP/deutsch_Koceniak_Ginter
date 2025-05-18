@@ -110,6 +110,7 @@ try {
     <title>Szczegóły oferty - <?= htmlspecialchars($oferta['tytul']) ?></title>
     <!-- Główny arkusz stylów strony -->
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

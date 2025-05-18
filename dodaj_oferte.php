@@ -64,6 +64,7 @@ if ($result) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dodaj ofertę</title>
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

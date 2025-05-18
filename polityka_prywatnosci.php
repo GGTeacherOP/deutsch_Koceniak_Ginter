@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Link do zewnętrznego arkusza stylów -->
     <link rel="stylesheet" href="style_polityka.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

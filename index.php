@@ -59,6 +59,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal z ofertami pracy w Niemczech</title>
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
     <script>
     /**
      * Funkcja obsługująca wyszukiwanie ofert

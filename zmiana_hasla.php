@@ -71,6 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Zmiana hasła – Portal z ofertami pracy</title>
     <!-- Link do arkusza stylów -->
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
 <body>
 

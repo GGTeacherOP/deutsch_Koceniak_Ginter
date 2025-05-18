@@ -76,6 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Linki do arkuszy stylów -->
     <link rel="stylesheet" href="styleindex.css">
+    <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
         /* Style dla komunikatów i formularza */
         .error { color: red; margin: 10px 0; padding: 10px; background: #ffebee; }
