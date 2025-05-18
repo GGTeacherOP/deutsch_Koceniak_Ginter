@@ -1,0 +1,183 @@
+{\rtf1\ansi\ansicpg1250\deff0\nouicompat\deflang1045{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset238 Calibri;}}
+{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+\pard\sa200\sl276\slmult1\b\f0\fs28\lang21\par
+1. admin_panel.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt zarz\f1\'b9dza panelem administracyjnym, umo\'bfliwiaj\'b9cym edycj\'ea danych u\'bfytkownik\f0\lang1033\'f3w.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\f1\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset(\par
+_SESSION['rola'] !== 'admin'): Sprawdza, czy u\'bfytkownik jest zalogowany i ma rol\'ea admina. W przeciwnym razie przekierowuje do strony logowania.\par
+Obs\'b3uga aktualizacji danych u\'bfytkownika: Przetwarza formularz aktualizacji danych u\'bfytkownika, w tym imienia, nazwiska, emaila, roli i pensji.\par
+Pobieranie listy u\'bfytkownik\f0\'f3w: Wykonuje zapytanie do bazy danych, aby pobra\f1\'e6 wszystkich u\'bfytkownik\f0\'f3w.\par
+\b\fs28 2. aplikuj.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt obs\f1\'b3uguje proces aplikacji na ofert\'ea pracy, w tym przesy\'b3anie CV i listu motywacyjnego.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset($_GET['id'])): Sprawdza, czy przekazano ID oferty. W przeciwnym razie przekierowuje do listy ofert.\par
+Obs\'b3uga formularza: Przetwarza dane aplikacji, w tym walidacj\'ea przesy\'b3anych plik\f0\'f3w (CV i list motywacyjny).\par
+Zapis aplikacji: Zapisuje aplikacj\f1\'ea do bazy danych oraz powiadamia pracodawc\'ea.\par
+\b\fs28 3. config.php\b0\fs22\par
+Linie: 1-10\par
+\par
+Opis: Skrypt konfiguracyjny, kt\f0\'f3ry ustawia po\f1\'b3\'b9czenie z baz\'b9 danych.\par
+\par
+Funkcje:\par
+\par
+username, \par
+dbname: Zmienne przechowuj\'b9ce dane do po\'b3\'b9czenia z baz\'b9 danych.\par
+$conn = new mysqli(...): Tworzy nowe po\'b3\'b9czenie z baz\'b9 danych.\par
+if ($conn->connect_error): Sprawdza, czy po\'b3\'b9czenie z baz\'b9 danych si\'ea powiod\'b3o.\par
+\b\fs28 4. dodaj_oferte.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt umo\'bfliwia dodawanie nowych ofert pracy przez zalogowanych u\'bfytkownik\f0\'f3w (pracodawc\'f3w lub admin\'f3w).\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\f1\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset(\par
+_SESSION['rola'] !== 'admin' && $_SESSION['rola'] !== 'pracodawca')): Sprawdza, czy u\'bfytkownik jest zalogowany i ma odpowiedni\'b9 rol\'ea.\par
+Obs\'b3uga formularza dodawania oferty: Przetwarza dane formularza, w tym tytu\'b3, opis, wynagrodzenie, lokalizacj\'ea, kategori\'ea i inne.\par
+Pobieranie kategorii: Wykonuje zapytanie do bazy danych, aby pobra\'e6 dost\'eapne kategorie ofert.\par
+\b\fs28 5. edytuj_dane.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt umo\'bfliwia u\'bfytkownikom edytowanie ich danych osobowych.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset($_SESSION['user_id'])): Sprawdza, czy u\'bfytkownik jest zalogowany. W przeciwnym razie przekierowuje do logowania.\par
+Pobieranie danych u\'bfytkownika: Wykonuje zapytanie do bazy danych, aby pobra\'e6 aktualne dane u\'bfytkownika.\par
+Walidacja i aktualizacja danych: Przetwarza formularz aktualizacji danych, w tym walidacj\'ea i zapis do bazy danych.\par
+\b\fs28 6. index.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Strona g\'b3\f0\'f3wna portalu, kt\'f3ra wy\f1\'9cwietla losowe oferty pracy oraz opinie u\'bfytkownik\f0\'f3w.\par
+\par
+Funkcje:\par
+\par
+require_once 'config.php': \f1\'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Pobieranie losowych ofert: Wykonuje zapytanie do bazy danych, aby pobra\'e6 dwie losowe oferty pracy.\par
+Pobieranie opinii: Wykonuje zapytanie do bazy danych, aby pobra\'e6 trzy ostatnie opinie u\'bfytkownik\f0\'f3w.\par
+\b\fs28 7. kontakt.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt obs\f1\'b3uguj\'b9cy formularz kontaktowy, umo\'bfliwiaj\'b9cy u\'bfytkownikom wysy\'b3anie wiadomo\'9cci.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Obs\'b3uga formularza: Przetwarza dane formularza kontaktowego, w tym walidacj\'ea i zapis do bazy danych.\par
+\b\fs28 8. konto.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt wy\'9cwietlaj\'b9cy dane u\'bfytkownika oraz jego aplikacje.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset($_SESSION['user_id'])): Sprawdza, czy u\'bfytkownik jest zalogowany. W przeciwnym razie przekierowuje do logowania.\par
+Pobieranie danych u\'bfytkownika: Wykonuje zapytanie do bazy danych, aby pobra\'e6 dane u\'bfytkownika.\par
+Pobieranie aplikacji: Wykonuje zapytanie do bazy danych, aby pobra\'e6 aplikacje u\'bfytkownika.\par
+\b\fs28 9. lista_ofert.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt wy\'9cwietlaj\'b9cy list\'ea ofert pracy z mo\'bfliwo\'9cci\'b9 filtrowania.\par
+\par
+Funkcje:\par
+\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Pobieranie parametr\f0\'f3w filtrowania: Odczytuje parametry z URL do filtrowania ofert.\par
+getFilteredOffers(): Funkcja do pobierania ofert z bazy danych na podstawie filtr\'f3w.\par
+\b\fs28 10. logowanie.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt obs\f1\'b3uguj\'b9cy proces logowania u\'bfytkownik\f0\'f3w.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\f1\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Obs\'b3uga formularza logowania: Przetwarza dane logowania, w tym walidacj\'ea i weryfikacj\'ea has\'b3a.\par
+\b\fs28 11. o_nas.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Strona informacyjna o portalu, przedstawiaj\'b9ca jego misj\'ea i warto\'9cci.\par
+\par
+Funkcje:\par
+\par
+Brak funkcji PHP: Strona statyczna, nie zawiera logiki PHP.\b\fs28\par
+12. oferta_szczegoly.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt wy\'9cwietlaj\'b9cy szczeg\f0\'f3\f1\'b3y konkretnej oferty pracy.\par
+\par
+Funkcje:\par
+\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset($_GET['id'])): Sprawdza, czy przekazano ID oferty. W przeciwnym razie przekierowuje do listy ofert.\par
+Pobieranie szczeg\f0\'f3\f1\'b3\f0\'f3w oferty: Wykonuje zapytanie do bazy danych, aby pobra\f1\'e6 szczeg\f0\'f3\f1\'b3y oferty.\par
+\b\fs28 13. polityka_prywatnosci.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Strona przedstawiaj\'b9ca polityk\'ea prywatno\'9cci portalu.\par
+\par
+Funkcje:\par
+\par
+Brak funkcji PHP: Strona statyczna, nie zawiera logiki PHP.\par
+\b\fs28 14. potwierdzenie_aplikacji.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt wy\'9cwietlaj\'b9cy potwierdzenie z\'b3o\'bfenia aplikacji na ofert\'ea pracy.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+if (!isset(\par
+_SESSION['user_id'])): Sprawdza, czy przekazano ID oferty oraz czy u\'bfytkownik jest zalogowany.\par
+\b\fs28 15. regulamin.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Strona przedstawiaj\'b9ca regulamin korzystania z portalu.\par
+\par
+Funkcje:\par
+\par
+Brak funkcji PHP: Strona statyczna, nie zawiera logiki PHP.\par
+\b\fs28 16. rejestracja.php\b0\fs22\par
+Linie: 1-90\par
+\par
+Opis: Skrypt obs\'b3uguj\'b9cy proces rejestracji nowych u\'bfytkownik\f0\'f3w.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\f1\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Obs\'b3uga formularza rejestracji: Przetwarza dane rejestracji, w tym walidacj\'ea i zapis do bazy danych.\b\fs28\par
+17. zmiana_hasla.php\par
+\b0\fs22 Linie: 1-90\par
+\par
+Opis: Skrypt umo\'bfliwiaj\'b9cy u\'bfytkownikom zmian\'ea has\'b3a.\par
+\par
+Funkcje:\par
+\par
+session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
+require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
+Obs\'b3uga formularza zmiany has\'b3a: Przetwarza dane zmiany has\'b3a, w tym walidacj\'ea i aktualizacj\'ea w bazie danych.\f0\lang21\par
+}
+ 
