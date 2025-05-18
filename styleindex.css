@@ -464,3 +464,91 @@ footer a:hover {
         .search-form button:active {
             transform: translateY(0);
         }
+        /* Szczegóły oferty */
+.oferta-szczegoly {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1);
+}
+
+.oferta-naglowek {
+    border-bottom: 2px solid #e0e9ff;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.oferta-naglowek h3 {
+    color: #0066cc;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.data-dodania {
+    color: #777;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.kategorie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.kategoria {
+    background-color: rgba(0, 102, 204, 0.1);
+    color: #0066cc;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.oferta-tresc h4 {
+    color: #004080;
+    margin: 1.5rem 0 0.8rem;
+    font-size: 1.2rem;
+}
+
+.oferta-tresc p {
+    line-height: 1.7;
+    color: #444;
+}
+
+.oferta-dodatkowe {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e9ff;
+}
+
+.pracodawca-info h4,
+.statystyki h4 {
+    color: #004080;
+    margin-bottom: 1rem;
+}
+
+.pracodawca-info p,
+.statystyki p {
+    margin-bottom: 0.5rem;
+}
+
+.oferta-akcje {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e9ff;
+}
+
+.oferta-akcje .button {
+    width: auto;
+    padding: 1rem 2rem;
+}
+
