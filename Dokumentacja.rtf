@@ -1,5 +1,6 @@
-{\rtf1\ansi\ansicpg1250\deff0\nouicompat\deflang1045{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset238 Calibri;}}
-{\*\generator Riched20 10.0.19041}\viewkind4\uc1 
+{\rtf1\ansi\ansicpg1250\deff0\nouicompat\deflang1045{\fonttbl{\f0\fnil\fcharset0 Calibri;}{\f1\fnil\fcharset238 Calibri;}{\f2\fnil\fcharset1 Cambria Math;}}
+{\colortbl ;\red0\green176\blue80;}
+{\*\generator Riched20 10.0.19041}{\*\mmathPr\mmathFont2\mwrapIndent1440 }\viewkind4\uc1 
 \pard\sa200\sl276\slmult1\b\f0\fs28\lang21\par
 1. admin_panel.php\b0\fs22\par
 Linie: 1-90\par
@@ -178,6 +179,135 @@ Funkcje:\par
 \par
 session_start(): Rozpoczyna sesj\'ea u\'bfytkownika.\par
 require_once 'config.php': \'a3aduje konfiguracj\'ea po\'b3\'b9czenia z baz\'b9 danych.\par
-Obs\'b3uga formularza zmiany has\'b3a: Przetwarza dane zmiany has\'b3a, w tym walidacj\'ea i aktualizacj\'ea w bazie danych.\f0\lang21\par
+Obs\'b3uga formularza zmiany has\'b3a: Przetwarza dane zmiany has\'b3a, w tym walidacj\'ea i aktualizacj\'ea w bazie danych.\line\line Dokumentacja bazy danych "portalpracy"\par
+1. Opis og\f0\'f3lny\par
+Baza danych "portalpracy" zosta\f1\'b3a zaprojektowana dla portalu ofert pracy, umo\'bfliwiaj\'b9cego:\par
+\par
+Publikowanie ofert pracy przez pracodawc\f0\'f3w\par
+\par
+Aplikowanie do ofert przez u\f1\'bfytkownik\f0\'f3w\par
+\par
+Zarz\f1\'b9dzanie profilami u\'bfytkownik\f0\'f3w i pracodawc\'f3w\par
+\par
+Komunikacj\f1\'ea mi\'eadzy u\'bfytkownikami systemu\par
+\par
+2. Struktura tabel\par
+2.1. Tabela uzytkownicy\par
+Przechowuje informacje o wszystkich u\'bfytkownikach systemu.\par
+\par
+Pole\tab Typ\tab Opis\par
+id\tab INT\tab Klucz g\'b3\f0\'f3wny\par
+imie\tab VARCHAR(100)\tab Imi\f1\'ea u\'bfytkownika\par
+nazwisko\tab VARCHAR(100)\tab Nazwisko u\'bfytkownika\par
+email\tab VARCHAR(255)\tab Adres email (unikalny)\par
+telefon\tab VARCHAR(20)\tab Numer telefonu\par
+zdjecie_profilowe\tab VARCHAR(255)\tab\'8ccie\'bfka do zdj\'eacia profilowego\par
+haslo\tab VARCHAR(255)\tab Has\'b3o (w rzeczywistym systemie powinno by\'e6 hashowane)\par
+opis\tab TEXT\tab Opis profilu u\'bfytkownika\par
+rola\tab ENUM('uzytkownik','pracodawca','admin')\tab Rola w systemie\par
+aktywny\tab TINYINT(1)\tab Czy konto jest aktywne\par
+data_rejestracji\tab DATETIME\tab Data rejestracji\par
+ostatnie_logowanie\tab DATETIME\tab Data ostatniego logowania\par
+pensja\tab DECIMAL(10,2)\tab Oczekiwana/aktualna pensja\par
+2.2. Tabela oferty\par
+Przechowuje oferty pracy dodawane przez pracodawc\f0\'f3w.\par
+\par
+Pole\tab Typ\tab Opis\par
+id\tab INT\tab Klucz g\f1\'b3\f0\'f3wny\par
+tytul\tab VARCHAR(255)\tab Tytu\f1\'b3 oferty\par
+opis\tab TEXT\tab Szczeg\f0\'f3\f1\'b3owy opis oferty\par
+firma\tab VARCHAR(255)\tab Nazwa firmy\par
+lokalizacja\tab VARCHAR(255)\tab Miejsce pracy\par
+wynagrodzenie_min\tab DECIMAL(10,2)\tab Minimalne wynagrodzenie\par
+wynagrodzenie_max\tab DECIMAL(10,2)\tab Maksymalne wynagrodzenie\par
+typ_pracy\tab ENUM(...)\tab Typ zatrudnienia\par
+zdalna\tab TINYINT(1)\tab Czy praca zdalna\par
+termin_aplikacji\tab DATE\tab Termin sk\'b3adania aplikacji\par
+kategoria\tab VARCHAR(100)\tab Kategoria oferty\par
+data_dodania\tab DATETIME\tab Data dodania oferty\par
+id_pracodawcy\tab INT\tab ID pracodawcy (relacja do uzytkownicy)\par
+2.3. Tabela aplikacje\par
+Przechowuje informacje o aplikacjach u\'bfytkownik\f0\'f3w do ofert.\par
+\par
+Pole\tab Typ\tab Opis\par
+id\tab INT\tab Klucz g\f1\'b3\f0\'f3wny\par
+id_uzytkownika\tab INT\tab ID u\f1\'bfytkownika (relacja)\par
+id_oferty\tab INT\tab ID oferty (relacja)\par
+wiadomosc\tab TEXT\tab Wiadomo\'9c\'e6 od kandydata\par
+cv_plik\tab VARCHAR(255)\tab\'8ccie\'bfka do pliku CV\par
+list_plik\tab VARCHAR(255)\tab\'8ccie\'bfka do listu motywacyjnego\par
+data_aplikacji\tab DATETIME\tab Data z\'b3o\'bfenia aplikacji\par
+status\tab ENUM(...)\tab Status aplikacji\par
+data_aktualizacji\tab DATETIME\tab Data ostatniej aktualizacji statusu\par
+2.4. Tabela kategorie\par
+Przechowuje kategorie ofert pracy.\par
+\par
+Pole\tab Typ\tab Opis\par
+id\tab INT\tab Klucz g\'b3\f0\'f3wny\par
+nazwa\tab VARCHAR(100)\tab Nazwa kategorii (unikalna)\par
+2.5. Tabela umiejetnosci\par
+Przechowuje list\f1\'ea umiej\'eatno\'9cci, kt\f0\'f3re mog\f1\'b9 by\'e6 przypisane do u\'bfytkownik\f0\'f3w.\par
+\par
+Pole\tab Typ\tab Opis\par
+id\tab INT\tab Klucz g\f1\'b3\f0\'f3wny\par
+nazwa\tab VARCHAR(100)\tab Nazwa umiej\f1\'eatno\'9cci (unikalna)\par
+2.6. Pozosta\'b3e tabele\par
+oferty_kategorie - tabela \'b3\'b9cz\'b9ca oferty z kategoriami (relacja wiele-do-wielu)\par
+\par
+uzytkownicy_umiejetnosci - tabela \'b3\'b9cz\'b9ca u\'bfytkownik\f0\'f3w z umiej\f1\'eatno\'9cciami (relacja wiele-do-wielu)\par
+\par
+ulubione_oferty - przechowuje ulubione oferty u\'bfytkownik\f0\'f3w\par
+\par
+wiadomosci - przechowuje wiadomo\f1\'9cci mi\'eadzy u\'bfytkownikami\par
+\par
+powiadomienia - przechowuje powiadomienia systemowe\par
+\par
+opinie - przechowuje opinie o portalu\par
+\par
+kontakt - przechowuje wiadomo\'9cci kontaktowe wys\'b3ane przez formularz\par
+\par
+3. Relacje mi\'eadzy tabelami\par
+uzytkownicy (id) \f2\u8594?\f0  oferty (id_pracodawcy)\par
+\par
+uzytkownicy (id) \f2\u8594?\f0  aplikacje (id_uzytkownika)\par
+\par
+oferty (id) \f2\u8594?\f0  aplikacje (id_oferty)\par
+\par
+oferty (id) \f2\u8594?\f0  oferty_kategorie (id_oferty)\par
+\par
+kategorie (id) \f2\u8594?\f0  oferty_kategorie (id_kategorii)\par
+\par
+uzytkownicy (id) \f2\u8594?\f0  uzytkownicy_umiejetnosci (id_uzytkownika)\par
+\par
+umiejetnosci (id) \f2\u8594?\f0  uzytkownicy_umiejetnosci (id_umiejetnosci)\par
+\par
+4. Uwagi dotycz\f1\'b9ce bezpiecze\'f1stwa\par
+Has\'b3a: W aktualnej implementacji has\'b3a s\'b9 przechowywane w postaci plaintext. W produkcyjnym systemie nale\'bfy u\'bfy\'e6 funkcji password_hash() i password_verify().\par
+\par
+Dane osobowe: System przechowuje dane osobowe u\'bfytkownik\f0\'f3w, dlatego nale\f1\'bfy zapewni\'e6 odpowiedni\'b9 ochron\'ea zgodnie z RODO.\par
+\par
+Pliki: System przechowuje pliki CV i list\f0\'f3w motywacyjnych - nale\f1\'bfy zabezpieczy\'e6 dost\'eap do tych plik\f0\'f3w.\par
+\par
+5. Przyk\f1\'b3adowe zapytania SQL\par
+Pobranie wszystkich aktywnych ofert pracy:\par
+\par
+sql\par
+\cf1 SELECT * FROM oferty WHERE termin_aplikacji >= CURDATE();\par
+Pobranie aplikacji u\'bfytkownika wraz z informacjami o ofertach:\par
+\cf0\par
+sql\par
+\cf1 SELECT a.*, o.tytul, o.firma \par
+FROM aplikacje a \par
+JOIN oferty o ON a.id_oferty = o.id \par
+WHERE a.id_uzytkownika = 1;\par
+Pobranie u\'bfytkownik\f0\'f3w z okre\f1\'9clon\'b9 umiej\'eatno\'9cci\'b9:\par
+\cf0\par
+sql\par
+\cf1 SELECT u.* \par
+FROM uzytkownicy u\par
+JOIN uzytkownicy_umiejetnosci uu ON u.id = uu.id_uzytkownika\par
+JOIN umiejetnosci um ON uu.id_umiejetnosci = um.id\par
+WHERE um.nazwa = 'PHP';\par
+\cf0\par
 }
  
