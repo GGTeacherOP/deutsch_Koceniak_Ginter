@@ -1,6 +1,10 @@
 <?php
 require_once 'config.php';
 
+// Włącz raportowanie błędów
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Pobierz parametry filtrowania z GET
 $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
 $location = isset($_GET['location']) ? trim($_GET['location']) : '';
@@ -64,6 +68,9 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
     // Grupuj wyniki i sortuj
     $query .= " GROUP BY o.id ORDER BY o.data_dodania DESC";
 
+    // Debugowanie: Wyświetlenie zapytania SQL
+    
+
     // Pobierz oferty z bazy
     $offers = [];
     try {
@@ -98,7 +105,9 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             echo '<p class="firma">' . htmlspecialchars($offer['firma']) . '</p>';
             echo '<p class="lokalizacja">📍 ' . htmlspecialchars($offer['lokalizacja']) . '</p>';
             if (!empty($offer['kategorie'])) {
-                echo '<p class="kategorie">🏷️ ' . htmlspecialchars($offer['kategorie']) . '</p>';
+                echo '<p class="kategorie">🏷️ ' . htmlspecialchars($offer['kategorie']) . ' - Kategoria: ' . htmlspecialchars($offer['kategorie']) . '</p>';
+            } else {
+                echo '<p class="kategorie">🏷️ Brak kategorii</p>'; // Dodaj tę linię, aby sprawdzić, czy kategorie są puste
             }
             echo '<p class="data">📅 ' . date('d.m.Y', strtotime($offer['data_dodania'])) . '</p>';
             echo '<a href="oferta_szczegoly.php?id=' . $offer['id'] . '">Zobacz szczegóły</a>';
