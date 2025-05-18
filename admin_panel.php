@@ -8,6 +8,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'admin') {
     exit();
 }
 
+// Obsługa aktualizacji danych użytkownika
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
+    $user_id = $_POST['user_id'];
+    $imie = $_POST['imie'];
+    $nazwisko = $_POST['nazwisko'];
+    $email = $_POST['email'];
+    $rola = $_POST['rola'];
+    $pensja = $_POST['pensja']; // Nowe pole pensji
+
+    $stmt = $conn->prepare("UPDATE uzytkownicy SET imie = ?, nazwisko = ?, email = ?, rola = ?, pensja = ? WHERE id = ?");
+    $stmt->bind_param('ssssdi', $imie, $nazwisko, $email, $rola, $pensja, $user_id);
+    $stmt->execute();
+    $stmt->close();
+}
+
 // Przykład zapytania do bazy danych
 $stmt = $conn->prepare("SELECT * FROM uzytkownicy");
 if ($stmt === false) {
@@ -16,7 +31,6 @@ if ($stmt === false) {
 
 $stmt->execute();
 $result = $stmt->get_result();
-
 ?>
 
 <!DOCTYPE html>
@@ -25,6 +39,34 @@ $result = $stmt->get_result();
     <meta charset="UTF-8">
     <title>Panel Admina</title>
     <link rel="stylesheet" href="styleindex.css">
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        .edit-button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 
@@ -56,7 +98,9 @@ $result = $stmt->get_result();
                 <th>Nazwisko</th>
                 <th>Email</th>
                 <th>Rola</th>
+                <th>Pensja</th> <!-- Nowa kolumna pensji -->
                 <th>Data rejestracji</th>
+                <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
@@ -69,21 +113,70 @@ $result = $stmt->get_result();
                             <td>{$user['nazwisko']}</td>
                             <td>{$user['email']}</td>
                             <td>{$user['rola']}</td>
+                            <td>{$user['pensja']}</td> <!-- Wyświetlanie pensji -->
                             <td>{$user['data_rejestracji']}</td>
+                            <td>
+                                <button class='edit-button' onclick='editUser  ({$user['id']}, \"{$user['imie']}\", \"{$user['nazwisko']}\", \"{$user['email']}\", \"{$user['rola']}\", \"{$user['pensja']}\")'>Edytuj</button>
+                            </td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='6'>Brak użytkowników w bazie danych.</td></tr>";
+                echo "<tr><td colspan='8'>Brak użytkowników w bazie danych.</td></tr>";
             }
             ?>
         </tbody>
     </table>
+
+    <!-- Formularz edycji użytkownika -->
+    <div id="editForm" style="display:none;">
+        <h3>Edytuj użytkownika</h3>
+        <form method="POST">
+            <input type="hidden" name="user_id" id="user_id">
+            <label for="imie">Imię:</label>
+            <input type="text" name="imie" id="imie" required>
+            <br>
+            <label for="nazwisko">Nazwisko:</label>
+            <input type="text" name="nazwisko" id="nazwisko" required>
+            <br>
+            <label for="email">Email:</label>
+            <input type="email" name="email" id="email" required>
+            <br>
+            <label for="rola">Rola:</label>
+            <select name="rola" id="rola" required>
+                <option value="admin">Admin</option>
+                <option value="uzytkownik">Użytkownik</option>
+                <option value="pracodawca">pracodawca</option>
+            </select>
+            <br>
+            <label for="pensja">Pensja:</label> <!-- Nowe pole pensji -->
+            <input type="number" name="pensja" id="pensja" step="0.01" required>
+            <br>
+            <button type="submit" name="update_user">Zaktualizuj</button>
+            <button type="button" onclick="closeEditForm()">Anuluj</button>
+        </form>
+    </div>
 </main>
 
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
 </footer>
+
+<script>
+    function editUser  (id, imie, nazwisko, email, rola, pensja) {
+        document.getElementById('user_id').value = id;
+        document.getElementById('imie').value = imie;
+        document.getElementById('nazwisko').value = nazwisko;
+        document.getElementById('email').value = email;
+        document.getElementById('rola').value = rola;
+        document.getElementById('pensja').value = pensja; // Ustawienie pensji w formularzu
+        document.getElementById('editForm').style.display = 'block';
+    }
+
+    function closeEditForm() {
+        document.getElementById('editForm').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>

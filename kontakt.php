@@ -40,120 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kontakt – Dojczland Praca</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        
-        header {
-            background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
-            color: white;
-            padding: 2rem 0;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        
-        nav ul {
-            list-style: none;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            background-color: rgba(0, 0, 0, 0.1);
-            padding: 0.8rem;
-        }
-        
-        nav ul li {
-            margin: 0 1.2rem;
-        }
-        
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            padding: 0.5rem 1rem;
-        }
-        
-        nav ul li a.active {
-            color: #ffcc00;
-        }
-        
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-        }
-        
-        #kontakt-formularz, #dane-kontaktowe {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-        
-        h2 {
-            color: #0066cc;
-            margin-top: 0;
-        }
-        
-        input, textarea {
-            width: 100%;
-            padding: 0.8rem;
-            margin-bottom: 1rem;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        
-        textarea {
-            height: 150px;
-            resize: vertical;
-        }
-        
-        button {
-            background: #0066cc;
-            color: white;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background 0.3s;
-        }
-        
-        button:hover {
-            background: #004080;
-        }
-        
-        .error {
-            color: red;
-            margin-bottom: 1rem;
-        }
-        
-        .success {
-            color: green;
-            margin-bottom: 1rem;
-        }
-        
-        footer {
-            background: #333;
-            color: white;
-            text-align: center;
-            padding: 1.5rem 0;
-            margin-top: 2rem;
-        }
-        
-        footer a {
-            color: #ffcc00;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styleindex.css">
 </head>
 <body>
 
@@ -208,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Wyślij wiadomość</button>
         </form>
     </section>
-
     <section id="dane-kontaktowe">
         <h2>Dane kontaktowe</h2>
         <p><strong>Portal Dojczland Praca</strong></p>
