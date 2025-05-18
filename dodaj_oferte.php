@@ -8,8 +8,8 @@ session_start();
 require_once 'config.php';
 
 // Debugowanie: Sprawdzenie zmiennych sesyjnych
-echo "User      ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Niezalogowany') . "<br>";
-echo "User      Role: " . (isset($_SESSION['rola']) ? $_SESSION['rola'] : 'Niezalogowany') . "<br>";
+echo "User        ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Niezalogowany') . "<br>";
+echo "User        Role: " . (isset($_SESSION['rola']) ? $_SESSION['rola'] : 'Niezalogowany') . "<br>";
 
 // Sprawdzenie, czy użytkownik jest zalogowany i ma rolę admina lub pracodawcy
 if (!isset($_SESSION['user_id']) || ($_SESSION['rola'] !== 'admin' && $_SESSION['rola'] !== 'pracodawca')) {
@@ -25,25 +25,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_offer'])) {
     $wynagrodzenie_min = $_POST['wynagrodzenie_min'];
     $wynagrodzenie_max = $_POST['wynagrodzenie_max'];
     $lokalizacja = $_POST['lokalizacja'];
-    $kategoria = $_POST['kategoria']; // Kategoria jako zmienna
-    $id_pracodawcy = $_SESSION['user_id']; // Zakładamy, że pracodawca to aktualnie zalogowany użytkownik
+    $kategoria = $_POST['kategoria'];
+    $firma = $_POST['firma'];
+    $termin_aplikacji = $_POST['termin_aplikacji'];
+    $zdalna = isset($_POST['zdalna']) ? 1 : 0; // Nowa zmienna dla zdalnej
+    $id_pracodawcy = $_SESSION['user_id'];
 
     // Przygotowanie zapytania do dodania oferty
-    $stmt1 = $mysqli->prepare("INSERT INTO oferty (tytul, opis, wynagrodzenie_min, wynagrodzenie_max, lokalizacja, kategoria, id_pracodawcy, data_dodania) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+    $stmt1 = $mysqli->prepare("INSERT INTO oferty (tytul, opis, wynagrodzenie_min, wynagrodzenie_max, lokalizacja, kategoria, firma, termin_aplikacji, zdalna, id_pracodawcy, data_dodania) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
     if ($stmt1 === false) {
         die('Prepare failed: ' . htmlspecialchars($mysqli->error));
     }
 
-    $stmt1->bind_param("ssddssi", $tytul, $opis, $wynagrodzenie_min, $wynagrodzenie_max, $lokalizacja, $kategoria, $id_pracodawcy);
+    $stmt1->bind_param("ssddssssii", $tytul, $opis, $wynagrodzenie_min, $wynagrodzenie_max, $lokalizacja, $kategoria, $firma, $termin_aplikacji, $zdalna, $id_pracodawcy);
 
     if ($stmt1->execute()) {
-        // Debugowanie: Informacja o pomyślnym dodaniu oferty
         echo "Oferta została dodana pomyślnie.<br>";
-        // Przekierowanie do listy ofert po dodaniu
         header("Location: lista_ofert.php");
         exit();
     } else {
-        // Debugowanie: Informacja o błędzie
         echo "Błąd podczas dodawania oferty: " . $stmt1->error . "<br>";
     }
     $stmt1->close();
@@ -124,6 +124,21 @@ if ($result) {
                         <option value="<?php echo $kategoria['nazwa']; ?>"><?php echo $kategoria['nazwa']; ?></option>
                     <?php endforeach; ?>
                 </select>
+            </div>
+
+            <div class="form-group">
+                <label for="firma">Nazwa firmy:</label>
+                <input type="text" id="firma" name="firma" required>
+            </div>
+
+            <div class="form-group">
+                <label for="termin_aplikacji">termin aplikacji:</label>
+                <input type="date" id="termin_aplikacji" name="termin_aplikacji" required>
+            </div>
+
+            <div class="form-group">
+                <label for="zdalna">Zdalna:</label>
+                <input type="checkbox" id="zdalna" name="zdalna" value="1">
             </div>
             
             <button type="submit" name="add_offer">Dodaj ofertę</button>
