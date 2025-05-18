@@ -73,8 +73,9 @@ if ($result) {
         <ul>
             <li><a href="index.php">Strona główna</a></li>
             <li><a href="lista_ofert.php">Oferty pracy</a></li>
+            <li><a href="dodaj_oferte.php">dodaj oferte</a></li>
             <li><a href="konto.php">Moje konto</a></li>
-            <li><a href="logowanie.php">Logowanie</a></li>
+            <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
