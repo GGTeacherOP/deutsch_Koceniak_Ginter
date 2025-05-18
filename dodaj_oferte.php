@@ -7,9 +7,7 @@ if ($mysqli->connect_error) {
 session_start();
 require_once 'config.php';
 
-// Debugowanie: Sprawdzenie zmiennych sesyjnych
-echo "User        ID: " . (isset($_SESSION['user_id']) ? $_SESSION['user_id'] : 'Niezalogowany') . "<br>";
-echo "User        Role: " . (isset($_SESSION['rola']) ? $_SESSION['rola'] : 'Niezalogowany') . "<br>";
+
 
 // Sprawdzenie, czy użytkownik jest zalogowany i ma rolę admina lub pracodawcy
 if (!isset($_SESSION['user_id']) || ($_SESSION['rola'] !== 'admin' && $_SESSION['rola'] !== 'pracodawca')) {
