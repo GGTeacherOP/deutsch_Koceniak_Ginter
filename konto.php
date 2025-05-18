@@ -31,6 +31,25 @@ try {
     die("Wystąpił błąd: " . $e->getMessage());
 }
 
+// Pobierz aplikacje użytkownika
+$applications = [];
+try {
+    $stmt = $conn->prepare("SELECT a.id, o.tytul, a.data_aplikacji, a.status 
+                             FROM aplikacje a 
+                             JOIN oferty o ON a.id_oferty = o.id 
+                             WHERE a.id_uzytkownika = ?");
+    $stmt->bind_param('i', $user_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    while ($row = $result->fetch_assoc()) {
+        $applications[] = $row;
+    }
+    $stmt->close();
+} catch (Exception $e) {
+    die("Wystąpił błąd: " . $e->getMessage());
+}
+
 // Obsługa wylogowania
 if (isset($_GET['wyloguj'])) {
     session_destroy();
@@ -47,76 +66,6 @@ if (isset($_GET['wyloguj'])) {
     <title>Moje konto – Portal z ofertami pracy w Niemczech</title>
     <link rel="stylesheet" href="styleindex.css">
     <link rel="stylesheet" href="konto.css">
-    <style>
-        /* Dodatkowe style specyficzne dla strony konta */
-        .konto-panel {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .dane-osobowe,
-        .ustawienia-konta {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            border: 1px solid rgba(0, 64, 128, 0.1);
-        }
-        
-        .dane-osobowe h3,
-        .ustawienia-konta h3 {
-            color: #004080;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid #ffcc00;
-        }
-        
-        .dane-osobowe p {
-            margin-bottom: 1rem;
-            font-size: 1.1rem;
-        }
-        
-        .dane-osobowe strong {
-            color: #0066cc;
-            min-width: 100px;
-            display: inline-block;
-        }
-        
-        .ustawienia-konta ul {
-            list-style: none;
-        }
-        
-        .ustawienia-konta li {
-            margin-bottom: 1rem;
-        }
-        
-        .ustawienia-konta a {
-            color: #0066cc;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            background-color: rgba(0, 102, 204, 0.1);
-        }
-        
-        .ustawienia-konta a:hover {
-            color: #004080;
-            background-color: rgba(0, 102, 204, 0.2);
-            transform: translateY(-2px);
-        }
-        
-        .rola-info {
-            font-style: italic;
-            color: #666;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px dashed #ccc;
-        }
-    </style>
 </head>
 <body>
 
@@ -154,6 +103,32 @@ if (isset($_GET['wyloguj'])) {
             </ul>
         </div>
     </section>
+
+    <section id="aplikacje">
+        <h2>Moje aplikacje</h2>
+        <?php if (empty($applications)): ?>
+            <p>Nie złożyłeś jeszcze żadnych aplikacji.</p>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tytuł oferty</th>
+                        <th>Data aplikacji</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($applications as $application): ?>
+                        <tr>
+                            <td><?= htmlspecialchars($application['tytul']) ?></td>
+                            <td><?= date('d.m.Y', strtotime($application['data_aplikacji'])) ?></td>
+                            <td><?= htmlspecialchars($application['status']) ?></td>
+                        </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
+    </section>
 </main>
 
 <footer>
@@ -161,6 +136,5 @@ if (isset($_GET['wyloguj'])) {
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
 </footer>
 
-<script src="skrypty.js"></script>
 </body>
 </html>

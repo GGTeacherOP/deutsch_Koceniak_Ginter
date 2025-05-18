@@ -55,16 +55,25 @@
     color: #005bb5;
     text-decoration: underline;
 }
-
-/* Responsywność */
-@media (max-width: 768px) {
-    .konto-panel {
-        grid-template-columns: 1fr;
-    }
-}
-
 /* Aktywna zakładka w menu */
 nav ul li a[href="konto.php"] {
     text-decoration: underline;
     color: #ffcc00;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+    color: #004080;
+}
+tr:hover {
+    background-color: #f9f9f9;
 }
