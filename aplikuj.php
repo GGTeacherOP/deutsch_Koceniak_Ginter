@@ -1,16 +1,34 @@
 <?php
-session_start();
-require_once 'config.php';
+/**
+ * Skrypt aplikacyjny do składania wniosków o pracę
+ * 
+ * Funkcjonalności:
+ * - Weryfikacja ID oferty
+ * - Sprawdzenie uprawnień użytkownika
+ * - Obsługa przesyłania dokumentów (CV i list motywacyjny)
+ * - Walidacja danych formularza
+ * - Zapisywanie aplikacji w bazie danych
+ * - Wysyłanie powiadomień
+ */
 
-// Sprawdź czy przekazano ID oferty
+session_start();
+require_once 'config.php'; // Plik konfiguracyjny z danymi do połączenia z bazą
+
+/**
+ * Weryfikacja czy przekazano prawidłowe ID oferty
+ * Jeśli nie - przekierowanie do listy ofert
+ */
 if (!isset($_GET['id'])) {
     header("Location: lista_ofert.php");
     exit();
 }
 
-$id_oferty = intval($_GET['id']);
+$id_oferty = intval($_GET['id']); // Konwersja na integer dla bezpieczeństwa
 
-// Pobierz tytuł oferty do wyświetlenia w nagłówku
+/**
+ * Pobranie tytułu oferty z bazy danych
+ * Wykorzystanie prepared statement dla ochrony przed SQL injection
+ */
 $tytul_oferty = '';
 try {
     $stmt = $conn->prepare("SELECT tytul FROM oferty WHERE id = ?");
@@ -18,20 +36,24 @@ try {
     $stmt->execute();
     $result = $stmt->get_result();
     
+    // Jeśli oferta nie istnieje - przekieruj
     if ($result->num_rows === 0) {
         header("Location: lista_ofert.php");
         exit();
     }
     
     $oferta = $result->fetch_assoc();
-    $tytul_oferty = htmlspecialchars($oferta['tytul']);
+    $tytul_oferty = htmlspecialchars($oferta['tytul']); // Zabezpieczenie przed XSS
 } catch (Exception $e) {
     die("Wystąpił błąd: " . $e->getMessage());
 }
 
-// Obsługa formularza
+/**
+ * Obsługa formularza aplikacji
+ * Wykonywana tylko dla żądań POST
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Sprawdź czy użytkownik jest zalogowany
+    // Sprawdzenie czy użytkownik jest zalogowany
     if (!isset($_SESSION['user_id'])) {
         $_SESSION['login_redirect'] = "aplikuj.php?id=$id_oferty";
         header("Location: logowanie.php");
@@ -41,14 +63,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_uzytkownika = $_SESSION['user_id'];
     $wiadomosc = trim($_POST['wiadomosc'] ?? '');
     
-    // Walidacja danych
+    // Tablica na błędy walidacji
     $errors = [];
     
-    // Sprawdź czy przesłano pliki
+    // Zmienne na nazwy plików
     $cv_nazwa = '';
     $list_nazwa = '';
     
-    // Obsługa pliku CV
+    /**
+     * Walidacja i przetwarzanie pliku CV
+     * - Sprawdzenie czy plik został przesłany
+     * - Weryfikacja rozszerzenia (PDF, DOC, DOCX)
+     * - Sprawdzenie rozmiaru (max 2MB)
+     * - Generowanie unikalnej nazwy pliku
+     * - Przeniesienie pliku do folderu uploads
+     */
     if (isset($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         $cv_info = pathinfo($_FILES['cv']['name']);
         $cv_ext = strtolower($cv_info['extension']);
@@ -69,7 +98,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = 'Proszę załączyć plik CV';
     }
     
-    // Obsługa listu motywacyjnego (opcjonalny)
+    /**
+     * Walidacja i przetwarzanie listu motywacyjnego (opcjonalny)
+     * Analogiczna logika jak dla CV
+     */
     if (isset($_FILES['list']) && $_FILES['list']['error'] === UPLOAD_ERR_OK) {
         $list_info = pathinfo($_FILES['list']['name']);
         $list_ext = strtolower($list_info['extension']);
@@ -91,16 +123,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Jeśli nie ma błędów, zapisz aplikację
     if (empty($errors)) {
         try {
-            // Rozpocznij transakcję
+            // Rozpoczęcie transakcji dla zapewnienia atomowości operacji
             $conn->begin_transaction();
             
-            // Zapisz aplikację
+            // Zapisywanie aplikacji do bazy danych
             $stmt = $conn->prepare("INSERT INTO aplikacje (id_uzytkownika, id_oferty, wiadomosc, cv_plik, list_plik, data_aplikacji, status) 
                                    VALUES (?, ?, ?, ?, ?, NOW(), 'złożona')");
             $stmt->bind_param("iisss", $id_uzytkownika, $id_oferty, $wiadomosc, $cv_nazwa, $list_nazwa);
             $stmt->execute();
             
-            // Dodaj powiadomienie dla pracodawcy
+            // Pobranie ID pracodawcy dla powiadomienia
             $stmt = $conn->prepare("SELECT id_pracodawcy FROM oferty WHERE id = ?");
             $stmt->bind_param("i", $id_oferty);
             $stmt->execute();
@@ -108,6 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $oferta = $result->fetch_assoc();
             $id_pracodawcy = $oferta['id_pracodawcy'];
             
+            // Przygotowanie powiadomienia
             $tytul = "Nowa aplikacja na stanowisko: " . $tytul_oferty;
             $tresc = "Nowa aplikacja na stanowisko: " . $tytul_oferty;
             
@@ -116,17 +149,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bind_param("iss", $id_pracodawcy, $tytul, $tresc);
             $stmt->execute();
             
-            // Zatwierdź transakcję
+            // Zatwierdzenie transakcji
             $conn->commit();
             
             $_SESSION['success'] = "Aplikacja została wysłana pomyślnie!";
             header("Location: potwierdzenie_aplikacji.php?id=$id_oferty");
             exit();
         } catch (Exception $e) {
-            // Wycofaj transakcję w przypadku błędu
+            // Wycofanie transakcji w przypadku błędu
             $conn->rollback();
             
-            // Usuń pliki jeśli zostały zapisane
+            // Usunięcie zapisanych plików
             if (!empty($cv_nazwa) && file_exists('uploads/' . $cv_nazwa)) {
                 unlink('uploads/' . $cv_nazwa);
             }
@@ -146,10 +179,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aplikuj na stanowisko - <?= $tytul_oferty ?></title>
-    <link rel="stylesheet" href="styleindex.css">
+    <link rel="stylesheet" href="styleindex.css"> <!-- Główny plik CSS -->
 </head>
 <body>
 
+<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
@@ -166,16 +200,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
-            <li><a href="admin_panel.php">Panel Admina</a></li>
-        <?php endif; ?>
+                <li><a href="admin_panel.php">Panel Admina</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
+<!-- Główna zawartość strony -->
 <main>
     <section id="aplikacja-formularz">
         <h2>Aplikuj na stanowisko: <?= $tytul_oferty ?></h2>
         
+        <!-- Wyświetlanie błędów walidacji -->
         <?php if (!empty($errors)): ?>
             <div class="error-box">
                 <h3>Wystąpiły błędy:</h3>
@@ -187,6 +223,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
         <?php endif; ?>
         
+        <!-- Wyświetlanie komunikatu o sukcesie -->
         <?php if (isset($_SESSION['success'])): ?>
             <div class="success-box">
                 <p><?= htmlspecialchars($_SESSION['success']) ?></p>
@@ -194,6 +231,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php unset($_SESSION['success']); ?>
         <?php endif; ?>
         
+        <!-- Formularz aplikacji -->
         <form action="aplikuj.php?id=<?= $id_oferty ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label for="wiadomosc">Wiadomość do pracodawcy:</label>
@@ -218,6 +256,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </section>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>

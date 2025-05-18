@@ -1,7 +1,17 @@
 <?php
+/**
+ * Skrypt listy ofert pracy
+ * 
+ * Funkcjonalności:
+ * - Filtrowanie ofert po słowach kluczowych, lokalizacji i kategorii
+ * - Dynamiczne ładowanie ofert przez AJAX
+ * - Wyświetlanie unikalnych kategorii
+ * - Responsywny interfejs użytkownika
+ */
+
 require_once 'config.php';
 
-// Włącz raportowanie błędów
+// Włącz raportowanie błędów dla celów debugowania
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
@@ -10,7 +20,10 @@ $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
 $location = isset($_GET['location']) ? trim($_GET['location']) : '';
 $category = isset($_GET['category']) ? trim($_GET['category']) : '';
 
-// Pobierz unikalne kategorie z ofert dla selecta
+/**
+ * Pobierz unikalne kategorie z ofert dla selecta
+ * DISTINCT zapewnia unikalne wartości
+ */
 $categories = [];
 try {
     $stmt = $conn->prepare("SELECT DISTINCT kategoria FROM oferty WHERE kategoria IS NOT NULL AND kategoria != '' ORDER BY kategoria");
@@ -34,8 +47,15 @@ if (isset($_GET['ajax'])) {
     exit();
 }
 
+/**
+ * Funkcja pobierająca i wyświetlająca oferty zgodne z filtrami
+ * @param string $keyword Słowo kluczowe do wyszukania
+ * @param string $location Lokalizacja do filtrowania
+ * @param string $category Kategoria do filtrowania
+ * @param mysqli $conn Połączenie z bazą danych
+ */
 function getFilteredOffers($keyword, $location, $category, $conn) {
-    // Przygotuj zapytanie SQL z filtrami
+    // Podstawowe zapytanie SQL
     $query = "SELECT o.id, o.tytul, o.opis, o.firma, o.lokalizacja, o.data_dodania, o.kategoria
               FROM oferty o
               WHERE 1=1";
@@ -43,7 +63,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
     $params = [];
     $types = '';
 
-    // Dodaj filtry do zapytania
+    // Dodaj filtry do zapytania w zależności od parametrów
     if (!empty($keyword)) {
         $query .= " AND (o.tytul LIKE ? OR o.firma LIKE ? OR o.opis LIKE ?)";
         $params[] = "%$keyword%";
@@ -64,7 +84,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
         $types .= 's';
     }
 
-    // Sortuj wyniki
+    // Sortuj wyniki od najnowszych
     $query .= " ORDER BY o.data_dodania DESC";
 
     // Pobierz oferty z bazy
@@ -121,7 +141,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
     <title>Lista ofert pracy – Dojczland</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-        /* Dodatkowe style dla listy ofert */
+        /* Style specyficzne dla listy ofert */
         #wyszukiwarka {
             background-color: #fff;
             padding: 2rem;
@@ -130,6 +150,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             margin-bottom: 2rem;
         }
         
+        /* Responsywny układ formularza */
         #wyszukiwarka form {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -137,11 +158,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             align-items: end;
         }
         
-        #wyszukiwarka button {
-            height: fit-content;
-            padding: 0.8rem;
-        }
-        
+        /* Stylowanie ofert pracy */
         #lista-ofert {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -162,49 +179,15 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         
+        /* Dodatkowe style dla elementów oferty */
         .oferta h3 {
             color: #004080;
             margin-bottom: 0.5rem;
         }
         
-        .oferta p {
-            color: #666;
-            margin-bottom: 1rem;
-            line-height: 1.5;
-        }
-        
         .oferta .firma {
             font-weight: 600;
             color: #0066cc;
-        }
-        
-        .oferta .kategorie {
-            font-size: 0.9rem;
-            color: #888;
-            margin-bottom: 1rem;
-            font-style: italic;
-        }
-        
-        .oferta .data {
-            font-size: 0.8rem;
-            color: #999;
-            margin-bottom: 1rem;
-        }
-        
-        .oferta a {
-            color: #0066cc;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            background-color: rgba(0, 102, 204, 0.1);
-        }
-        
-        .oferta a:hover {
-            color: #004080;
-            background-color: rgba(0, 102, 204, 0.2);
         }
         
         .brak-ofert {
@@ -239,13 +222,13 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
             <li><a href="o_nas.php">O nas</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
-        <?php endif; ?>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
 <main>
-    <!-- Wyszukiwarka z filtrami -->
+    <!-- Sekcja wyszukiwarki z filtrami -->
     <section id="wyszukiwarka">
         <h2>Filtruj oferty pracy</h2>
         <form id="filter-form">
@@ -278,7 +261,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
         </form>
     </section>
 
-    <!-- Lista ofert -->
+    <!-- Sekcja listy ofert -->
     <section id="lista-ofert">
         <h2 id="results-count">Znalezione oferty pracy</h2>
         <div class="loading">Ładowanie...</div>
@@ -300,7 +283,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const loadingElement = document.querySelector('.loading');
     const resultsCount = document.getElementById('results-count');
     
-    // Obsługa wysłania formularza
+    /**
+     * Obsługa wysłania formularza
+     * Wykorzystuje Fetch API do dynamicznego ładowania ofert
+     */
     filterForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
@@ -308,7 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
         loadingElement.style.display = 'block';
         offersContainer.innerHTML = '';
         
-        // Pobierz wartości z formularza
+        // Przygotuj parametry URL
         const formData = new FormData(filterForm);
         const params = new URLSearchParams(formData);
         
@@ -329,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     });
     
-    // Obsługa zmian w polach formularza (opcjonalne automatyczne filtrowanie)
+    // Automatyczne filtrowanie przy zmianie wartości (opcjonalne)
     const inputs = filterForm.querySelectorAll('input, select');
     inputs.forEach(input => {
         input.addEventListener('change', function() {
@@ -337,7 +323,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Funkcja aktualizująca liczbę wyników
+    /**
+     * Aktualizuje licznik znalezionych ofert
+     */
     function updateResultsCount() {
         const offers = offersContainer.querySelectorAll('.oferta');
         const noResults = offersContainer.querySelector('.brak-ofert');

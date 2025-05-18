@@ -1,17 +1,32 @@
 <?php
+/**
+ * Skrypt panelu użytkownika
+ * 
+ * Funkcjonalności:
+ * - Weryfikacja zalogowania użytkownika
+ * - Pobieranie danych użytkownika z bazy
+ * - Pobieranie historii aplikacji użytkownika
+ * - Obsługa wylogowania
+ */
+
+// Rozpoczęcie sesji i załadowanie konfiguracji
 session_start();
 require_once 'config.php';
 
-// Sprawdź czy użytkownik jest zalogowany
+// Sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user_id'])) {
     header('Location: logowanie.php');
     exit();
 }
 
-// Pobierz dane użytkownika z bazy
+// Pobranie ID użytkownika z sesji
 $user_id = $_SESSION['user_id'];
 $user_data = [];
 
+/**
+ * Pobranie danych użytkownika z bazy
+ * Zabezpieczenie przed SQL injection poprzez prepared statements
+ */
 try {
     $stmt = $conn->prepare("SELECT imie, nazwisko, email, rola FROM uzytkownicy WHERE id = ?");
     $stmt->bind_param('i', $user_id);
@@ -21,7 +36,7 @@ try {
     if ($result->num_rows === 1) {
         $user_data = $result->fetch_assoc();
     } else {
-        // Jeśli nie znaleziono użytkownika, wyloguj
+        // Jeśli nie znaleziono użytkownika, wyczyść sesję i przekieruj
         session_destroy();
         header('Location: logowanie.php');
         exit();
@@ -31,13 +46,16 @@ try {
     die("Wystąpił błąd: " . $e->getMessage());
 }
 
-// Pobierz aplikacje użytkownika
+/**
+ * Pobranie historii aplikacji użytkownika
+ * Łączenie z tabelą ofert, aby pobrać tytuły
+ */
 $applications = [];
 try {
     $stmt = $conn->prepare("SELECT a.id, o.tytul, a.data_aplikacji, a.status 
-                             FROM aplikacje a 
-                             JOIN oferty o ON a.id_oferty = o.id 
-                             WHERE a.id_uzytkownika = ?");
+                           FROM aplikacje a 
+                           JOIN oferty o ON a.id_oferty = o.id 
+                           WHERE a.id_uzytkownika = ?");
     $stmt->bind_param('i', $user_id);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -64,11 +82,12 @@ if (isset($_GET['wyloguj'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Moje konto – Portal z ofertami pracy w Niemczech</title>
-    <link rel="stylesheet" href="styleindex.css">
-    <link rel="stylesheet" href="konto.css">
+    <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
+    <link rel="stylesheet" href="konto.css"> <!-- Dodatkowe style dla panelu konta -->
 </head>
 <body>
 
+<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
@@ -82,12 +101,14 @@ if (isset($_GET['wyloguj'])) {
             <li><a href="o_nas.php">O nas</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
-        <?php endif; ?>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
+<!-- Główna zawartość strony -->
 <main>
+    <!-- Sekcja danych osobowych i ustawień konta -->
     <section class="konto-panel">
         <div class="dane-osobowe">
             <h3>Dane osobowe</h3>
@@ -107,6 +128,7 @@ if (isset($_GET['wyloguj'])) {
         </div>
     </section>
 
+    <!-- Sekcja historii aplikacji -->
     <section id="aplikacje">
         <h2>Moje aplikacje</h2>
         <?php if (empty($applications)): ?>
@@ -134,6 +156,7 @@ if (isset($_GET['wyloguj'])) {
     </section>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
