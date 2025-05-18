@@ -27,11 +27,20 @@ SET time_zone = "+00:00";
 -- Struktura tabeli dla tabeli `aplikacje`
 --
 
+-- Struktura tabeli dla tabeli `aplikacje`
 CREATE TABLE `aplikacje` (
   `id` int(11) NOT NULL,
   `id_uzytkownika` int(11) NOT NULL,
   `id_oferty` int(11) NOT NULL,
-  `data_aplikacji` datetime DEFAULT current_timestamp()
+  `wiadomosc` text DEFAULT NULL,
+  `cv_plik` varchar(255) DEFAULT NULL,
+  `list_plik` varchar(255) DEFAULT NULL,
+  `data_aplikacji` datetime DEFAULT current_timestamp(),
+  `status` enum('złożona','w recenzji','odrzucona','zaakceptowana','w trakcie rozmowy') DEFAULT 'złożona',
+  `data_aktualizacji` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `id_uzytkownika` (`id_uzytkownika`),
+  KEY `id_oferty` (`id_oferty`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -72,6 +81,11 @@ CREATE TABLE `oferty` (
   `opis` text NOT NULL,
   `firma` varchar(255) NOT NULL,
   `lokalizacja` varchar(255) DEFAULT NULL,
+  `wynagrodzenie_min` decimal(10,2) DEFAULT NULL,
+  `wynagrodzenie_max` decimal(10,2) DEFAULT NULL,
+  `typ_pracy` enum('pełny etat','część etatu','tymczasowa','staż','praktyka','freelance') DEFAULT 'pełny etat',
+  `zdalna` tinyint(1) DEFAULT 0,
+  `termin_aplikacji` date DEFAULT NULL,
   `kategoria` varchar(100) DEFAULT NULL,
   `data_dodania` datetime DEFAULT current_timestamp(),
   `id_pracodawcy` int(11) NOT NULL
@@ -105,6 +119,46 @@ CREATE TABLE `opinie` (
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `powiadomienia`
+--
+
+CREATE TABLE `powiadomienia` (
+  `id` int(11) NOT NULL,
+  `id_uzytkownika` int(11) NOT NULL,
+  `tytul` varchar(255) NOT NULL,
+  `tresc` text NOT NULL,
+  `typ` enum('system','aplikacja','wiadomosc','oferta') NOT NULL,
+  `przeczytana` tinyint(1) DEFAULT 0,
+  `data_wyslania` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `umiejetnosci`
+--
+
+CREATE TABLE `umiejetnosci` (
+  `id` int(11) NOT NULL,
+  `nazwa` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `ulubione_oferty`
+--
+
+CREATE TABLE `ulubione_oferty` (
+  `id_uzytkownika` int(11) NOT NULL,
+  `id_oferty` int(11) NOT NULL,
+  `data_dodania` datetime DEFAULT current_timestamp(),
+  PRIMARY KEY (`id_uzytkownika`,`id_oferty`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Struktura tabeli dla tabeli `uzytkownicy`
 --
 
@@ -113,21 +167,55 @@ CREATE TABLE `uzytkownicy` (
   `imie` varchar(100) DEFAULT NULL,
   `nazwisko` varchar(100) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
+  `telefon` varchar(20) DEFAULT NULL,
+  `zdjecie_profilowe` varchar(255) DEFAULT NULL,
   `haslo` varchar(255) NOT NULL,
+  `opis` text DEFAULT NULL,
   `rola` enum('uzytkownik','pracodawca','admin') DEFAULT 'uzytkownik',
-  `data_rejestracji` datetime DEFAULT current_timestamp()
+  `aktywny` tinyint(1) DEFAULT 1,
+  `data_rejestracji` datetime DEFAULT current_timestamp(),
+  `ostatnie_logowanie` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `uzytkownicy_umiejetnosci`
+--
+
+CREATE TABLE `uzytkownicy_umiejetnosci` (
+  `id_uzytkownika` int(11) NOT NULL,
+  `id_umiejetnosci` int(11) NOT NULL,
+  `poziom` enum('podstawowy','średni','zaawansowany','ekspert') DEFAULT 'średni',
+  PRIMARY KEY (`id_uzytkownika`,`id_umiejetnosci`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Struktura tabeli dla tabeli `wiadomosci`
+--
+
+CREATE TABLE `wiadomosci` (
+  `id` int(11) NOT NULL,
+  `id_nadawcy` int(11) NOT NULL,
+  `id_odbiorcy` int(11) NOT NULL,
+  `temat` varchar(255) DEFAULT NULL,
+  `tresc` text NOT NULL,
+  `przeczytana` tinyint(1) DEFAULT 0,
+  `data_wyslania` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Wstawianie danych do tabeli `uzytkownicy`
 --
 
-INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `email`, `haslo`, `rola`, `data_rejestracji`) VALUES
-(1, 'Jan', 'Kowalski', 'jan.kowalski@example.com', 'password', 'uzytkownik', '2024-05-01 10:00:00'),
-(2, 'Anna', 'Nowak', 'anna.nowak@example.com', 'password', 'pracodawca', '2024-05-02 11:15:00'),
-(3, 'Piotr', 'Wiśniewski', 'piotr.wisniewski@example.com', 'password', 'admin', '2024-05-03 09:30:00'),
-(4, 'Katarzyna', 'Wójcik', 'katarzyna.wojcik@example.com', 'password', 'uzytkownik', '2024-05-04 14:45:00'),
-(5, 'Marek', 'Kowalczyk', 'marek.kowalczyk@example.com', 'password', 'pracodawca', '2024-05-05 16:20:00');
+INSERT INTO `uzytkownicy` (`id`, `imie`, `nazwisko`, `email`, `telefon`, `zdjecie_profilowe`, `haslo`, `opis`, `rola`, `aktywny`, `data_rejestracji`, `ostatnie_logowanie`) VALUES
+(1, 'Jan', 'Kowalski', 'jan.kowalski@example.com', '+48123456789', NULL, 'password', 'Programista z 5-letnim doświadczeniem w PHP i JavaScript', 'uzytkownik', 1, '2024-05-01 10:00:00', '2024-06-28 09:15:00'),
+(2, 'Anna', 'Nowak', 'anna.nowak@example.com', '+48987654321', NULL, 'password', 'HR w TechSolutions Sp. z o.o.', 'pracodawca', 1, '2024-05-02 11:15:00', '2024-06-28 10:30:00'),
+(3, 'Piotr', 'Wiśniewski', 'piotr.wisniewski@example.com', '+48111222333', NULL, 'password', 'Administrator systemu', 'admin', 1, '2024-05-03 09:30:00', '2024-06-28 08:45:00'),
+(4, 'Katarzyna', 'Wójcik', 'katarzyna.wojcik@example.com', '+48444555666', NULL, 'password', 'Nauczyciel matematyki poszukujący nowych wyzwań', 'uzytkownik', 1, '2024-05-04 14:45:00', '2024-06-27 16:20:00'),
+(5, 'Marek', 'Kowalczyk', 'marek.kowalczyk@example.com', '+48777888999', NULL, 'password', 'Kierownik ds. rekrutacji w Budimex SA', 'pracodawca', 1, '2024-05-05 16:20:00', '2024-06-28 11:10:00');
 
 --
 -- Wstawianie danych do tabeli `kategorie`
@@ -141,15 +229,40 @@ INSERT INTO `kategorie` (`id`, `nazwa`) VALUES
 (5, 'Handel');
 
 --
+-- Wstawianie danych do tabeli `umiejetnosci`
+--
+
+INSERT INTO `umiejetnosci` (`id`, `nazwa`) VALUES
+(1, 'PHP'),
+(2, 'JavaScript'),
+(3, 'HTML/CSS'),
+(4, 'MySQL'),
+(5, 'Murarstwo'),
+(6, 'Pielęgniarstwo'),
+(7, 'Nauczanie'),
+(8, 'Zarządzanie zespołem');
+
+--
+-- Wstawianie danych do tabeli `uzytkownicy_umiejetnosci`
+--
+
+INSERT INTO `uzytkownicy_umiejetnosci` (`id_uzytkownika`, `id_umiejetnosci`, `poziom`) VALUES
+(1, 1, 'zaawansowany'),
+(1, 2, 'średni'),
+(1, 3, 'zaawansowany'),
+(1, 4, 'zaawansowany'),
+(4, 7, 'ekspert');
+
+--
 -- Wstawianie danych do tabeli `oferty`
 --
 
-INSERT INTO `oferty` (`id`, `tytul`, `opis`, `firma`, `lokalizacja`, `kategoria`, `data_dodania`, `id_pracodawcy`) VALUES
-(1, 'Programista PHP', 'Poszukujemy doświadczonego programisty PHP do pracy nad projektami e-commerce.', 'TechSolutions Sp. z o.o.', 'Warszawa', 'IT', '2024-05-10 09:00:00', 2),
-(2, 'Murarz', 'Praca na budowie przy wznoszeniu budynków mieszkalnych.', 'Budimex SA', 'Kraków', 'Budownictwo', '2024-05-11 10:30:00', 5),
-(3, 'Pielęgniarka', 'Praca na oddziale internistycznym w szpitalu miejskim.', 'Szpital Miejski', 'Gdańsk', 'Medycyna', '2024-05-12 11:45:00', 2),
-(4, 'Nauczyciel matematyki', 'Prowadzenie zajęć z matematyki w liceum ogólnokształcącym.', 'Liceum Ogólnokształcące nr 1', 'Poznań', 'Edukacja', '2024-05-13 13:15:00', 5),
-(5, 'Kierownik sklepu', 'Zarządzanie zespołem w sklepie spożywczym.', 'SuperMarket', 'Wrocław', 'Handel', '2024-05-14 14:30:00', 2);
+INSERT INTO `oferty` (`id`, `tytul`, `opis`, `firma`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `typ_pracy`, `zdalna`, `termin_aplikacji`, `kategoria`, `data_dodania`, `id_pracodawcy`) VALUES
+(1, 'Programista PHP', 'Poszukujemy doświadczonego programisty PHP do pracy nad projektami e-commerce.', 'TechSolutions Sp. z o.o.', 'Warszawa', 8000.00, 12000.00, 'pełny etat', 1, '2024-07-15', 'IT', '2024-05-10 09:00:00', 2),
+(2, 'Murarz', 'Praca na budowie przy wznoszeniu budynków mieszkalnych.', 'Budimex SA', 'Kraków', 5000.00, 7000.00, 'pełny etat', 0, '2024-06-30', 'Budownictwo', '2024-05-11 10:30:00', 5),
+(3, 'Pielęgniarka', 'Praca na oddziale internistycznym w szpitalu miejskim.', 'Szpital Miejski', 'Gdańsk', 5500.00, 6500.00, 'pełny etat', 0, '2024-07-10', 'Medycyna', '2024-05-12 11:45:00', 2),
+(4, 'Nauczyciel matematyki', 'Prowadzenie zajęć z matematyki w liceum ogólnokształcącym.', 'Liceum Ogólnokształcące nr 1', 'Poznań', 4500.00, 5500.00, 'pełny etat', 0, '2024-08-20', 'Edukacja', '2024-05-13 13:15:00', 5),
+(5, 'Kierownik sklepu', 'Zarządzanie zespołem w sklepie spożywczym.', 'SuperMarket', 'Wrocław', 6000.00, 8000.00, 'pełny etat', 0, '2024-07-05', 'Handel', '2024-05-14 14:30:00', 2);
 
 --
 -- Wstawianie danych do tabeli `oferty_kategorie`
@@ -166,12 +279,21 @@ INSERT INTO `oferty_kategorie` (`id_oferty`, `id_kategorii`) VALUES
 -- Wstawianie danych do tabeli `aplikacje`
 --
 
-INSERT INTO `aplikacje` (`id`, `id_uzytkownika`, `id_oferty`, `data_aplikacji`) VALUES
-(1, 1, 1, '2024-05-10 10:00:00'),
-(2, 4, 1, '2024-05-10 11:30:00'),
-(3, 1, 2, '2024-05-11 12:45:00'),
-(4, 4, 3, '2024-05-12 14:20:00'),
-(5, 1, 5, '2024-05-14 15:40:00');
+INSERT INTO `aplikacje` (`id`, `id_uzytkownika`, `id_oferty`, `data_aplikacji`, `status`, `wiadomosc`, `data_aktualizacji`) VALUES
+(1, 1, 1, '2024-05-10 10:00:00', 'w trakcie rozmowy', 'Mam 5-letnie doświadczenie w PHP i chętnie dołączę do zespołu.', '2024-05-12 14:30:00'),
+(2, 4, 1, '2024-05-10 11:30:00', 'odrzucona', 'Interesuje mnie stanowisko pomimo braku doświadczenia komercyjnego.', '2024-05-11 09:15:00'),
+(3, 1, 2, '2024-05-11 12:45:00', 'złożona', NULL, NULL),
+(4, 4, 3, '2024-05-12 14:20:00', 'w recenzji', 'Mam wykształcenie medyczne i chciałabym zmienić branżę.', '2024-05-15 10:20:00'),
+(5, 1, 5, '2024-05-14 15:40:00', 'zaakceptowana', 'Posiadam doświadczenie w zarządzaniu małymi zespołami.', '2024-05-20 11:45:00');
+
+--
+-- Wstawianie danych do tabeli `ulubione_oferty`
+--
+
+INSERT INTO `ulubione_oferty` (`id_uzytkownika`, `id_oferty`, `data_dodania`) VALUES
+(1, 3, '2024-05-12 12:00:00'),
+(4, 1, '2024-05-10 09:45:00'),
+(4, 4, '2024-05-13 14:30:00');
 
 --
 -- Wstawianie danych do tabeli `opinie`
@@ -194,6 +316,28 @@ INSERT INTO `kontakt` (`id`, `imie`, `email`, `temat`, `wiadomosc`, `data_wyslan
 (3, 'Tomasz Wiśniewski', 'tomasz.wisniewski@example.com', 'Współpraca', 'Chciałbym zapytać o możliwość współpracy.', '2024-05-22 12:00:00'),
 (4, 'Magdalena Zielińska', 'magdalena.zielinska@example.com', 'Błąd w systemie', 'Wystąpił błąd podczas dodawania oferty.', '2024-05-23 14:15:00'),
 (5, 'Robert Lewandowski', 'robert.lewandowski@example.com', 'Reklamacja', 'Moja aplikacja nie została rozpatrzona.', '2024-05-24 16:30:00');
+
+--
+-- Wstawianie danych do tabeli `powiadomienia`
+--
+
+INSERT INTO `powiadomienia` (`id`, `id_uzytkownika`, `tytul`, `tresc`, `typ`, `przeczytana`, `data_wyslania`) VALUES
+(1, 1, 'Nowa oferta pracy', 'Dodano nową ofertę: Kierownik sklepu', 'oferta', 1, '2024-05-14 14:35:00'),
+(2, 1, 'Status aplikacji', 'Twoja aplikacja na stanowisko Programista PHP została zaakceptowana', 'aplikacja', 1, '2024-05-12 14:35:00'),
+(3, 4, 'Nowa wiadomość', 'Masz nową wiadomość od pracodawcy', 'wiadomosc', 0, '2024-05-16 09:20:00'),
+(4, 2, 'Nowa aplikacja', 'Nowa aplikacja na stanowisko Programista PHP', 'aplikacja', 1, '2024-05-10 10:05:00'),
+(5, 5, 'Aktualizacja systemu', 'Planowane prace serwisowe w nocy', 'system', 0, '2024-05-25 22:00:00');
+
+--
+-- Wstawianie danych do tabeli `wiadomosci`
+--
+
+INSERT INTO `wiadomosci` (`id`, `id_nadawcy`, `id_odbiorcy`, `temat`, `tresc`, `przeczytana`, `data_wyslania`) VALUES
+(1, 2, 1, 'Zaproszenie na rozmowę', 'Dziękujemy za aplikację. Zapraszamy na rozmowę 15.05 o 10:00.', 1, '2024-05-12 14:30:00'),
+(2, 5, 4, 'Pytanie o kwalifikacje', 'Proszę o przesłanie dodatkowych informacji o swoim wykształceniu medycznym.', 0, '2024-05-16 09:20:00'),
+(3, 3, 1, 'Witamy w serwisie', 'Dziękujemy za rejestrację w naszym portalu!', 1, '2024-05-01 10:05:00'),
+(4, 1, 2, 'Pytanie o ofertę', 'Czy możliwe jest zdalne wykonywanie pracy?', 1, '2024-05-10 15:20:00'),
+(5, 4, 5, 'Aplikacja na stanowisko', 'Zainteresowała mnie oferta pracy w szkole.', 0, '2024-05-13 16:45:00');
 
 --
 -- Indeksy dla zrzutów tabel
@@ -242,11 +386,45 @@ ALTER TABLE `opinie`
   ADD KEY `id_uzytkownika` (`id_uzytkownika`);
 
 --
+-- Indeksy dla tabeli `powiadomienia`
+--
+ALTER TABLE `powiadomienia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_uzytkownika` (`id_uzytkownika`);
+
+--
+-- Indeksy dla tabeli `ulubione_oferty`
+--
+ALTER TABLE `ulubione_oferty`
+  ADD KEY `id_oferty` (`id_oferty`);
+
+--
+-- Indeksy dla tabeli `umiejetnosci`
+--
+ALTER TABLE `umiejetnosci`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nazwa` (`nazwa`);
+
+--
 -- Indeksy dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `email` (`email`);
+
+--
+-- Indeksy dla tabeli `uzytkownicy_umiejetnosci`
+--
+ALTER TABLE `uzytkownicy_umiejetnosci`
+  ADD KEY `id_umiejetnosci` (`id_umiejetnosci`);
+
+--
+-- Indeksy dla tabeli `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_nadawcy` (`id_nadawcy`),
+  ADD KEY `id_odbiorcy` (`id_odbiorcy`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -283,9 +461,27 @@ ALTER TABLE `opinie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `powiadomienia`
+--
+ALTER TABLE `powiadomienia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `umiejetnosci`
+--
+ALTER TABLE `umiejetnosci`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
@@ -317,6 +513,33 @@ ALTER TABLE `oferty_kategorie`
 --
 ALTER TABLE `opinie`
   ADD CONSTRAINT `opinie_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `powiadomienia`
+--
+ALTER TABLE `powiadomienia`
+  ADD CONSTRAINT `powiadomienia_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `ulubione_oferty`
+--
+ALTER TABLE `ulubione_oferty`
+  ADD CONSTRAINT `ulubione_oferty_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `ulubione_oferty_ibfk_2` FOREIGN KEY (`id_oferty`) REFERENCES `oferty` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `uzytkownicy_umiejetnosci`
+--
+ALTER TABLE `uzytkownicy_umiejetnosci`
+  ADD CONSTRAINT `uzytkownicy_umiejetnosci_ibfk_1` FOREIGN KEY (`id_uzytkownika`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `uzytkownicy_umiejetnosci_ibfk_2` FOREIGN KEY (`id_umiejetnosci`) REFERENCES `umiejetnosci` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `wiadomosci`
+--
+ALTER TABLE `wiadomosci`
+  ADD CONSTRAINT `wiadomosci_ibfk_1` FOREIGN KEY (`id_nadawcy`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `wiadomosci_ibfk_2` FOREIGN KEY (`id_odbiorcy`) REFERENCES `uzytkownicy` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

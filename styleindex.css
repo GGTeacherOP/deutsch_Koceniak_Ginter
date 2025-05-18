@@ -552,3 +552,53 @@ footer a:hover {
     padding: 1rem 2rem;
 }
 
+/* Stylizacja formularza aplikacji */
+#aplikacja-formularz {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.error-box {
+    background-color: #ffeeee;
+    border: 1px solid #ffcccc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    color: #cc0000;
+}
+
+.error-box ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.error-box li {
+    margin-bottom: 0.3rem;
+}
+
+/* Stylizacja pól plików */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+input[type="file"]:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+small {
+    display: block;
+    margin-top: 0.3rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Przyciski w formularzu */
+form .button {
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
