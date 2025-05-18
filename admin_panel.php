@@ -1,36 +1,57 @@
 <?php
-session_start();
-require_once 'config.php'; // Plik z konfiguracją połączenia z bazą
+/**
+ * Panel administracyjny systemu zarządzania użytkownikami
+ * 
+ * Skrypt umożliwia administratorowi:
+ * - przeglądanie listy wszystkich użytkowników
+ * - edycję danych użytkowników (imię, nazwisko, email, rola, pensja)
+ * - kontrolę dostępu tylko dla użytkowników z rolą 'admin'
+ */
 
-// Sprawdzenie, czy użytkownik jest zalogowany i ma rolę admina
+// Inicjalizacja sesji i sprawdzenie uprawnień
+session_start();
+require_once 'config.php'; // Plik z konfiguracją połączenia z bazą danych
+
+/**
+ * Sprawdzenie czy użytkownik jest zalogowany i ma uprawnienia administratora
+ * Jeśli nie - przekierowanie do strony logowania
+ */
 if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'admin') {
     header('Location: logowanie.php');
     exit();
 }
 
-// Obsługa aktualizacji danych użytkownika
+/**
+ * Obsługa formularza aktualizacji danych użytkownika
+ * Wykonywana tylko gdy żądanie jest typu POST i przesłano formularz update_user
+ */
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
+    // Pobranie danych z formularza
     $user_id = $_POST['user_id'];
     $imie = $_POST['imie'];
     $nazwisko = $_POST['nazwisko'];
     $email = $_POST['email'];
     $rola = $_POST['rola'];
-    $pensja = $_POST['pensja']; // Nowe pole pensji
+    $pensja = $_POST['pensja']; // Nowe pole pensji dodane do systemu
 
+    // Przygotowanie i wykonanie zapytania SQL do aktualizacji danych
     $stmt = $conn->prepare("UPDATE uzytkownicy SET imie = ?, nazwisko = ?, email = ?, rola = ?, pensja = ? WHERE id = ?");
     $stmt->bind_param('ssssdi', $imie, $nazwisko, $email, $rola, $pensja, $user_id);
     $stmt->execute();
     $stmt->close();
 }
 
-// Przykład zapytania do bazy danych
+/**
+ * Pobranie listy wszystkich użytkowników z bazy danych
+ * Wykorzystanie prepared statement dla bezpieczeństwa
+ */
 $stmt = $conn->prepare("SELECT * FROM uzytkownicy");
 if ($stmt === false) {
-    die("Błąd w przygotowaniu zapytania: " . $conn->error);
+    die("Błąd w przygotowaniu zapytania: " . $conn->error); // Zakończenie skryptu w przypadku błędu
 }
 
 $stmt->execute();
-$result = $stmt->get_result();
+$result = $stmt->get_result(); // Pobranie wyników zapytania
 ?>
 
 <!DOCTYPE html>
@@ -38,8 +59,9 @@ $result = $stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <title>Panel Admina</title>
-    <link rel="stylesheet" href="styleindex.css">
+    <link rel="stylesheet" href="styleindex.css"> <!-- Główny plik CSS -->
     <style>
+        /* Style specyficzne dla panelu admina */
         table {
             width: 100%;
             border-collapse: collapse;
@@ -66,10 +88,17 @@ $result = $stmt->get_result();
             padding: 5px 10px;
             cursor: pointer;
         }
+        #editForm {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f8f8f8;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
 
+<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <h1>Panel Admina</h1>
     <nav>
@@ -86,9 +115,11 @@ $result = $stmt->get_result();
     </nav>
 </header>
 
+<!-- Główna zawartość strony -->
 <main>
     <h2>Witaj w panelu admina!</h2>
     
+    <!-- Tabela z listą użytkowników -->
     <h3>Lista użytkowników</h3>
     <table>
         <thead>
@@ -98,13 +129,17 @@ $result = $stmt->get_result();
                 <th>Nazwisko</th>
                 <th>Email</th>
                 <th>Rola</th>
-                <th>Pensja</th> <!-- Nowa kolumna pensji -->
+                <th>Pensja</th>
                 <th>Data rejestracji</th>
                 <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
             <?php
+            /**
+             * Wyświetlenie danych użytkowników w tabeli
+             * Jeśli nie ma użytkowników - wyświetl komunikat
+             */
             if ($result->num_rows > 0) {
                 while ($user = $result->fetch_assoc()) {
                     echo "<tr>
@@ -113,10 +148,10 @@ $result = $stmt->get_result();
                             <td>{$user['nazwisko']}</td>
                             <td>{$user['email']}</td>
                             <td>{$user['rola']}</td>
-                            <td>{$user['pensja']}</td> <!-- Wyświetlanie pensji -->
+                            <td>{$user['pensja']}</td>
                             <td>{$user['data_rejestracji']}</td>
                             <td>
-                                <button class='edit-button' onclick='editUser  ({$user['id']}, \"{$user['imie']}\", \"{$user['nazwisko']}\", \"{$user['email']}\", \"{$user['rola']}\", \"{$user['pensja']}\")'>Edytuj</button>
+                                <button class='edit-button' onclick='editUser({$user['id']}, \"{$user['imie']}\", \"{$user['nazwisko']}\", \"{$user['email']}\", \"{$user['rola']}\", \"{$user['pensja']}\")'>Edytuj</button>
                             </td>
                           </tr>";
                 }
@@ -127,7 +162,7 @@ $result = $stmt->get_result();
         </tbody>
     </table>
 
-    <!-- Formularz edycji użytkownika -->
+    <!-- Formularz edycji użytkownika (domyślnie ukryty) -->
     <div id="editForm" style="display:none;">
         <h3>Edytuj użytkownika</h3>
         <form method="POST">
@@ -145,10 +180,10 @@ $result = $stmt->get_result();
             <select name="rola" id="rola" required>
                 <option value="admin">Admin</option>
                 <option value="uzytkownik">Użytkownik</option>
-                <option value="pracodawca">pracodawca</option>
+                <option value="pracodawca">Pracodawca</option>
             </select>
             <br>
-            <label for="pensja">Pensja:</label> <!-- Nowe pole pensji -->
+            <label for="pensja">Pensja:</label>
             <input type="number" name="pensja" id="pensja" step="0.01" required>
             <br>
             <button type="submit" name="update_user">Zaktualizuj</button>
@@ -157,22 +192,36 @@ $result = $stmt->get_result();
     </div>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
 </footer>
 
+<!-- Skrypty JavaScript -->
 <script>
-    function editUser  (id, imie, nazwisko, email, rola, pensja) {
+    /**
+     * Funkcja otwierająca formularz edycji i wypełniająca go danymi użytkownika
+     * @param {number} id - ID użytkownika
+     * @param {string} imie - Imię użytkownika
+     * @param {string} nazwisko - Nazwisko użytkownika
+     * @param {string} email - Email użytkownika
+     * @param {string} rola - Rola użytkownika
+     * @param {number} pensja - Pensja użytkownika
+     */
+    function editUser(id, imie, nazwisko, email, rola, pensja) {
         document.getElementById('user_id').value = id;
         document.getElementById('imie').value = imie;
         document.getElementById('nazwisko').value = nazwisko;
         document.getElementById('email').value = email;
         document.getElementById('rola').value = rola;
-        document.getElementById('pensja').value = pensja; // Ustawienie pensji w formularzu
+        document.getElementById('pensja').value = pensja;
         document.getElementById('editForm').style.display = 'block';
     }
 
+    /**
+     * Funkcja zamykająca formularz edycji
+     */
     function closeEditForm() {
         document.getElementById('editForm').style.display = 'none';
     }
@@ -182,5 +231,6 @@ $result = $stmt->get_result();
 </html>
 
 <?php
+// Zamknięcie połączenia z bazą danych
 $stmt->close();
 ?>

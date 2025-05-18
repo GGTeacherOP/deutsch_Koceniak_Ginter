@@ -1,12 +1,15 @@
 <?php
+// Rozpoczęcie sesji i załączenie konfiguracji bazy danych
 session_start();
 require_once 'config.php'; // Plik z konfiguracją połączenia z bazą
 
+// Inicjalizacja zmiennych dla komunikatów
 $error = '';
 $success = '';
 
-// Przetwarzanie formularza rejestracji
+// Przetwarzanie danych formularza rejestracji jeśli wysłano metodą POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Pobranie i oczyszczenie danych z formularza
     $imie = trim($_POST['imie']);
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
@@ -15,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $rola = $_POST['rola'];
     $regulamin = isset($_POST['regulamin']) ? true : false;
 
-    // Walidacja danych
+    // Walidacja danych wejściowych
     if (empty($imie) || empty($nazwisko) || empty($email) || empty($password) || empty($confirm)) {
         $error = 'Wszystkie pola są wymagane';
     } elseif (!preg_match('/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]{2,50}$/', $imie)) {
@@ -31,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (!$regulamin) {
         $error = 'Musisz zaakceptować regulamin';
     } else {
+        // Jeśli walidacja OK, sprawdź unikalność emaila w bazie
         try {
-            // Sprawdź czy email już istnieje
             $stmt = $conn->prepare("SELECT id FROM uzytkownicy WHERE email = ?");
             $stmt->bind_param('s', $email);
             $stmt->execute();
@@ -42,18 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $error = 'Podany adres email jest już zarejestrowany';
             } else {
                 // W prawdziwym systemie powinno się użyć password_hash()
-                // $hashed_password = password_hash($password, PASSWORD_DEFAULT);
                 // Tutaj używamy plaintext dla zgodności z Twoją bazą
                 $hashed_password = $password;
                 
-                // Dodaj użytkownika do bazy
+                // Wstawienie nowego użytkownika do bazy
                 $stmt = $conn->prepare("INSERT INTO uzytkownicy (imie, nazwisko, email, haslo, rola) VALUES (?, ?, ?, ?, ?)");
                 $stmt->bind_param('sssss', $imie, $nazwisko, $email, $hashed_password, $rola);
                 
                 if ($stmt->execute()) {
                     $success = 'Rejestracja zakończona pomyślnie. Możesz się teraz zalogować.';
-                    // Wyczyść formularz po udanej rejestracji
-                    $_POST = array();
+                    $_POST = array(); // Wyczyść formularz po udanej rejestracji
                 } else {
                     $error = 'Wystąpił błąd podczas rejestracji: ' . $conn->error;
                 }
@@ -69,11 +70,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <!-- Meta dane strony -->
     <meta charset="UTF-8">
     <title>Rejestracja – Portal z ofertami pracy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Linki do arkuszy stylów -->
     <link rel="stylesheet" href="styleindex.css">
     <style>
+        /* Style dla komunikatów i formularza */
         .error { color: red; margin: 10px 0; padding: 10px; background: #ffebee; }
         .success { color: green; margin: 10px 0; padding: 10px; background: #e8f5e9; }
         .form-group { margin-bottom: 15px; }
@@ -88,6 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
+<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
@@ -106,6 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
+<!-- Główna zawartość strony - formularz rejestracji -->
 <main>
     <h2>Rejestracja użytkownika</h2>
     
@@ -117,6 +123,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
 
+    <!-- Formularz rejestracji -->
     <form action="rejestracja.php" method="post">
         <div class="form-group">
             <label for="imie">Imię:</label>
@@ -146,6 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" name="confirm" id="confirm" required>
         </div>
 
+        <!-- Wybór typu konta -->
         <div class="role-selector">
             <label>Wybierz typ konta:</label><br>
             <label>
@@ -156,6 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </label>
         </div>
 
+        <!-- Akceptacja regulaminu -->
         <div class="form-group">
             <label>
                 <input type="checkbox" name="regulamin" required 
@@ -170,6 +179,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Masz już konto? <a href="logowanie.php">Zaloguj się</a></p>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>

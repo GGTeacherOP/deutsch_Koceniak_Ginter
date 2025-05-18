@@ -1,21 +1,26 @@
 <?php
+// Rozpoczęcie sesji i załączenie konfiguracji bazy danych
 session_start();
 require_once 'config.php';
 
+// Sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user_id'])) {
     header('Location: logowanie.php');
     exit();
 }
 
+// Inicjalizacja zmiennych dla komunikatów
 $error = '';
 $success = '';
 
+// Przetwarzanie formularza zmiany hasła
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Pobranie danych z formularza
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];
     $confirm_password = $_POST['confirm_password'];
     
-    // Walidacja
+    // Walidacja danych wejściowych
     if (empty($current_password) || empty($new_password) || empty($confirm_password)) {
         $error = 'Wszystkie pola są wymagane';
     } elseif ($new_password !== $confirm_password) {
@@ -24,20 +29,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Nowe hasło musi mieć co najmniej 6 znaków';
     } else {
         try {
-            // Sprawdź aktualne hasło
+            // Pobranie aktualnego hasła użytkownika z bazy danych
             $stmt = $conn->prepare("SELECT haslo FROM uzytkownicy WHERE id = ?");
             $stmt->bind_param('i', $_SESSION['user_id']);
             $stmt->execute();
             $result = $stmt->get_result();
             $user = $result->fetch_assoc();
             
-            // W prawdziwym systemie użyj password_verify()
-            // if (!password_verify($current_password, $user['haslo'])) {
+            // Weryfikacja aktualnego hasła
+            // UWAGA: W produkcyjnym systemie użyj password_verify() zamiast porównania tekstowego
             if ($current_password !== $user['haslo']) {
                 $error = 'Aktualne hasło jest nieprawidłowe';
             } else {
-                // W prawdziwym systemie użyj password_hash()
-                // $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                // Aktualizacja hasła w bazie danych
+                // UWAGA: W produkcyjnym systemie użyj password_hash()
                 $hashed_password = $new_password;
                 
                 $stmt = $conn->prepare("UPDATE uzytkownicy SET haslo = ? WHERE id = ?");
@@ -60,13 +65,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pl">
 <head>
+    <!-- Meta dane strony -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zmiana hasła – Portal z ofertami pracy</title>
+    <!-- Link do arkusza stylów -->
     <link rel="stylesheet" href="styleindex.css">
 </head>
 <body>
 
+<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
@@ -85,9 +93,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
+<!-- Główna zawartość strony - formularz zmiany hasła -->
 <main>
     <h2>Zmiana hasła</h2>
     
+    <!-- Wyświetlanie komunikatów o błędach/sukcesie -->
     <?php if (!empty($error)): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
@@ -96,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
 
+    <!-- Formularz zmiany hasła -->
     <form action="zmiana_hasla.php" method="post">
         <div class="form-group">
             <label for="current_password">Aktualne hasło:</label>
@@ -112,11 +123,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="password" id="confirm_password" name="confirm_password" required>
         </div>
         
+        <!-- Przyciski akcji -->
         <button type="submit">Zmień hasło</button>
         <a href="konto.php" class="button" style="background: #666; margin-left: 1rem;">Anuluj</a>
     </form>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>

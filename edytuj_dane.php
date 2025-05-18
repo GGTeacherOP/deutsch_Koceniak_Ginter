@@ -1,29 +1,53 @@
 <?php
+/**
+ * Skrypt do edycji danych użytkownika
+ * 
+ * Funkcjonalności:
+ * - Weryfikacja zalogowania użytkownika
+ * - Pobieranie aktualnych danych użytkownika
+ * - Aktualizacja danych po walidacji
+ * - Sprawdzanie unikalności emaila
+ */
+
+// Rozpoczęcie sesji i załadowanie konfiguracji
 session_start();
 require_once 'config.php';
 
+// Sprawdzenie czy użytkownik jest zalogowany
 if (!isset($_SESSION['user_id'])) {
     header('Location: logowanie.php');
     exit();
 }
 
+// Inicjalizacja zmiennych na komunikaty
 $error = '';
 $success = '';
 
-// Pobierz aktualne dane użytkownika
+/**
+ * Pobranie aktualnych danych użytkownika z bazy
+ * Zabezpieczenie przed SQL injection poprzez prepared statements
+ */
 $stmt = $conn->prepare("SELECT imie, nazwisko, email FROM uzytkownicy WHERE id = ?");
 $stmt->bind_param('i', $_SESSION['user_id']);
 $stmt->execute();
 $result = $stmt->get_result();
-$user_data = $result->fetch_assoc();
+$user_data = $result->fetch_assoc(); // Pobranie danych jako tablica asocjacyjna
 $stmt->close();
 
+// Obsługa formularza POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Pobranie i oczyszczenie danych z formularza
     $imie = trim($_POST['imie']);
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
     
-    // Walidacja
+    /**
+     * Walidacja danych:
+     * 1. Sprawdzenie czy wszystkie pola są wypełnione
+     * 2. Weryfikacja formatu imienia (tylko litery, 2-50 znaków)
+     * 3. Weryfikacja formatu nazwiska (litery i myślniki, 2-50 znaków)
+     * 4. Sprawdzenie poprawności adresu email
+     */
     if (empty($imie) || empty($nazwisko) || empty($email)) {
         $error = 'Wszystkie pola są wymagane';
     } elseif (!preg_match('/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]{2,50}$/', $imie)) {
@@ -34,7 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Nieprawidłowy format adresu email';
     } else {
         try {
-            // Sprawdź czy email już istnieje (u kogoś innego)
+            // Sprawdzenie czy email nie jest już używany przez innego użytkownika
             $stmt = $conn->prepare("SELECT id FROM uzytkownicy WHERE email = ? AND id != ?");
             $stmt->bind_param('si', $email, $_SESSION['user_id']);
             $stmt->execute();
@@ -43,12 +67,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->num_rows > 0) {
                 $error = 'Podany adres email jest już zajęty';
             } else {
+                // Aktualizacja danych użytkownika
                 $stmt = $conn->prepare("UPDATE uzytkownicy SET imie = ?, nazwisko = ?, email = ? WHERE id = ?");
                 $stmt->bind_param('sssi', $imie, $nazwisko, $email, $_SESSION['user_id']);
                 
                 if ($stmt->execute()) {
                     $success = 'Dane zostały zaktualizowane pomyślnie';
-                    // Odśwież dane w zmiennej
+                    // Aktualizacja danych w zmiennej sesyjnej
                     $user_data['imie'] = $imie;
                     $user_data['nazwisko'] = $nazwisko;
                     $user_data['email'] = $email;
@@ -70,10 +95,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edycja danych – Portal z ofertami pracy</title>
-    <link rel="stylesheet" href="styleindex.css">
+    <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
 </head>
 <body>
 
+<!-- Nagłówek strony -->
 <header>
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
@@ -87,14 +113,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="o_nas.php">O nas</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
-        <?php endif; ?>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
+<!-- Główna zawartość strony -->
 <main>
     <h2>Edycja danych osobowych</h2>
     
+    <!-- Wyświetlanie komunikatów o błędach/sukcesie -->
     <?php if (!empty($error)): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
@@ -103,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
 
+    <!-- Formularz edycji danych -->
     <form action="edytuj_dane.php" method="post">
         <div class="form-group">
             <label for="imie">Imię:</label>
@@ -127,6 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </form>
 </main>
 
+<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
