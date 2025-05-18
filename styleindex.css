@@ -1,0 +1,623 @@
+/* styleindex.css - ujednolicony styl dla całego portalu */
+
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f0f5ff;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-areas: 
+        "header header header"
+        "left main right"
+        "footer footer footer";
+}
+
+/* Nagłówek */
+header {
+    grid-area: header;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #ffcc00;
+}
+
+header h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Nawigacja */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+nav ul li {
+    margin: 0.5rem 1.2rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: #ffcc00;
+    transform: translateY(-2px);
+}
+
+nav ul li a.active {
+    background-color: rgba(255, 204, 0, 0.2);
+    border-radius: 6px;
+}
+
+/* Boczne bloki */
+.side-block {
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin: 2rem 1rem;
+    height: fit-content;
+    position: sticky;
+    top: 2rem;
+    transition: transform 0.3s ease;
+}
+
+.side-block:hover {
+    transform: translateY(-5px);
+}
+
+.left-block {
+    grid-area: left;
+    border-left: 5px solid #004080;
+}
+
+.right-block {
+    grid-area: right;
+    border-right: 5px solid #004080;
+}
+
+.side-block h3 {
+    color: #0066cc;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ffcc00;
+}
+
+.side-block ul {
+    list-style: none;
+}
+
+.side-block li {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.side-block li::before {
+    content: "•";
+    color: #ffcc00;
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+}
+
+/* Główna zawartość */
+main {
+    grid-area: main;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1);
+}
+
+main h2 {
+    color: #004080;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #004080;
+    font-weight: 700;
+    text-align: center;
+}
+
+/* Formularze */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+label {
+    font-weight: 600;
+    color: #004080;
+    font-size: 1.1rem;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+textarea {
+    resize: vertical;
+    min-height: 150px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border-color: #0066cc;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+    outline: none;
+}
+
+button[type="submit"],
+.button {
+    padding: 1rem 2rem;
+    background: linear-gradient(to right, #0073e6, #004080);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2);
+    margin-top: 1rem;
+    align-self: center;
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+button[type="submit"]:hover,
+.button:hover {
+    background: linear-gradient(to right, #0066cc, #003366);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
+}
+
+/* Oferty pracy */
+.oferta {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-left: 5px solid #0066cc;
+    transition: all 0.3s ease;
+}
+
+.oferta:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.oferta h3 {
+    color: #004080;
+    margin-bottom: 0.5rem;
+}
+
+.oferta p {
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.oferta a {
+    color: #0066cc;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: rgba(0, 102, 204, 0.1);
+}
+
+.oferta a:hover {
+    color: #004080;
+    background-color: rgba(0, 102, 204, 0.2);
+}
+
+/* Slider opinii */
+.slider-container {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.opinia {
+    display: none;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1);
+}
+
+.opinia.aktywna {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.opinia blockquote {
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #444;
+    margin-bottom: 1rem;
+    position: relative;
+    padding-left: 2rem;
+}
+
+.opinia blockquote::before {
+    content: '"';
+    font-size: 3rem;
+    color: #0066cc;
+    opacity: 0.3;
+    position: absolute;
+    left: -1rem;
+    top: -1rem;
+}
+
+.opinia footer {
+    text-align: right;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.slider-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.slider-nav button {
+    padding: 0.5rem 1.5rem;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.slider-nav button:hover {
+    background-color: #004080;
+    transform: translateY(-2px);
+}
+
+/* Panel konta */
+.konto-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.dane-osobowe,
+.ustawienia-konta {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.dane-osobowe h3,
+.ustawienia-konta h3 {
+    color: #004080;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ffcc00;
+}
+
+.ustawienia-konta ul {
+    list-style: none;
+}
+
+.ustawienia-konta li {
+    margin-bottom: 1rem;
+}
+
+.ustawienia-konta a {
+    color: #0066cc;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: rgba(0, 102, 204, 0.1);
+}
+
+.ustawienia-konta a:hover {
+    color: #004080;
+    background-color: rgba(0, 102, 204, 0.2);
+}
+
+/* Stopka */
+footer {
+    grid-area: footer;
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    color: #fff;
+    margin-top: auto;
+    border-top: 3px solid #ffcc00;
+}
+
+footer p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 0.5rem;
+}
+
+footer a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+/* Dodatkowe style dla przycisku Szukaj */
+        .search-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .search-form input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #0066cc;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .search-form input:focus {
+            outline: none;
+            border-color: #004080;
+            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+        }
+        
+        .search-form button {
+            background: linear-gradient(to right, #0073e6, #004080);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            padding: 0 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2);
+        }
+        
+        .search-form button:hover {
+            background: linear-gradient(to right, #0066cc, #003366);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
+        }
+        
+        .search-form button:active {
+            transform: translateY(0);
+        }
+        /* Szczegóły oferty */
+.oferta-szczegoly {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1);
+}
+
+.oferta-naglowek {
+    border-bottom: 2px solid #e0e9ff;
+    padding-bottom: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.oferta-naglowek h3 {
+    color: #0066cc;
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.data-dodania {
+    color: #777;
+    font-style: italic;
+    margin-bottom: 1rem;
+}
+
+.kategorie {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.kategoria {
+    background-color: rgba(0, 102, 204, 0.1);
+    color: #0066cc;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.oferta-tresc h4 {
+    color: #004080;
+    margin: 1.5rem 0 0.8rem;
+    font-size: 1.2rem;
+}
+
+.oferta-tresc p {
+    line-height: 1.7;
+    color: #444;
+}
+
+.oferta-dodatkowe {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e9ff;
+}
+
+.pracodawca-info h4,
+.statystyki h4 {
+    color: #004080;
+    margin-bottom: 1rem;
+}
+
+.pracodawca-info p,
+.statystyki p {
+    margin-bottom: 0.5rem;
+}
+
+.oferta-akcje {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e0e9ff;
+}
+
+.oferta-akcje .button {
+    width: auto;
+    padding: 1rem 2rem;
+}
+
+/* Stylizacja formularza aplikacji */
+#aplikacja-formularz {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.error-box {
+    background-color: #ffeeee;
+    border: 1px solid #ffcccc;
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    color: #cc0000;
+}
+
+.error-box ul {
+    margin-top: 0.5rem;
+    padding-left: 1.5rem;
+}
+
+.error-box li {
+    margin-bottom: 0.3rem;
+}
+
+/* Stylizacja pól plików */
+input[type="file"] {
+    padding: 0.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    width: 100%;
+}
+
+input[type="file"]:focus {
+    border-color: #0066cc;
+    outline: none;
+}
+
+small {
+    display: block;
+    margin-top: 0.3rem;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Przyciski w formularzu */
+form .button {
+    margin-top: 1rem;
+    margin-right: 1rem;
+}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }

@@ -1,0 +1,79 @@
+/* Stylizacja panelu konta */
+.konto-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.dane-osobowe, .ustawienia-konta {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.dane-osobowe h3, .ustawienia-konta h3 {
+    color: #004080;
+    border-bottom: 2px solid #004080;
+    padding-bottom: 8px;
+    margin-bottom: 15px;
+}
+
+.dane-osobowe p {
+    margin-bottom: 12px;
+    line-height: 1.6;
+}
+
+.dane-osobowe strong {
+    color: #004080;
+    min-width: 80px;
+    display: inline-block;
+}
+
+.ustawienia-konta ul {
+    list-style: none;
+    padding: 0;
+}
+
+.ustawienia-konta li {
+    margin-bottom: 10px;
+}
+
+.ustawienia-konta a {
+    display: block;
+    padding: 8px 12px;
+    color: #0073e6;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.ustawienia-konta a:hover {
+    background-color: #f0f7ff;
+    color: #005bb5;
+    text-decoration: underline;
+}
+/* Aktywna zakładka w menu */
+nav ul li a[href="konto.php"] {
+    text-decoration: underline;
+    color: #ffcc00;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+}
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+th {
+    background-color: #f2f2f2;
+    color: #004080;
+}
+tr:hover {
+    background-color: #f9f9f9;
+}

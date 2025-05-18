@@ -1,0 +1,161 @@
+/* style_polityka.css - spójny styl z kontakt.css */
+/* Reset i podstawowe style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #f0f5ff;
+    color: #333;
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Nagłówek */
+header {
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    color: #fff;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    border-bottom: 3px solid #ffcc00;
+}
+
+header h1 {
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Nawigacja */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 0.8rem;
+    border-radius: 8px;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+nav ul li {
+    margin: 0.5rem 1.2rem;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+nav ul li a:hover {
+    color: #ffcc00;
+    transform: translateY(-2px);
+}
+
+/* Główna zawartość */
+main {
+    flex: 1;
+    padding: 3rem 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1);
+}
+
+main h2 {
+    color: #004080;
+    font-size: 2.2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 3px solid #004080;
+    font-weight: 700;
+}
+
+/* Sekcje polityki prywatności */
+section {
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background-color: #f9fbfe;
+    border-radius: 12px;
+    border: 1px solid #e0e9ff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1);
+}
+
+section h3 {
+    color: #0066cc;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #ffcc00;
+    display: flex;
+    align-items: center;
+}
+
+section h3::before {
+    content: "•";
+    color: #ffcc00;
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+
+section p {
+    margin-bottom: 1rem;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+/* Stopka */
+footer {
+    text-align: center;
+    padding: 2.5rem;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    color: #fff;
+    margin-top: auto;
+    border-top: 3px solid #ffcc00;
+}
+
+footer p {
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+}
+
+footer a {
+    color: #ffcc00;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.1);
+    margin: 0 0.5rem;
+}
+
+footer a:hover {
+    color: #fff;
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+
