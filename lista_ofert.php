@@ -211,6 +211,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
 <body>
 
 <header>
+        <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>

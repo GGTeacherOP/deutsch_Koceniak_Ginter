@@ -90,6 +90,8 @@ if (isset($_GET['wyloguj'])) {
 
 <!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
+        <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
+
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>
