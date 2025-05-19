@@ -13,13 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $imie = trim($_POST['imie']);
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
+    $opis = trim($_POST['opis']);
     $password = $_POST['password'];
     $confirm = $_POST['confirm'];
     $rola = $_POST['rola'];
     $regulamin = isset($_POST['regulamin']) ? true : false;
+    $telefon = trim($_POST['telefon']); 
 
     // Walidacja danych wejściowych
-    if (empty($imie) || empty($nazwisko) || empty($email) || empty($password) || empty($confirm)) {
+    if (empty($imie) || empty($nazwisko) || empty($email) || empty($password) || empty($confirm) || empty($opis) || empty($telefon)) {
         $error = 'Wszystkie pola są wymagane';
     } elseif (!preg_match('/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]{2,50}$/', $imie)) {
         $error = 'Imię może zawierać tylko litery (2-50 znaków)';
@@ -27,7 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Nazwisko może zawierać tylko litery i myślniki (2-50 znaków)';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Nieprawidłowy format adresu email';
-    } elseif ($password !== $confirm) {
+    } elseif (!preg_match('/^\+?[0-9]{7,15}$/', $telefon)) { // Walidacja numeru telefonu
+        $error = 'Nieprawidłowy format numeru telefonu';
+    }elseif ($password !== $confirm) {
         $error = 'Hasła nie są identyczne';
     } elseif (strlen($password) < 6) {
         $error = 'Hasło musi mieć co najmniej 6 znaków';
@@ -49,8 +53,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $hashed_password = $password;
                 
                 // Wstawienie nowego użytkownika do bazy
-                $stmt = $conn->prepare("INSERT INTO uzytkownicy (imie, nazwisko, email, haslo, rola) VALUES (?, ?, ?, ?, ?)");
-                $stmt->bind_param('sssss', $imie, $nazwisko, $email, $hashed_password, $rola);
+                $stmt = $conn->prepare("INSERT INTO uzytkownicy (imie, nazwisko, email, haslo, rola, opis, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)");
+                $stmt->bind_param('sssssss', $imie, $nazwisko, $email, $hashed_password, $rola, $opis ,$telefon);
                 
                 if ($stmt->execute()) {
                     $success = 'Rejestracja zakończona pomyślnie. Możesz się teraz zalogować.';
@@ -106,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="opinie.php">opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
         <?php endif; ?>
@@ -154,7 +159,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="confirm">Powtórz hasło:</label>
             <input type="password" name="confirm" id="confirm" required>
         </div>
-
+        <div class="form-group">
+            <label for="opis">Opis:</label>
+            <textarea name="opis" id="opis" rows="4" required><?= isset($_POST['opis']) ? htmlspecialchars($_POST['opis']) : '' ?></textarea>
+        </div>
+        <div class="form-group">
+    <label for="telefon">Numer telefonu:</label>
+    <input type="text" name="telefon" id="telefon" required 
+           value="<?= isset($_POST['telefon']) ? htmlspecialchars($_POST['telefon']) : '' ?>">
+    </div>
         <!-- Wybór typu konta -->
         <div class="role-selector">
             <label>Wybierz typ konta:</label><br>
