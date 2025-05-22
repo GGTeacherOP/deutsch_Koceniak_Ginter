@@ -486,3 +486,72 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+-- === RELACJE (FOREIGN KEYS) ===
+
+ALTER TABLE aplikacje
+ADD CONSTRAINT fk_aplikacje_uzytkownik
+FOREIGN KEY (id_uzytkownika) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE aplikacje
+ADD CONSTRAINT fk_aplikacje_oferta
+FOREIGN KEY (id_oferty) REFERENCES oferty(id)
+ON DELETE CASCADE;
+
+ALTER TABLE oferty
+ADD CONSTRAINT fk_oferty_pracodawca
+FOREIGN KEY (id_pracodawcy) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE oferty_kategorie
+ADD CONSTRAINT fk_oferty_kategorie_oferta
+FOREIGN KEY (id_oferty) REFERENCES oferty(id)
+ON DELETE CASCADE;
+
+ALTER TABLE oferty_kategorie
+ADD CONSTRAINT fk_oferty_kategorie_kategoria
+FOREIGN KEY (id_kategorii) REFERENCES kategorie(id)
+ON DELETE CASCADE;
+
+ALTER TABLE opinie
+ADD CONSTRAINT fk_opinie_uzytkownik
+FOREIGN KEY (id_uzytkownika) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE powiadomienia
+ADD CONSTRAINT fk_powiadomienia_uzytkownik
+FOREIGN KEY (id_uzytkownika) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE ulubione_oferty
+ADD CONSTRAINT fk_ulubione_uzytkownik
+FOREIGN KEY (id_uzytkownika) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE ulubione_oferty
+ADD CONSTRAINT fk_ulubione_oferta
+FOREIGN KEY (id_oferty) REFERENCES oferty(id)
+ON DELETE CASCADE;
+
+ALTER TABLE uzytkownicy_umiejetnosci
+ADD CONSTRAINT fk_umiejetnosci_uzytkownik
+FOREIGN KEY (id_uzytkownika) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE uzytkownicy_umiejetnosci
+ADD CONSTRAINT fk_umiejetnosci_umiejetnosc
+FOREIGN KEY (id_umiejetnosci) REFERENCES umiejetnosci(id)
+ON DELETE CASCADE;
+
+ALTER TABLE wiadomosci
+ADD CONSTRAINT fk_wiadomosci_nadawca
+FOREIGN KEY (id_nadawcy) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
+ALTER TABLE wiadomosci
+ADD CONSTRAINT fk_wiadomosci_odbiorca
+FOREIGN KEY (id_odbiorcy) REFERENCES uzytkownicy(id)
+ON DELETE CASCADE;
+
