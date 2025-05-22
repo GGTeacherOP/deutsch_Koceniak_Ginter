@@ -90,6 +90,8 @@ if (isset($_GET['wyloguj'])) {
 
 <!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
+        <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
+
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>
@@ -100,6 +102,7 @@ if (isset($_GET['wyloguj'])) {
             <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="opinie.php">opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
             <?php endif; ?>

@@ -13,6 +13,7 @@
 
 <!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
+    <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>
@@ -24,6 +25,7 @@
             <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="opinie.php">opinie</a></li>
             <!-- Warunkowe wyświetlanie linku do panelu admina -->
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>

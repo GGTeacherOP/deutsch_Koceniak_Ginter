@@ -45,6 +45,7 @@ try {
 
 <!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
+    <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>
@@ -60,6 +61,7 @@ try {
             <?php endif; ?>
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
+            <li><a href="opinie.php">opinie</a></li>
             <!-- Link do panelu admina widoczny tylko dla administratorów -->
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>

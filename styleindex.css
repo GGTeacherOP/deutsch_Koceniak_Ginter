@@ -621,3 +621,12 @@ form .button {
         tr:hover {
             background-color: #f1f1f1;
         }
+        .logo {
+    display: inline-block;
+    vertical-align: middle;
+}
+header h1 {
+    display: inline-block;
+    margin-left: 20px; /* Odstęp od logo */
+    vertical-align: middle;
+}
