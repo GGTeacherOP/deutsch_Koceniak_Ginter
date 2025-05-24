@@ -1,15 +1,11 @@
 <?php
-// Rozpoczęcie sesji i załączenie konfiguracji bazy danych
 session_start();
-require_once 'config.php'; // Plik z konfiguracją połączenia z bazą
+require_once 'config.php';
 
-// Inicjalizacja zmiennych dla komunikatów
 $error = '';
 $success = '';
 
-// Przetwarzanie danych formularza rejestracji jeśli wysłano metodą POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Pobranie i oczyszczenie danych z formularza
     $imie = trim($_POST['imie']);
     $nazwisko = trim($_POST['nazwisko']);
     $email = trim($_POST['email']);
@@ -20,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $regulamin = isset($_POST['regulamin']) ? true : false;
     $telefon = trim($_POST['telefon']); 
 
-    // Walidacja danych wejściowych
     if (empty($imie) || empty($nazwisko) || empty($email) || empty($password) || empty($confirm) || empty($opis) || empty($telefon)) {
         $error = 'Wszystkie pola są wymagane';
     } elseif (!preg_match('/^[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ\s]{2,50}$/', $imie)) {
@@ -29,16 +24,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Nazwisko może zawierać tylko litery i myślniki (2-50 znaków)';
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $error = 'Nieprawidłowy format adresu email';
-    } elseif (!preg_match('/^\+?[0-9]{7,15}$/', $telefon)) { // Walidacja numeru telefonu
+    } elseif (!preg_match('/^\+?[0-9]{7,15}$/', $telefon)) {
         $error = 'Nieprawidłowy format numeru telefonu';
-    }elseif ($password !== $confirm) {
+    } elseif ($password !== $confirm) {
         $error = 'Hasła nie są identyczne';
     } elseif (strlen($password) < 6) {
         $error = 'Hasło musi mieć co najmniej 6 znaków';
     } elseif (!$regulamin) {
         $error = 'Musisz zaakceptować regulamin';
     } else {
-        // Jeśli walidacja OK, sprawdź unikalność emaila w bazie
         try {
             $stmt = $conn->prepare("SELECT id FROM uzytkownicy WHERE email = ?");
             $stmt->bind_param('s', $email);
@@ -48,17 +42,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($stmt->num_rows > 0) {
                 $error = 'Podany adres email jest już zarejestrowany';
             } else {
-                // W prawdziwym systemie powinno się użyć password_hash()
-                // Tutaj używamy plaintext dla zgodności z Twoją bazą
-                $hashed_password = $password;
+                $hashed_password = $password; // In a real system, use password_hash()
                 
-                // Wstawienie nowego użytkownika do bazy
                 $stmt = $conn->prepare("INSERT INTO uzytkownicy (imie, nazwisko, email, haslo, rola, opis, telefon) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                $stmt->bind_param('sssssss', $imie, $nazwisko, $email, $hashed_password, $rola, $opis ,$telefon);
+                $stmt->bind_param('sssssss', $imie, $nazwisko, $email, $hashed_password, $rola, $opis, $telefon);
                 
                 if ($stmt->execute()) {
                     $success = 'Rejestracja zakończona pomyślnie. Możesz się teraz zalogować.';
-                    $_POST = array(); // Wyczyść formularz po udanej rejestracji
+                    $_POST = array(); // Clear form after successful registration
                 } else {
                     $error = 'Wystąpił błąd podczas rejestracji: ' . $conn->error;
                 }
@@ -74,15 +65,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-    <!-- Meta dane strony -->
     <meta charset="UTF-8">
     <title>Rejestracja – Portal z ofertami pracy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Linki do arkuszy stylów -->
     <link rel="stylesheet" href="styleindex.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
-        /* Style dla komunikatów i formularza */
         .error { color: red; margin: 10px 0; padding: 10px; background: #ffebee; }
         .success { color: green; margin: 10px 0; padding: 10px; background: #e8f5e9; }
         .form-group { margin-bottom: 15px; }
@@ -97,7 +85,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
@@ -113,12 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="opinie.php">opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
-        <?php endif; ?>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
 
-<!-- Główna zawartość strony - formularz rejestracji -->
 <main>
     <h2>Rejestracja użytkownika</h2>
     
@@ -130,7 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="success"><?= htmlspecialchars($success) ?></div>
     <?php endif; ?>
 
-    <!-- Formularz rejestracji -->
     <form action="rejestracja.php" method="post">
         <div class="form-group">
             <label for="imie">Imię:</label>
@@ -164,11 +149,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <textarea name="opis" id="opis" rows="4" required><?= isset($_POST['opis']) ? htmlspecialchars($_POST['opis']) : '' ?></textarea>
         </div>
         <div class="form-group">
-    <label for="telefon">Numer telefonu:</label>
-    <input type="text" name="telefon" id="telefon" required 
-           value="<?= isset($_POST['telefon']) ? htmlspecialchars($_POST['telefon']) : '' ?>">
-    </div>
-        <!-- Wybór typu konta -->
+            <label for="telefon">Numer telefonu:</label>
+            <input type="text" name="telefon" id="telefon" required 
+                   value="<?= isset($_POST['telefon']) ? htmlspecialchars($_POST['telefon']) : '' ?>">
+        </div>
         <div class="role-selector">
             <label>Wybierz typ konta:</label><br>
             <label>
@@ -179,7 +163,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </label>
         </div>
 
-        <!-- Akceptacja regulaminu -->
         <div class="form-group">
             <label>
                 <input type="checkbox" name="regulamin" required 
@@ -194,7 +177,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Masz już konto? <a href="logowanie.php">Zaloguj się</a></p>
 </main>
 
-<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>

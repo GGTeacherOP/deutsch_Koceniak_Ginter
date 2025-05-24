@@ -8,7 +8,6 @@
  * - Wyświetlanie komunikatów o błędach/sukcesie
  */
 
-// Rozpoczęcie sesji i załadowanie konfiguracji
 session_start();
 require_once 'config.php';
 
@@ -52,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $errors[] = "Błąd podczas wysyłania wiadomości: " . $conn->error;
             }
         } catch (Exception $e) {
-            $errors[] = "Błąd bazy danych: " . $e->getMessage();
+            $errors[] = "Wystąpił błąd bazy danych: " . $e->getMessage();
         }
     }
 }
@@ -63,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kontakt – Dojczland Praca</title>
+    <title>Kontakt – Portal z ofertami pracy</title>
     <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
     <link href="favicon.ico" rel="icon" type="image/x-icon">
 </head>
@@ -71,8 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
-        <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
-
+    <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
     <nav>
         <ul>
@@ -83,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="rejestracja.php">Rejestracja</a> / <a href="logowanie.php">Logowanie</a></li>
             <li><a href="kontakt.php" class="active">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
-            <li><a href="opinie.php">opinie</a></li>
+            <li><a href="opinie.php">Opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
             <?php endif; ?>
@@ -93,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!-- Główna zawartość strony -->
 <main>
-    <!-- Sekcja formularza kontaktowego -->
     <section id="kontakt-formularz">
         <h2>Skontaktuj się z nami</h2>
         
@@ -107,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <!-- Wyświetlanie komunikatu o sukcesie -->
-        <?php if (isset($success)): ?>
+        <?php if (!empty($success)): ?>
             <div class="success"><?= htmlspecialchars($success) ?></div>
         <?php endif; ?>
         
@@ -130,7 +127,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </section>
     
-    <!-- Sekcja danych kontaktowych -->
     <section id="dane-kontaktowe">
         <h2>Dane kontaktowe</h2>
         <p><strong>Portal Dojczland Praca</strong></p>

@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "portalpracy";
+$dbname = "portal_pracy";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 

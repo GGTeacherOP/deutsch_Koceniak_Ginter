@@ -1,67 +1,34 @@
 <?php
-/**
- * Skrypt logowania użytkownika
- * 
- * Funkcjonalności:
- * - Weryfikacja danych logowania
- * - Ustawienie sesji po poprawnym zalogowaniu
- * - Przekierowanie w zależności od roli użytkownika
- * - Ochrona przed atakami (XSS, SQL Injection)
- */
-
-// Rozpoczęcie sesji i załadowanie konfiguracji
 session_start();
 require_once 'config.php';
 
-// Przekieruj jeśli użytkownik jest już zalogowany
 if (isset($_SESSION['user_id'])) {
     header('Location: konto.php');
     exit();
 }
 
-// Inicjalizacja zmiennej na błędy
 $error = '';
 
-// Obsługa formularza logowania
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Pobranie i oczyszczenie danych z formularza
     $email = trim($_POST['email']);
     $password = $_POST['password'];
 
-    // Walidacja pól formularza
     if (!empty($email) && !empty($password)) {
-        /**
-         * Pobierz użytkownika z bazy
-         * Zabezpieczenie przed SQL Injection poprzez prepared statements
-         */
         $stmt = $conn->prepare("SELECT id, imie, nazwisko, email, haslo, rola FROM uzytkownicy WHERE email = ?");
         $stmt->bind_param('s', $email);
         $stmt->execute();
         $result = $stmt->get_result();
-        
-        // Sprawdź czy użytkownik istnieje
+
         if ($result->num_rows === 1) {
             $user = $result->fetch_assoc();
-            
-            /**
-             * Weryfikacja hasła
-             * UWAGA: W tym przykładzie hasła są przechowywane jako plaintext
-             * W rzeczywistym systemie należy użyć password_hash() i password_verify()
-             */
             if ($password === $user['haslo']) {
-                // Ustawienie danych sesji
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['email'] = $user['email'];
                 $_SESSION['imie'] = $user['imie'];
                 $_SESSION['nazwisko'] = $user['nazwisko'];
                 $_SESSION['rola'] = $user['rola'];
                 
-                // Przekierowanie w zależności od roli
-                if ($user['rola'] === 'admin') {
-                    header('Location: admin_panel.php');
-                } else {
-                    header('Location: konto.php');
-                }
+                header('Location: ' . ($user['rola'] === 'admin' ? 'admin_panel.php' : 'konto.php'));
                 exit();
             } else {
                 $error = "Nieprawidłowy email lub hasło";
@@ -82,10 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Logowanie – Portal z ofertami pracy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styleindex.css"> <!-- Główny arkusz stylów -->
+    <link rel="stylesheet" href="styleindex.css">
     <link href="favicon.ico" rel="icon" type="image/x-icon">
     <style>
-        /* Style dla komunikatów o błędach */
         .error {
             color: red;
             margin-bottom: 15px;
@@ -95,7 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 5px;
         }
         
-        /* Style dla formularza logowania */
         main form {
             max-width: 500px;
             margin: 0 auto;
@@ -143,7 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<!-- Nagłówek strony z menu nawigacyjnym -->
 <header>
     <img src="logo.png" alt="Logo" style=" float:left;margin-left:10px;">
     <h1>Portal z ofertami pracy w Dojczlandzie</h1>
@@ -161,16 +125,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </nav>
 </header>
 
-<!-- Główna zawartość strony -->
 <main>
     <h2>Logowanie do konta</h2>
 
-    <!-- Wyświetlanie błędów logowania -->
     <?php if (!empty($error)): ?>
         <div class="error"><?= htmlspecialchars($error) ?></div>
     <?php endif; ?>
 
-    <!-- Formularz logowania -->
     <form action="logowanie.php" method="post">
         <label for="email">Adres e-mail:</label>
         <input type="email" name="email" id="email" required 
@@ -185,7 +146,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <p>Nie masz jeszcze konta? <a href="rejestracja.php">Zarejestruj się</a></p>
 </main>
 
-<!-- Stopka strony -->
 <footer>
     <p>&copy; 2025 Portal z ofertami pracy – Wszystkie prawa zastrzeżone</p>
     <a href="regulamin.php">Regulamin</a> | <a href="polityka_prywatnosci.php">Polityka prywatności</a>
