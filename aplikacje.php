@@ -75,7 +75,17 @@ $result = $stmt->get_result();
                             <td><a href='uploads/{$aplikacja['cv_plik']}' target='_blank'>Pobierz CV</a></td>
                             <td><a href='uploads/{$aplikacja['list_plik']}' target='_blank'>Pobierz List</a></td>
                             <td>{$aplikacja['data_aplikacji']}</td>
-                            <td>{$aplikacja['status']}</td>
+                            <td>
+                                <form action='update_status.php' method='POST'>
+                                    <input type='hidden' name='id_aplikacji' value='{$aplikacja['id']}'>
+                                    <select name='status' onchange='this.form.submit()'>
+                                        <option value='nowa' " . ($aplikacja['status'] == 'nowa' ? 'selected' : '') . ">Nowa</option>
+                                        <option value='w_trakcie' " . ($aplikacja['status'] == 'w_trakcie' ? 'selected' : '') . ">W trakcie</option>
+                                        <option value='odrzucona' " . ($aplikacja['status'] == 'odrzucona' ? 'selected' : '') . ">Odrzucona</option>
+                                        <option value='zaakceptowana' " . ($aplikacja['status'] == 'zaakceptowana' ? 'selected' : '') . ">Zaakceptowana</option>
+                                    </select>
+                                </form>
+                            </td>
                           </tr>";
                 }
             } else {
