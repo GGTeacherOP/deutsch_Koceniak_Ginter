@@ -1,51 +1,53 @@
-/* style_polityka.css - spójny styl z kontakt.css */
-/* Reset i podstawowe style */
+/* style_polityka.css */
+
+/* Reset i podstawowe style - usuwa domyślne marginesy, wprowadza box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Styl główny dla całego dokumentu */
 body {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff;
-    color: #333;
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Przyjazna, bezszeryfowa czcionka */
+    background-color: #f0f5ff; /* Jasne, niebieskawe tło */
+    color: #333; /* Ciemny kolor tekstu dla dobrej czytelności */
+    line-height: 1.6; /* Wysokość linii dla lepszej czytelności */
+    min-height: 100vh; /* Wysokość minimum 100% widoku */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Ustawienie układu w kolumnie */
 }
 
-/* Nagłówek */
+/* Nagłówek strony */
 header {
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Gradient niebieski */
+    color: #fff; /* Biały kolor tekstu */
     padding: 2rem 0;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Cień nagłówka */
+    border-bottom: 3px solid #ffcc00; /* Dolna żółta linia dekoracyjna */
 }
 
 header h1 {
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Cień tekstu dla kontrastu */
 }
 
-/* Nawigacja */
+/* Nawigacja górna */
 nav ul {
-    list-style: none;
+    list-style: none; /* Usunięcie punktorów */
     padding: 0;
     margin: 1.5rem 0 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1); /* Półprzezroczyste tło */
     padding: 0.8rem;
-    border-radius: 8px;
+    border-radius: 8px; /* Zaokrąglenie */
     max-width: 90%;
-    margin: 0 auto;
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
 nav ul li {
@@ -53,34 +55,34 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: #fff; /* Biały tekst */
     text-decoration: none;
     font-weight: 600;
     padding: 0.5rem 1rem;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Płynna animacja */
     font-size: 1.1rem;
 }
 
 nav ul li a:hover {
-    color: #ffcc00;
-    transform: translateY(-2px);
+    color: #ffcc00; /* Żółty kolor przy najechaniu */
+    transform: translateY(-2px); /* Lekki efekt uniesienia */
 }
 
-/* Główna zawartość */
+/* Główna część strony */
 main {
-    flex: 1;
+    flex: 1; /* Rozciąga się na całą dostępną przestrzeń */
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 2rem auto;
-    background-color: #fff;
+    background-color: #fff; /* Białe tło dla kontrastu */
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Delikatny cień */
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Lekko niebieska ramka */
 }
 
 main h2 {
-    color: #004080;
+    color: #004080; /* Ciemnoniebieski nagłówek */
     font-size: 2.2rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
@@ -88,21 +90,22 @@ main h2 {
     font-weight: 700;
 }
 
-/* Sekcje polityki prywatności */
+/* Sekcje z treścią polityki prywatności */
 section {
     margin-bottom: 3rem;
     padding: 2rem;
-    background-color: #f9fbfe;
+    background-color: #f9fbfe; /* Jasne tło sekcji */
     border-radius: 12px;
     border: 1px solid #e0e9ff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Płynne animacje */
 }
 
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1);
+    transform: translateY(-5px); /* Uniesienie sekcji przy najechaniu */
+    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1); /* Cień dla efektu "podniesienia" */
 }
 
+/* Podtytuły w sekcjach */
 section h3 {
     color: #0066cc;
     font-size: 1.5rem;
@@ -113,9 +116,10 @@ section h3 {
     align-items: center;
 }
 
+/* Symbol przed podtytułem */
 section h3::before {
     content: "•";
-    color: #ffcc00;
+    color: #ffcc00; /* Żółty punkt dekoracyjny */
     margin-right: 1rem;
     font-size: 2rem;
 }
@@ -126,14 +130,14 @@ section p {
     font-size: 1.1rem;
 }
 
-/* Stopka */
+/* Stopka strony */
 footer {
     text-align: center;
     padding: 2.5rem;
     background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
     color: #fff;
-    margin-top: auto;
-    border-top: 3px solid #ffcc00;
+    margin-top: auto; /* Stopka przylega do dołu, jeśli zawartość jest krótka */
+    border-top: 3px solid #ffcc00; /* Dekoracyjna żółta linia */
 }
 
 footer p {
@@ -148,14 +152,12 @@ footer a {
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.1); /* Półprzezroczyste tło */
     margin: 0 0.5rem;
 }
 
 footer a:hover {
-    color: #fff;
+    color: #fff; /* Biały tekst po najechaniu */
     background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Uniesienie linku */
 }
-
-

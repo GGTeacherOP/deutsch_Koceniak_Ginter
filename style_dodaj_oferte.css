@@ -1,34 +1,35 @@
-/* style_dodaj_oferte.css - spójny styl z resztą portalu */
+/* style_dodaj_oferte.css */
+
 /* Reset i podstawowe style */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ułatwia obliczanie rozmiarów elementów */
 }
 
 body {
     font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff;
+    background-color: #f0f5ff; /* Jasne niebieskie tło */
     color: #333;
     line-height: 1.6;
     min-height: 100vh;
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 1fr 3fr 1fr; /* Układ trójkolumnowy */
     grid-template-areas: 
         "header header header"
         "left main right"
-        "footer footer footer";
+        "footer footer footer"; /* Definicja obszarów siatki */
 }
 
-/* Nagłówek */
+/* Nagłówek strony */
 header {
     grid-area: header;
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Gradient niebieski */
     color: #fff;
     padding: 2rem 0;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00;
+    border-bottom: 3px solid #ffcc00; /* Żółta linia dolna */
 }
 
 header h1 {
@@ -38,14 +39,14 @@ header h1 {
     text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Nawigacja */
+/* Nawigacja główna */
 nav ul {
     list-style: none;
     padding: 0;
     margin: 1.5rem 0 0;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Zawijanie elementów */
     background-color: rgba(0, 0, 0, 0.1);
     padding: 0.8rem;
     border-radius: 8px;
@@ -70,15 +71,15 @@ nav ul li a {
 nav ul li a:hover,
 nav ul li a.active {
     color: #ffcc00;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Efekt unoszenia */
 }
 
 nav ul li a.active {
-    background-color: rgba(255, 204, 0, 0.2);
+    background-color: rgba(255, 204, 0, 0.2); /* Żółte tło dla aktywnego linku */
     border-radius: 6px;
 }
 
-/* Boczne bloki */
+/* Boczne kolumny */
 .side-block {
     padding: 2rem;
     background-color: #fff;
@@ -86,23 +87,23 @@ nav ul li a.active {
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
     margin: 2rem 1rem;
     height: fit-content;
-    position: sticky;
+    position: sticky; /* Blok przykleja się podczas scrollowania */
     top: 2rem;
     transition: transform 0.3s ease;
 }
 
 .side-block:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Efekt unoszenia po najechaniu */
 }
 
 .left-block {
     grid-area: left;
-    border-left: 5px solid #004080;
+    border-left: 5px solid #004080; /* Pasek po lewej stronie */
 }
 
 .right-block {
     grid-area: right;
-    border-right: 5px solid #004080;
+    border-right: 5px solid #004080; /* Pasek po prawej stronie */
 }
 
 .side-block h3 {
@@ -130,7 +131,7 @@ nav ul li a.active {
     font-size: 1.5rem;
 }
 
-/* Główna zawartość */
+/* Główna sekcja */
 main {
     grid-area: main;
     padding: 3rem 2rem;
@@ -151,7 +152,7 @@ main h2 {
     text-align: center;
 }
 
-/* Formularz */
+/* Formularz dodawania oferty */
 form {
     display: flex;
     flex-direction: column;
@@ -193,10 +194,11 @@ input[type="email"]:focus,
 textarea:focus,
 select:focus {
     border-color: #0066cc;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2); /* Obrys */
     outline: none;
 }
 
+/* Przycisk wysyłania formularza */
 button[type="submit"] {
     padding: 1rem 2rem;
     background: linear-gradient(to right, #0073e6, #004080);
@@ -252,5 +254,3 @@ footer a:hover {
     background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
-
-

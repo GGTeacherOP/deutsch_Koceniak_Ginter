@@ -1,55 +1,57 @@
-/* style_regulamin.css - spójny styl z polityka_prywatnosci.css */
-/* Reset i podstawowe style */
+/* style_regulamin.css */
+
+/* Reset i podstawowe style – zerowanie domyślnych marginesów i obramowań */
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ułatwia kontrolę rozmiaru elementów */
 }
 
+/* Styl ogólny dla całego dokumentu */
 body {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff;
-    color: #333;
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Nowoczesna, czytelna czcionka */
+    background-color: #f0f5ff; /* Jasnoniebieskie tło */
+    color: #333; /* Ciemny kolor tekstu */
+    line-height: 1.6; /* Ułatwia czytanie */
+    min-height: 100vh; /* Wysokość przynajmniej całego widoku */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Układ w kolumnie – dla nagłówka, treści i stopki */
 }
 
-/* Nagłówek */
+/* Nagłówek strony */
 header {
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
-    color: #fff;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Gradientowy niebieski */
+    color: #fff; /* Biały kolor tekstu */
     padding: 2rem 0;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Cień dla głębi */
+    border-bottom: 3px solid #ffcc00; /* Żółta linia ozdobna */
 }
 
 header h1 {
     margin-bottom: 1.5rem;
-    font-size: 2.5rem;
+    font-size: 2.5rem; /* Duży nagłówek */
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Subtelny cień dla czytelności */
 }
 
-/* Nawigacja */
+/* Pasek nawigacji */
 nav ul {
-    list-style: none;
+    list-style: none; /* Usunięcie punktorów */
     padding: 0;
     margin: 1.5rem 0 0;
     display: flex;
     justify-content: center;
-    flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.1);
+    flex-wrap: wrap; /* Zawijanie wierszy na mniejszych ekranach */
+    background-color: rgba(0, 0, 0, 0.1); /* Przezroczyste tło */
     padding: 0.8rem;
     border-radius: 8px;
     max-width: 90%;
-    margin: 0 auto;
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
 nav ul li {
-    margin: 0.5rem 1.2rem;
+    margin: 0.5rem 1.2rem; /* Odstępy między elementami */
 }
 
 nav ul li a {
@@ -58,85 +60,88 @@ nav ul li a {
     font-weight: 600;
     padding: 0.5rem 1rem;
     position: relative;
-    transition: all 0.3s ease;
+    transition: all 0.3s ease; /* Animacja przy interakcji */
     font-size: 1.1rem;
 }
 
 nav ul li a:hover {
-    color: #ffcc00;
-    transform: translateY(-2px);
+    color: #ffcc00; /* Kolor podświetlenia */
+    transform: translateY(-2px); /* Delikatne uniesienie */
 }
 
-/* Główna zawartość */
+/* Główna zawartość strony */
 main {
-    flex: 1;
+    flex: 1; /* Elastyczne wypełnienie przestrzeni */
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 2rem auto;
     background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Miękki cień */
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Delikatna ramka */
 }
 
 main h2 {
-    color: #004080;
+    color: #004080; /* Niebieski kolor nagłówka */
     font-size: 2.2rem;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     border-bottom: 3px solid #004080;
     font-weight: 700;
-    text-align: center;
+    text-align: center; /* Wyśrodkowanie tytułu */
 }
 
-/* Sekcje regulaminu */
+/* Sekcje z treścią regulaminu */
 section {
     margin-bottom: 3rem;
     padding: 2rem;
-    background-color: #f9fbfe;
+    background-color: #f9fbfe; /* Bardzo jasny błękit */
     border-radius: 12px;
     border: 1px solid #e0e9ff;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Efekt interakcji */
 }
 
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1);
+    transform: translateY(-5px); /* Lekko unosi sekcję */
+    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1); /* Cień przy najechaniu */
 }
 
+/* Nagłówki sekcji */
 section h3 {
-    color: #0066cc;
+    color: #0066cc; /* Niebieski tekst */
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
-    border-bottom: 2px solid #ffcc00;
+    border-bottom: 2px solid #ffcc00; /* Żółta linia dekoracyjna */
     display: flex;
     align-items: center;
 }
 
+/* Symbol paragrafu przed nagłówkiem */
 section h3::before {
-    content: "§";
+    content: "§"; /* Symbol sekcji */
     color: #ffcc00;
     margin-right: 1rem;
     font-size: 1.8rem;
     font-weight: bold;
 }
 
+/* Paragrafy sekcji */
 section p {
     margin-bottom: 1rem;
-    line-height: 1.8;
+    line-height: 1.8; /* Zwiększona wysokość linii dla czytelności */
     font-size: 1.1rem;
-    text-align: justify;
+    text-align: justify; /* Wyrównanie tekstu do obu krawędzi */
 }
 
-/* Stopka */
+/* Stopka strony */
 footer {
     text-align: center;
     padding: 2.5rem;
     background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
     color: #fff;
-    margin-top: auto;
-    border-top: 3px solid #ffcc00;
+    margin-top: auto; /* Przylega do dołu strony */
+    border-top: 3px solid #ffcc00; /* Górna linia dekoracyjna */
 }
 
 footer p {
@@ -158,6 +163,5 @@ footer a {
 footer a:hover {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Lekki efekt uniesienia */
 }
-

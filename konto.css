@@ -1,79 +1,96 @@
-/* Stylizacja panelu konta */
+/* Stylizacja głównego panelu konta - siatka 2 kolumny z odstępem między nimi */
 .konto-panel {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 30px;
-    margin-top: 20px;
+    grid-template-columns: 1fr 1fr; /* Dwie równe kolumny */
+    gap: 30px; /* Odstęp między kolumnami */
+    margin-top: 20px; /* Górny margines panelu */
 }
 
+/* Stylizacja sekcji danych osobowych i ustawień konta */
 .dane-osobowe, .ustawienia-konta {
-    background-color: #fafafa;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    background-color: #fafafa; /* Jasne tło */
+    border: 1px solid #ddd; /* Delikatna ramka */
+    border-radius: 5px; /* Zaokrąglone rogi */
+    padding: 20px; /* Wewnętrzny odstęp */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05); /* Subtelny cień */
 }
 
+/* Nagłówki sekcji danych i ustawień */
 .dane-osobowe h3, .ustawienia-konta h3 {
-    color: #004080;
-    border-bottom: 2px solid #004080;
-    padding-bottom: 8px;
-    margin-bottom: 15px;
+    color: #004080; /* Kolor ciemnoniebieski */
+    border-bottom: 2px solid #004080; /* Dolna linia pod nagłówkiem */
+    padding-bottom: 8px; /* Odstęp pod tekstem */
+    margin-bottom: 15px; /* Margines pod nagłówkiem */
 }
 
+/* Akapit w sekcji danych osobowych */
 .dane-osobowe p {
-    margin-bottom: 12px;
-    line-height: 1.6;
+    margin-bottom: 12px; /* Odstęp między paragrafami */
+    line-height: 1.6; /* Wysokość linii dla lepszej czytelności */
 }
 
+/* Elementy wyróżnione (np. etykiety danych) */
 .dane-osobowe strong {
-    color: #004080;
-    min-width: 80px;
-    display: inline-block;
+    color: #004080; /* Kolor tekstu */
+    min-width: 80px; /* Minimalna szerokość */
+    display: inline-block; /* Pozwala ustawić szerokość i wyrównać tekst */
 }
 
+/* Lista opcji w ustawieniach konta */
 .ustawienia-konta ul {
-    list-style: none;
-    padding: 0;
+    list-style: none; /* Usunięcie wypunktowania */
+    padding: 0; /* Usunięcie wcięć */
 }
 
+/* Elementy listy ustawień */
 .ustawienia-konta li {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Odstęp między elementami */
 }
 
+/* Linki w ustawieniach konta */
 .ustawienia-konta a {
-    display: block;
-    padding: 8px 12px;
-    color: #0073e6;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.2s ease;
+    display: block; /* Cały obszar linku klikalny */
+    padding: 8px 12px; /* Wewnętrzny odstęp */
+    color: #0073e6; /* Niebieski kolor tekstu */
+    text-decoration: none; /* Brak podkreślenia */
+    border-radius: 4px; /* Zaokrąglenie krawędzi */
+    transition: all 0.2s ease; /* Płynne przejście przy hoverze */
 }
 
+/* Efekt hover na linkach */
 .ustawienia-konta a:hover {
-    background-color: #f0f7ff;
-    color: #005bb5;
-    text-decoration: underline;
+    background-color: #f0f7ff; /* Jasnoniebieskie tło po najechaniu */
+    color: #005bb5; /* Ciemniejszy niebieski */
+    text-decoration: underline; /* Podkreślenie tekstu */
 }
-/* Aktywna zakładka w menu */
+
+/* Stylizacja aktywnej zakładki w menu nawigacyjnym */
 nav ul li a[href="konto.php"] {
-    text-decoration: underline;
-    color: #ffcc00;
+    text-decoration: underline; /* Podkreślenie aktywnego linku */
+    color: #ffcc00; /* Żółty kolor tekstu */
 }
+
+/* Stylizacja tabeli (np. do wyświetlania danych użytkownika) */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 1rem;
+    width: 100%; /* Tabela zajmuje całą szerokość rodzica */
+    border-collapse: collapse; /* Zlewają się granice komórek */
+    margin-top: 1rem; /* Górny margines */
 }
+
+/* Komórki nagłówka i danych */
 th, td {
-    padding: 1rem;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    padding: 1rem; /* Wewnętrzny odstęp */
+    text-align: left; /* Wyrównanie do lewej */
+    border-bottom: 1px solid #ddd; /* Linia oddzielająca wiersze */
 }
+
+/* Styl nagłówków kolumn */
 th {
-    background-color: #f2f2f2;
-    color: #004080;
+    background-color: #f2f2f2; /* Jasne tło */
+    color: #004080; /* Kolor tekstu nagłówka */
 }
+
+/* Efekt hover na wierszach tabeli */
 tr:hover {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Jasne tło po najechaniu */
 }

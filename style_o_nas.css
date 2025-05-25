@@ -1,51 +1,53 @@
-/* style_o_nas.css - spójny styl z regulamin.css */
-/* Reset i podstawowe style */
+/* style_o_nas.css  */
+
+/* Reset stylów domyślnych i ustawienie modelu box-sizing */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Styl ogólny dla całego dokumentu */
 body {
-    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff;
-    color: #333;
-    line-height: 1.6;
-    min-height: 100vh;
+    font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; /* Uniwersalna czcionka bezszeryfowa */
+    background-color: #f0f5ff; /* Jasnoniebieskie tło strony */
+    color: #333; /* Ciemny kolor tekstu */
+    line-height: 1.6; /* Odstępy między wierszami tekstu */
+    min-height: 100vh; /* Minimalna wysokość 100% widoku */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Układ kolumnowy dla body (nagłówek, main, stopka) */
 }
 
 /* Nagłówek */
 header {
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Gradient w odcieniach niebieskiego */
     color: #fff;
     padding: 2rem 0;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Cień nagłówka */
+    border-bottom: 3px solid #ffcc00; /* Żółta linia na dole nagłówka */
 }
 
 header h1 {
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Cień tekstu */
 }
 
-/* Nawigacja */
+/* Nawigacja główna */
 nav ul {
-    list-style: none;
+    list-style: none; /* Usunięcie punktorów listy */
     padding: 0;
     margin: 1.5rem 0 0;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.1);
+    background-color: rgba(0, 0, 0, 0.1); /* Półprzezroczyste tło */
     padding: 0.8rem;
     border-radius: 8px;
     max-width: 90%;
-    margin: 0 auto;
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
 nav ul li {
@@ -64,25 +66,25 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #ffcc00;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Podniesienie linku przy najechaniu */
 }
 
 nav ul li a.active {
     color: #ffcc00;
-    background-color: rgba(255, 204, 0, 0.2);
+    background-color: rgba(255, 204, 0, 0.2); /* Podświetlenie aktywnego linku */
     border-radius: 6px;
 }
 
-/* Główna zawartość */
+/* Główna zawartość strony */
 main {
-    flex: 1;
+    flex: 1; /* Główna część rozciąga się na całą dostępną wysokość */
     padding: 3rem 2rem;
     max-width: 1200px;
     margin: 2rem auto;
     background-color: #fff;
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Delikatna ramka */
 }
 
 main h2 {
@@ -95,7 +97,7 @@ main h2 {
     text-align: center;
 }
 
-/* Sekcje "O nas" */
+/* Sekcje zawartości (np. O nas) */
 section {
     margin-bottom: 3rem;
     padding: 2rem;
@@ -106,8 +108,8 @@ section {
 }
 
 section:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1);
+    transform: translateY(-5px); /* Animacja podniesienia sekcji */
+    box-shadow: 0 8px 25px rgba(0, 64, 128, 0.1); /* Cień przy najechaniu */
 }
 
 section h2 {
@@ -120,6 +122,7 @@ section h2 {
     align-items: center;
 }
 
+/* Dodanie symbolu § przed nagłówkiem sekcji */
 section h2::before {
     content: "§";
     color: #ffcc00;
@@ -132,10 +135,10 @@ section p {
     margin-bottom: 1rem;
     line-height: 1.8;
     font-size: 1.1rem;
-    text-align: justify;
+    text-align: justify; /* Wyrównanie tekstu */
 }
 
-/* Lista w sekcji "Dlaczego warto nam zaufać" */
+/* Lista punktowana - np. zalety, cechy */
 ul {
     list-style-position: inside;
     padding-left: 1rem;
@@ -148,6 +151,7 @@ ul li {
     line-height: 1.6;
 }
 
+/* Symbol punktora w liście */
 ul li::before {
     content: "•";
     color: #004080;
@@ -157,13 +161,13 @@ ul li::before {
     font-size: 1.5rem;
 }
 
-/* Stopka */
+/* Stopka strony */
 footer {
     text-align: center;
     padding: 2.5rem;
     background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
     color: #fff;
-    margin-top: auto;
+    margin-top: auto; /* Przesunięcie stopki na dół jeśli treści mało */
     border-top: 3px solid #ffcc00;
 }
 
@@ -188,4 +192,3 @@ footer a:hover {
     background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
-

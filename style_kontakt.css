@@ -1,14 +1,16 @@
-/* style_kontakt.css - rozbudowana wersja */
-/* Reset i podstawowe style */
+/* style_kontakt.css */
+
+/* Reset stylów i podstawowe ustawienia */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Ustawienia ogólne dla całej strony */
 body {
     font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff; /* Lepsze tło */
+    background-color: #f0f5ff; /* Jasne tło dla lepszej czytelności */
     color: #333;
     line-height: 1.6;
     min-height: 100vh;
@@ -16,24 +18,24 @@ body {
     flex-direction: column;
 }
 
-/* Nagłówek - bardziej okazały */
+/* Sekcja nagłówka strony */
 header {
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Gradient tła */
     color: #fff;
-    padding: 2rem 0; /* Większy padding */
+    padding: 2rem 0; /* Większy padding dla przestrzeni */
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00; /* Dodatkowy akcent */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Cień pod nagłówkiem */
+    border-bottom: 3px solid #ffcc00; /* Akcent kolorystyczny */
 }
 
 header h1 {
     margin-bottom: 1.5rem;
-    font-size: 2.5rem; /* Większy rozmiar */
+    font-size: 2.5rem;
     font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Delikatny cień dla tekstu */
 }
 
-/* Nawigacja - bardziej widoczna */
+/* Nawigacja główna */
 nav ul {
     list-style: none;
     padding: 0;
@@ -41,7 +43,7 @@ nav ul {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.1); /* Subtelne tło */
+    background-color: rgba(0, 0, 0, 0.1); /* Subtelne tło dla listy */
     padding: 0.8rem;
     border-radius: 8px;
     max-width: 90%;
@@ -49,13 +51,13 @@ nav ul {
 }
 
 nav ul li {
-    margin: 0.5rem 1.2rem; /* Większe odstępy */
+    margin: 0.5rem 1.2rem; /* Odstępy między pozycjami */
 }
 
 nav ul li a {
     color: #fff;
     text-decoration: none;
-    font-weight: 600; /* Pogrubienie */
+    font-weight: 600;
     padding: 0.5rem 1rem;
     position: relative;
     transition: all 0.3s ease;
@@ -64,40 +66,43 @@ nav ul li a {
 
 nav ul li a:hover {
     color: #ffcc00;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* Efekt uniesienia linku */
 }
 
-/* Główna zawartość - bardziej obszerna */
+/* Główna zawartość strony */
 main {
     flex: 1;
-    padding: 3rem 2rem; /* Większy padding */
-    max-width: 1200px; /* Szerszy kontener */
+    padding: 3rem 2rem;
+    max-width: 1200px;
     margin: 2rem auto;
     background-color: #fff;
     border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Delikatny cień kontenera */
     border: 1px solid rgba(0, 64, 128, 0.1);
 }
 
+/* Sekcje zawartości (np. formularz, dane kontaktowe) */
 section {
-    margin-bottom: 4rem; /* Większy margines */
-    padding: 2rem; /* Więcej przestrzeni wewnątrz */
+    margin-bottom: 4rem;
+    padding: 2rem;
     background-color: #f9fbfe;
     border-radius: 12px;
     border: 1px solid #e0e9ff;
 }
 
+/* Nagłówki sekcji */
 section h2 {
     border-bottom: 3px solid #004080;
     margin-bottom: 2rem;
     padding-bottom: 1rem;
     color: #004080;
-    font-size: 2rem; /* Większy nagłówek */
+    font-size: 2rem;
     font-weight: 700;
     display: flex;
     align-items: center;
 }
 
+/* Dekoracyjna kropka przed nagłówkiem */
 section h2::before {
     content: "•";
     color: #ffcc00;
@@ -105,21 +110,23 @@ section h2::before {
     font-size: 2.5rem;
 }
 
-/* Formularz kontaktowy - bardziej rozbudowany */
+/* Formularz kontaktowy */
 #kontakt-formularz form {
     display: flex;
     flex-direction: column;
-    gap: 2rem; /* Większe odstępy */
+    gap: 2rem; /* Odstępy między grupami formularza */
     max-width: 800px;
     margin: 0 auto;
 }
 
+/* Pojedyncza grupa pola formularza */
 #kontakt-formularz .form-group {
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
 }
 
+/* Etykiety pól formularza */
 #kontakt-formularz label {
     font-weight: 600;
     color: #004080;
@@ -127,6 +134,7 @@ section h2::before {
     margin-left: 0.5rem;
 }
 
+/* Pola tekstowe formularza */
 #kontakt-formularz input,
 #kontakt-formularz textarea {
     padding: 1rem 1.2rem;
@@ -138,12 +146,14 @@ section h2::before {
     width: 100%;
 }
 
+/* Pole tekstowe - wiadomość */
 #kontakt-formularz textarea {
     resize: vertical;
-    min-height: 200px; /* Wyższe pole tekstowe */
+    min-height: 200px;
     line-height: 1.6;
 }
 
+/* Przycisk wysyłania formularza */
 #kontakt-formularz button {
     padding: 1rem 2rem;
     background: linear-gradient(to right, #0073e6, #004080);
@@ -161,27 +171,30 @@ section h2::before {
     min-width: 250px;
 }
 
-/* Dane kontaktowe - bardziej widoczne */
+/* Sekcja danych kontaktowych */
 #dane-kontaktowe {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Elastyczny układ */
     gap: 2rem;
 }
 
+/* Pojedyncze pole informacji kontaktowej */
 #dane-kontaktowe .info-box {
     background-color: white;
     padding: 1.5rem;
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    border-left: 4px solid #004080;
+    border-left: 4px solid #004080; /* Akcent kolorystyczny */
 }
 
+/* Tekst w danych kontaktowych */
 #dane-kontaktowe p {
     margin-bottom: 1.5rem;
     line-height: 1.8;
     font-size: 1.1rem;
 }
 
+/* Pogrubione informacje (np. telefon, e-mail) */
 #dane-kontaktowe p strong {
     color: #004080;
     font-weight: 700;
@@ -190,7 +203,7 @@ section h2::before {
     font-size: 1.2rem;
 }
 
-/* Stopka - bardziej okazała */
+/* Stopka strony */
 footer {
     text-align: center;
     padding: 2.5rem;
@@ -200,11 +213,13 @@ footer {
     border-top: 3px solid #ffcc00;
 }
 
+/* Tekst stopki */
 footer p {
     margin-bottom: 1.5rem;
     font-size: 1.1rem;
 }
 
+/* Linki w stopce */
 footer .footer-links {
     display: flex;
     justify-content: center;
@@ -213,6 +228,7 @@ footer .footer-links {
     flex-wrap: wrap;
 }
 
+/* Stylizacja linków stopki */
 footer a {
     color: #ffcc00;
     text-decoration: none;
@@ -223,9 +239,9 @@ footer a {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
+/* Efekt po najechaniu na link w stopce */
 footer a:hover {
     color: #fff;
     background-color: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
-

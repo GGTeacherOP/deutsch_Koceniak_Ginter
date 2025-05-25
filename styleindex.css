@@ -4,173 +4,190 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: border-box; /* Ustawia model pudełkowy na border-box dla wszystkich elementów */
 }
 
+/* Stylizacja głównego kontenera strony */
 body {
     font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    background-color: #f0f5ff;
-    color: #333;
-    line-height: 1.6;
-    min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    background-color: #f0f5ff; /* Jasnoniebieskie tło */
+    color: #333; /* Ciemnoszary kolor tekstu */
+    line-height: 1.6; /* Wysokość linii */
+    min-height: 100vh; /* Minimalna wysokość równa wysokości viewportu */
+    display: grid; /* Użycie CSS Grid do układu strony */
+    grid-template-columns: 1fr 3fr 1fr; /* 3-kolumnowy układ */
     grid-template-areas: 
-        "header header header"
-        "left main right"
-        "footer footer footer";
+        "header header header" /* Nagłówek na całej szerokości */
+        "left main right" /* Główne kolumny */
+        "footer footer footer"; /* Stopka na całej szerokości */
 }
 
-/* Nagłówek */
+/* Stylizacja nagłówka strony */
 header {
     grid-area: header;
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
-    color: #fff;
-    padding: 2rem 0;
-    text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    border-bottom: 3px solid #ffcc00;
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Niebieski gradient */
+    color: #fff; /* Biały tekst */
+    padding: 2rem 0; /* Wewnętrzny odstęp */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Cień */
+    border-bottom: 3px solid #ffcc00; /* Żółta obramówka na dole */
 }
 
+/* Stylizacja głównego tytułu w nagłówku */
 header h1 {
-    margin-bottom: 1.5rem;
-    font-size: 2.5rem;
-    font-weight: 700;
-    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 1.5rem; /* Odstęp od dołu */
+    font-size: 2.5rem; /* Rozmiar czcionki */
+    font-weight: 700; /* Pogrubienie */
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); /* Cień tekstu */
 }
 
-/* Nawigacja */
+/* Stylizacja głównej nawigacji */
 nav ul {
-    list-style: none;
-    padding: 0;
-    margin: 1.5rem 0 0;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    background-color: rgba(0, 0, 0, 0.1);
-    padding: 0.8rem;
-    border-radius: 8px;
-    max-width: 90%;
-    margin: 0 auto;
+    list-style: none; /* Usunięcie stylów listy */
+    padding: 0; /* Usunięcie domyślnego paddingu */
+    margin: 1.5rem 0 0; /* Marginesy */
+    display: flex; /* Flexbox do układu elementów */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    flex-wrap: wrap; /* Zawijanie elementów przy małej szerokości */
+    background-color: rgba(0, 0, 0, 0.1); /* Półprzezroczyste tło */
+    padding: 0.8rem; /* Wewnętrzny odstęp */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    max-width: 90%; /* Maksymalna szerokość */
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
+/* Stylizacja elementów listy nawigacji */
 nav ul li {
-    margin: 0.5rem 1.2rem;
+    margin: 0.5rem 1.2rem; /* Odstępy między elementami */
 }
 
+/* Stylizacja linków w nawigacji */
 nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-    padding: 0.5rem 1rem;
-    position: relative;
-    transition: all 0.3s ease;
-    font-size: 1.1rem;
+    color: #fff; /* Biały kolor tekstu */
+    text-decoration: none; /* Brak podkreślenia */
+    font-weight: 600; /* Pogrubienie */
+    padding: 0.5rem 1rem; /* Wewnętrzny odstęp */
+    position: relative; /* Pozycjonowanie względne */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    font-size: 1.1rem; /* Rozmiar czcionki */
 }
 
+/* Efekty hover i aktywny link w nawigacji */
 nav ul li a:hover,
 nav ul li a.active {
-    color: #ffcc00;
-    transform: translateY(-2px);
+    color: #ffcc00; /* Żółty kolor tekstu */
+    transform: translateY(-2px); /* Lekkie uniesienie */
 }
 
+/* Dodatkowe style dla aktywnego linku */
 nav ul li a.active {
-    background-color: rgba(255, 204, 0, 0.2);
-    border-radius: 6px;
+    background-color: rgba(255, 204, 0, 0.2); /* Półprzezroczyste żółte tło */
+    border-radius: 6px; /* Zaokrąglone rogi */
 }
 
-/* Boczne bloki */
+/* Stylizacja bocznych bloków */
 .side-block {
-    padding: 2rem;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    margin: 2rem 1rem;
-    height: fit-content;
-    position: sticky;
-    top: 2rem;
-    transition: transform 0.3s ease;
+    padding: 2rem; /* Wewnętrzny odstęp */
+    background-color: #fff; /* Białe tło */
+    border-radius: 15px; /* Zaokrąglone rogi */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1); /* Cień */
+    margin: 2rem 1rem; /* Marginesy */
+    height: fit-content; /* Wysokość dopasowana do zawartości */
+    position: sticky; /* Przyklejony podczas przewijania */
+    top: 2rem; /* Odstęp od góry */
+    transition: transform 0.3s ease; /* Płynna transformacja */
 }
 
+/* Efekt hover dla bocznych bloków */
 .side-block:hover {
-    transform: translateY(-5px);
+    transform: translateY(-5px); /* Lekkie uniesienie */
 }
 
+/* Specyficzne style dla lewego bloku */
 .left-block {
-    grid-area: left;
-    border-left: 5px solid #004080;
+    grid-area: left; /* Pozycja w gridzie */
+    border-left: 5px solid #004080; /* Niebieska obramówka z lewej */
 }
 
+/* Specyficzne style dla prawego bloku */
 .right-block {
-    grid-area: right;
-    border-right: 5px solid #004080;
+    grid-area: right; /* Pozycja w gridzie */
+    border-right: 5px solid #004080; /* Niebieska obramówka z prawej */
 }
 
+/* Nagłówki w bocznych blokach */
 .side-block h3 {
-    color: #0066cc;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #ffcc00;
+    color: #0066cc; /* Niebieski kolor tekstu */
+    margin-bottom: 1.5rem; /* Odstęp od dołu */
+    padding-bottom: 0.5rem; /* Odstęp od dołu */
+    border-bottom: 2px solid #ffcc00; /* Żółta linia pod nagłówkiem */
 }
 
+/* Listy w bocznych blokach */
 .side-block ul {
-    list-style: none;
+    list-style: none; /* Brak stylów listy */
 }
 
+/* Elementy listy w bocznych blokach */
 .side-block li {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-    position: relative;
+    margin-bottom: 1rem; /* Odstęp między elementami */
+    padding-left: 1.5rem; /* Wcięcie */
+    position: relative; /* Pozycjonowanie względne */
 }
 
+/* Kropki przed elementami listy */
 .side-block li::before {
-    content: "•";
-    color: #ffcc00;
-    position: absolute;
-    left: 0;
-    font-size: 1.5rem;
+    content: "•"; /* Znak kropki */
+    color: #ffcc00; /* Żółty kolor */
+    position: absolute; /* Pozycjonowanie absolutne */
+    left: 0; /* Pozycja z lewej */
+    font-size: 1.5rem; /* Rozmiar kropki */
 }
 
-/* Główna zawartość */
+/* Stylizacja głównej zawartości strony */
 main {
-    grid-area: main;
-    padding: 3rem 2rem;
-    margin: 2rem 0;
-    background-color: #fff;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    grid-area: main; /* Pozycja w gridzie */
+    padding: 3rem 2rem; /* Wewnętrzny odstęp */
+    margin: 2rem 0; /* Marginesy */
+    background-color: #fff; /* Białe tło */
+    border-radius: 15px; /* Zaokrąglone rogi */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* Cień */
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Delikatna obramówka */
 }
 
+/* Nagłówki w głównej zawartości */
 main h2 {
-    color: #004080;
-    font-size: 2.2rem;
-    margin-bottom: 2rem;
-    padding-bottom: 1rem;
-    border-bottom: 3px solid #004080;
-    font-weight: 700;
-    text-align: center;
+    color: #004080; /* Ciemnoniebieski kolor */
+    font-size: 2.2rem; /* Rozmiar czcionki */
+    margin-bottom: 2rem; /* Odstęp od dołu */
+    padding-bottom: 1rem; /* Odstęp od dołu */
+    border-bottom: 3px solid #004080; /* Niebieska linia pod nagłówkiem */
+    font-weight: 700; /* Pogrubienie */
+    text-align: center; /* Wyśrodkowanie */
 }
 
-/* Formularze */
+/* Stylizacja formularzy */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+    display: flex; /* Flexbox do układu */
+    flex-direction: column; /* Elementy w kolumnie */
+    gap: 2rem; /* Odstęp między elementami */
 }
 
+/* Grupy formularza */
 .form-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
+    display: flex; /* Flexbox do układu */
+    flex-direction: column; /* Elementy w kolumnie */
+    gap: 0.8rem; /* Odstęp między elementami */
 }
 
+/* Etykiety formularza */
 label {
-    font-weight: 600;
-    color: #004080;
-    font-size: 1.1rem;
+    font-weight: 600; /* Pogrubienie */
+    color: #004080; /* Niebieski kolor */
+    font-size: 1.1rem; /* Rozmiar czcionki */
 }
 
+/* Wspólne style dla pól formularza */
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -179,20 +196,22 @@ input[type="date"],
 input[type="checkbox"],
 textarea,
 select {
-    width: 100%;
-    padding: 1rem;
-    font-size: 1.1rem;
-    border: 2px solid #ddd;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-    transition: all 0.3s ease;
+    width: 100%; /* Pełna szerokość */
+    padding: 1rem; /* Wewnętrzny odstęp */
+    font-size: 1.1rem; /* Rozmiar czcionki */
+    border: 2px solid #ddd; /* Szara obramówka */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    background-color: #f8f9fa; /* Jasnoszare tło */
+    transition: all 0.3s ease; /* Płynne przejścia */
 }
 
+/* Specyficzne style dla textarea */
 textarea {
-    resize: vertical;
-    min-height: 150px;
+    resize: vertical; /* Zmiana rozmiaru tylko pionowa */
+    min-height: 150px; /* Minimalna wysokość */
 }
 
+/* Efekty focus dla pól formularza */
 input[type="text"]:focus,
 input[type="email"]:focus,
 input[type="password"]:focus,
@@ -201,472 +220,536 @@ input[type="date"]:focus,
 input[type="checkbox"]:focus,
 textarea:focus,
 select:focus {
-    border-color: #0066cc;
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
-    outline: none;
+    border-color: #0066cc; /* Niebieska obramówka */
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2); /* Niebieski cień */
+    outline: none; /* Usunięcie domyślnego outline */
 }
 
+/* Przyciski formularza i ogólne przyciski */
 button[type="submit"],
 .button {
-    padding: 1rem 2rem;
-    background: linear-gradient(to right, #0073e6, #004080);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2);
-    margin-top: 1rem;
-    align-self: center;
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    padding: 1rem 2rem; /* Wewnętrzny odstęp */
+    background: linear-gradient(to right, #0073e6, #004080); /* Niebieski gradient */
+    color: white; /* Biały tekst */
+    border: none; /* Brak obramówki */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Kursor wskazujący */
+    font-size: 1.2rem; /* Rozmiar czcionki */
+    font-weight: 600; /* Pogrubienie */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2); /* Cień */
+    margin-top: 1rem; /* Margines od góry */
+    align-self: center; /* Wyśrodkowanie */
+    width: 100%; /* Pełna szerokość */
+    max-width: 300px; /* Maksymalna szerokość */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    text-decoration: none; /* Brak podkreślenia */
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
 }
 
+/* Efekty hover dla przycisków */
 button[type="submit"]:hover,
 .button:hover {
-    background: linear-gradient(to right, #0066cc, #003366);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
+    background: linear-gradient(to right, #0066cc, #003366); /* Ciemniejszy gradient */
+    transform: translateY(-2px); /* Lekkie uniesienie */
+    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3); /* Większy cień */
 }
 
-/* Oferty pracy */
+/* Stylizacja ofert pracy */
 .oferta {
-    background-color: #f8f9fa;
-    border-radius: 10px;
-    padding: 2rem;
-    margin-bottom: 2rem;
-    border-left: 5px solid #0066cc;
-    transition: all 0.3s ease;
+    background-color: #f8f9fa; /* Jasnoszare tło */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    padding: 2rem; /* Wewnętrzny odstęp */
+    margin-bottom: 2rem; /* Margines od dołu */
+    border-left: 5px solid #0066cc; /* Niebieska obramówka z lewej */
+    transition: all 0.3s ease; /* Płynne przejścia */
 }
 
+/* Efekt hover dla ofert */
 .oferta:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px); /* Uniesienie */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); /* Cień */
 }
 
+/* Nagłówki ofert */
 .oferta h3 {
-    color: #004080;
-    margin-bottom: 0.5rem;
+    color: #004080; /* Niebieski kolor */
+    margin-bottom: 0.5rem; /* Odstęp od dołu */
 }
 
+/* Tekst w ofertach */
 .oferta p {
-    color: #666;
-    margin-bottom: 1rem;
+    color: #666; /* Szary kolor */
+    margin-bottom: 1rem; /* Odstęp od dołu */
 }
 
+/* Linki w ofertach */
 .oferta a {
-    color: #0066cc;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    background-color: rgba(0, 102, 204, 0.1);
+    color: #0066cc; /* Niebieski kolor */
+    font-weight: 600; /* Pogrubienie */
+    text-decoration: none; /* Brak podkreślenia */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
+    padding: 0.5rem 1rem; /* Wewnętrzny odstęp */
+    border-radius: 6px; /* Zaokrąglone rogi */
+    background-color: rgba(0, 102, 204, 0.1); /* Półprzezroczyste tło */
 }
 
+/* Efekt hover dla linków w ofertach */
 .oferta a:hover {
-    color: #004080;
-    background-color: rgba(0, 102, 204, 0.2);
+    color: #004080; /* Ciemniejszy niebieski */
+    background-color: rgba(0, 102, 204, 0.2); /* Ciemniejsze tło */
 }
 
-/* Slider opinii */
+/* Kontener slidera opinii */
 .slider-container {
-    position: relative;
-    margin: 2rem 0;
+    position: relative; /* Pozycjonowanie względne */
+    margin: 2rem 0; /* Marginesy */
 }
 
+/* Pojedyncza opinia */
 .opinia {
-    display: none;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    display: none; /* Domyślnie ukryta */
+    background-color: #fff; /* Białe tło */
+    padding: 2rem; /* Wewnętrzny odstęp */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Cień */
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Delikatna obramówka */
 }
 
+/* Aktywna opinia */
 .opinia.aktywna {
-    display: block;
-    animation: fadeIn 0.5s ease;
+    display: block; /* Wyświetlanie */
+    animation: fadeIn 0.5s ease; /* Animacja pojawiania się */
 }
 
+/* Animacja pojawiania się opinii */
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from { opacity: 0; } /* Początkowo niewidoczna */
+    to { opacity: 1; } /* Pełna widoczność */
 }
 
+/* Cytat w opinii */
 .opinia blockquote {
-    font-style: italic;
-    font-size: 1.2rem;
-    color: #444;
-    margin-bottom: 1rem;
-    position: relative;
-    padding-left: 2rem;
+    font-style: italic; /* Kursywa */
+    font-size: 1.2rem; /* Rozmiar czcionki */
+    color: #444; /* Kolor tekstu */
+    margin-bottom: 1rem; /* Odstęp od dołu */
+    position: relative; /* Pozycjonowanie względne */
+    padding-left: 2rem; /* Wcięcie */
 }
 
+/* Cudzysłów przed cytatem */
 .opinia blockquote::before {
-    content: '"';
-    font-size: 3rem;
-    color: #0066cc;
-    opacity: 0.3;
-    position: absolute;
-    left: -1rem;
-    top: -1rem;
+    content: '"'; /* Znak cudzysłowu */
+    font-size: 3rem; /* Duży rozmiar */
+    color: #0066cc; /* Niebieski kolor */
+    opacity: 0.3; /* Przezroczystość */
+    position: absolute; /* Pozycjonowanie absolutne */
+    left: -1rem; /* Pozycja z lewej */
+    top: -1rem; /* Pozycja od góry */
 }
 
+/* Stopka opinii */
 .opinia footer {
-    text-align: right;
-    font-weight: 600;
-    color: #ffffff;
+    text-align: right; /* Wyrównanie do prawej */
+    font-weight: 600; /* Pogrubienie */
+    color: #ffffff; /* Biały kolor */
 }
 
+/* Nawigacja slidera */
 .slider-nav {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    display: flex; /* Flexbox do układu */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    gap: 1rem; /* Odstęp między przyciskami */
+    margin-top: 1.5rem; /* Margines od góry */
 }
 
+/* Przyciski nawigacji slidera */
 .slider-nav button {
-    padding: 0.5rem 1.5rem;
-    background-color: #0066cc;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+    padding: 0.5rem 1.5rem; /* Wewnętrzny odstęp */
+    background-color: #0066cc; /* Niebieskie tło */
+    color: white; /* Biały tekst */
+    border: none; /* Brak obramówki */
+    border-radius: 6px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Kursor wskazujący */
+    transition: all 0.3s ease; /* Płynne przejścia */
 }
 
+/* Efekt hover dla przycisków nawigacji */
 .slider-nav button:hover {
-    background-color: #004080;
-    transform: translateY(-2px);
+    background-color: #004080; /* Ciemniejszy niebieski */
+    transform: translateY(-2px); /* Lekkie uniesienie */
 }
 
-/* Panel konta */
+/* Panel konta użytkownika */
 .konto-panel {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
+    display: grid; /* CSS Grid do układu */
+    grid-template-columns: 1fr 1fr; /* 2 kolumny */
+    gap: 2rem; /* Odstęp między kolumnami */
 }
 
+/* Sekcje panelu konta */
 .dane-osobowe,
 .ustawienia-konta {
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background-color: #fff; /* Białe tło */
+    padding: 2rem; /* Wewnętrzny odstęp */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Cień */
 }
 
+/* Nagłówki sekcji panelu */
 .dane-osobowe h3,
 .ustawienia-konta h3 {
-    color: #004080;
-    margin-bottom: 1.5rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 2px solid #ffcc00;
+    color: #004080; /* Niebieski kolor */
+    margin-bottom: 1.5rem; /* Odstęp od dołu */
+    padding-bottom: 0.5rem; /* Odstęp od dołu */
+    border-bottom: 2px solid #ffcc00; /* Żółta linia pod nagłówkiem */
 }
 
+/* Lista ustawień konta */
 .ustawienia-konta ul {
-    list-style: none;
+    list-style: none; /* Brak stylów listy */
 }
 
+/* Elementy listy ustawień */
 .ustawienia-konta li {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Odstęp między elementami */
 }
 
+/* Linki w ustawieniach konta */
 .ustawienia-konta a {
-    color: #0066cc;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    display: inline-block;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    background-color: rgba(0, 102, 204, 0.1);
+    color: #0066cc; /* Niebieski kolor */
+    text-decoration: none; /* Brak podkreślenia */
+    font-weight: 600; /* Pogrubienie */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
+    padding: 0.5rem 1rem; /* Wewnętrzny odstęp */
+    border-radius: 6px; /* Zaokrąglone rogi */
+    background-color: rgba(0, 102, 204, 0.1); /* Półprzezroczyste tło */
 }
 
+/* Efekt hover dla linków w ustawieniach */
 .ustawienia-konta a:hover {
-    color: #004080;
-    background-color: rgba(0, 102, 204, 0.2);
+    color: #004080; /* Ciemniejszy niebieski */
+    background-color: rgba(0, 102, 204, 0.2); /* Ciemniejsze tło */
 }
 
-/* Stopka */
+/* Stopka strony */
 footer {
-    grid-area: footer;
-    text-align: center;
-    padding: 2.5rem;
-    background: linear-gradient(135deg, #004080 0%, #0066cc 100%);
-    color: #fff;
-    margin-top: auto;
-    border-top: 3px solid #ffcc00;
+    grid-area: footer; /* Pozycja w gridzie */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    padding: 2.5rem; /* Wewnętrzny odstęp */
+    background: linear-gradient(135deg, #004080 0%, #0066cc 100%); /* Niebieski gradient */
+    color: #fff; /* Biały tekst */
+    margin-top: auto; /* Margines od góry */
+    border-top: 3px solid #ffcc00; /* Żółta obramówka na górze */
 }
 
+/* Paragrafy w stopce */
 footer p {
-    margin-bottom: 1.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 1.5rem; /* Odstęp od dołu */
+    font-size: 1.1rem; /* Rozmiar czcionki */
 }
 
+/* Linki w stopce */
 footer a {
-    color: #ffcc00;
-    text-decoration: none;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    padding: 0.5rem 1rem;
-    border-radius: 6px;
-    background-color: rgba(255, 255, 255, 0.1);
-    margin: 0 0.5rem;
+    color: #ffcc00; /* Żółty kolor */
+    text-decoration: none; /* Brak podkreślenia */
+    font-weight: 600; /* Pogrubienie */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    padding: 0.5rem 1rem; /* Wewnętrzny odstęp */
+    border-radius: 6px; /* Zaokrąglone rogi */
+    background-color: rgba(255, 255, 255, 0.1); /* Półprzezroczyste tło */
+    margin: 0 0.5rem; /* Marginesy */
 }
 
+/* Efekt hover dla linków w stopce */
 footer a:hover {
-    color: #fff;
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-2px);
+    color: #fff; /* Biały kolor */
+    background-color: rgba(255, 255, 255, 0.2); /* Jaśniejsze tło */
+    transform: translateY(-2px); /* Lekkie uniesienie */
 }
-/* Dodatkowe style dla przycisku Szukaj */
-        .search-form {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        
-        .search-form input {
-            flex: 1;
-            padding: 12px;
-            border: 2px solid #0066cc;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s ease;
-        }
-        
-        .search-form input:focus {
-            outline: none;
-            border-color: #004080;
-            box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2);
-        }
-        
-        .search-form button {
-            background: linear-gradient(to right, #0073e6, #004080);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            padding: 0 25px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2);
-        }
-        
-        .search-form button:hover {
-            background: linear-gradient(to right, #0066cc, #003366);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
-        }
-        
-        .search-form button:active {
-            transform: translateY(0);
-        }
-        /* Szczegóły oferty */
+
+/* Formularz wyszukiwania */
+.search-form {
+    display: flex; /* Flexbox do układu */
+    gap: 10px; /* Odstęp między elementami */
+    margin-bottom: 20px; /* Margines od dołu */
+}
+
+/* Pole wyszukiwania */
+.search-form input {
+    flex: 1; /* Rozciąganie do dostępnej przestrzeni */
+    padding: 12px; /* Wewnętrzny odstęp */
+    border: 2px solid #0066cc; /* Niebieska obramówka */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    font-size: 16px; /* Rozmiar czcionki */
+    transition: all 0.3s ease; /* Płynne przejścia */
+}
+
+/* Efekt focus dla pola wyszukiwania */
+.search-form input:focus {
+    outline: none; /* Usunięcie domyślnego outline */
+    border-color: #004080; /* Ciemniejsza obramówka */
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.2); /* Cień */
+}
+
+/* Przycisk wyszukiwania */
+.search-form button {
+    background: linear-gradient(to right, #0073e6, #004080); /* Niebieski gradient */
+    color: white; /* Biały tekst */
+    border: none; /* Brak obramówki */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    padding: 0 25px; /* Wewnętrzny odstęp */
+    font-size: 16px; /* Rozmiar czcionki */
+    font-weight: 600; /* Pogrubienie */
+    cursor: pointer; /* Kursor wskazujący */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2); /* Cień */
+}
+
+/* Efekty hover i active dla przycisku wyszukiwania */
+.search-form button:hover {
+    background: linear-gradient(to right, #0066cc, #003366); /* Ciemniejszy gradient */
+    transform: translateY(-2px); /* Lekkie uniesienie */
+    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3); /* Większy cień */
+}
+
+.search-form button:active {
+    transform: translateY(0); /* Powrót do normalnej pozycji */
+}
+
+/* Szczegóły oferty */
 .oferta-szczegoly {
-    background-color: #fff;
-    border-radius: 10px;
-    padding: 2.5rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    border: 1px solid rgba(0, 64, 128, 0.1);
+    background-color: #fff; /* Białe tło */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    padding: 2.5rem; /* Wewnętrzny odstęp */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Cień */
+    border: 1px solid rgba(0, 64, 128, 0.1); /* Delikatna obramówka */
 }
 
+/* Nagłówek szczegółów oferty */
 .oferta-naglowek {
-    border-bottom: 2px solid #e0e9ff;
-    padding-bottom: 1.5rem;
-    margin-bottom: 2rem;
+    border-bottom: 2px solid #e0e9ff; /* Jasnoniebieska linia podziału */
+    padding-bottom: 1.5rem; /* Odstęp od dołu */
+    margin-bottom: 2rem; /* Margines od dołu */
 }
 
+/* Tytuł oferty */
 .oferta-naglowek h3 {
-    color: #0066cc;
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    color: #0066cc; /* Niebieski kolor */
+    font-size: 1.5rem; /* Rozmiar czcionki */
+    margin-bottom: 0.5rem; /* Odstęp od dołu */
 }
 
+/* Data dodania oferty */
 .data-dodania {
-    color: #777;
-    font-style: italic;
-    margin-bottom: 1rem;
+    color: #777; /* Szary kolor */
+    font-style: italic; /* Kursywa */
+    margin-bottom: 1rem; /* Odstęp od dołu */
 }
 
+/* Kontener kategorii */
 .kategorie {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    align-items: center;
+    display: flex; /* Flexbox do układu */
+    flex-wrap: wrap; /* Zawijanie elementów */
+    gap: 0.5rem; /* Odstęp między elementami */
+    align-items: center; /* Wyśrodkowanie w pionie */
 }
 
+/* Pojedyncza kategoria */
 .kategoria {
-    background-color: rgba(0, 102, 204, 0.1);
-    color: #0066cc;
-    padding: 0.3rem 0.8rem;
-    border-radius: 20px;
-    font-size: 0.9rem;
-    font-weight: 600;
+    background-color: rgba(0, 102, 204, 0.1); /* Półprzezroczyste niebieskie tło */
+    color: #0066cc; /* Niebieski kolor tekstu */
+    padding: 0.3rem 0.8rem; /* Wewnętrzny odstęp */
+    border-radius: 20px; /* Zaokrąglone rogi */
+    font-size: 0.9rem; /* Rozmiar czcionki */
+    font-weight: 600; /* Pogrubienie */
 }
 
+/* Nagłówki w treści oferty */
 .oferta-tresc h4 {
-    color: #004080;
-    margin: 1.5rem 0 0.8rem;
-    font-size: 1.2rem;
+    color: #004080; /* Niebieski kolor */
+    margin: 1.5rem 0 0.8rem; /* Marginesy */
+    font-size: 1.2rem; /* Rozmiar czcionki */
 }
 
+/* Tekst w treści oferty */
 .oferta-tresc p {
-    line-height: 1.7;
-    color: #444;
+    line-height: 1.7; /* Wysokość linii */
+    color: #444; /* Kolor tekstu */
 }
 
+/* Sekcja dodatkowych informacji o ofercie */
 .oferta-dodatkowe {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px solid #e0e9ff;
+    display: grid; /* CSS Grid do układu */
+    grid-template-columns: 1fr 1fr; /* 2 kolumny */
+    gap: 2rem; /* Odstęp między kolumnami */
+    margin-top: 3rem; /* Margines od góry */
+    padding-top: 2rem; /* Odstęp od góry */
+    border-top: 2px solid #e0e9ff; /* Linia podziału */
 }
 
+/* Nagłówki w sekcjach dodatkowych */
 .pracodawca-info h4,
 .statystyki h4 {
-    color: #004080;
-    margin-bottom: 1rem;
+    color: #004080; /* Niebieski kolor */
+    margin-bottom: 1rem; /* Odstęp od dołu */
 }
 
+/* Tekst w sekcjach dodatkowych */
 .pracodawca-info p,
 .statystyki p {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.5rem; /* Odstęp od dołu */
 }
 
+/* Sekcja akcji w ofercie */
 .oferta-akcje {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px solid #e0e9ff;
+    display: flex; /* Flexbox do układu */
+    justify-content: center; /* Wyśrodkowanie w poziomie */
+    gap: 2rem; /* Odstęp między przyciskami */
+    margin-top: 3rem; /* Margines od góry */
+    padding-top: 2rem; /* Odstęp od góry */
+    border-top: 2px solid #e0e9ff; /* Linia podziału */
 }
 
+/* Przyciski w sekcji akcji */
 .oferta-akcje .button {
-    width: auto;
-    padding: 1rem 2rem;
+    width: auto; /* Szerokość automatyczna */
+    padding: 1rem 2rem; /* Wewnętrzny odstęp */
 }
 
-/* Stylizacja formularza aplikacji */
+/* Formularz aplikacji */
 #aplikacja-formularz {
-    max-width: 800px;
-    margin: 0 auto;
+    max-width: 800px; /* Maksymalna szerokość */
+    margin: 0 auto; /* Wyśrodkowanie */
 }
 
+/* Box błędów */
 .error-box {
-    background-color: #ffeeee;
-    border: 1px solid #ffcccc;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-    color: #cc0000;
+    background-color: #ffeeee; /* Czerwone tło */
+    border: 1px solid #ffcccc; /* Czerwona obramówka */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    padding: 1.5rem; /* Wewnętrzny odstęp */
+    margin-bottom: 2rem; /* Margines od dołu */
+    color: #cc0000; /* Czerwony kolor tekstu */
 }
 
+/* Lista błędów */
 .error-box ul {
-    margin-top: 0.5rem;
-    padding-left: 1.5rem;
+    margin-top: 0.5rem; /* Margines od góry */
+    padding-left: 1.5rem; /* Wcięcie */
 }
 
+/* Elementy listy błędów */
 .error-box li {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.3rem; /* Odstęp między elementami */
 }
 
-/* Stylizacja pól plików */
+/* Pole do wyboru plików */
 input[type="file"] {
-    padding: 0.5rem;
-    border: 2px dashed #ccc;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    width: 100%;
+    padding: 0.5rem; /* Wewnętrzny odstęp */
+    border: 2px dashed #ccc; /* Kropkowana obramówka */
+    border-radius: 8px; /* Zaokrąglone rogi */
+    background-color: #f9f9f9; /* Jasnoszare tło */
+    width: 100%; /* Pełna szerokość */
 }
 
+/* Efekt focus dla pola plików */
 input[type="file"]:focus {
-    border-color: #0066cc;
-    outline: none;
+    border-color: #0066cc; /* Niebieska obramówka */
+    outline: none; /* Usunięcie domyślnego outline */
 }
 
+/* Mały tekst pomocniczy */
 small {
-    display: block;
-    margin-top: 0.3rem;
-    color: #666;
-    font-size: 0.9rem;
+    display: block; /* Wyświetlanie jako blok */
+    margin-top: 0.3rem; /* Margines od góry */
+    color: #666; /* Szary kolor */
+    font-size: 0.9rem; /* Mniejszy rozmiar czcionki */
 }
 
 /* Przyciski w formularzu */
 form .button {
-    margin-top: 1rem;
-    margin-right: 1rem;
-}
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .logo {
-    display: inline-block;
-    vertical-align: middle;
-}
-header h1 {
-    display: inline-block;
-    margin-left: 20px; /* Odstęp od logo */
-    vertical-align: middle;
-}
-/* Stylizacja przycisków */
-.button {
-    padding: 1rem 2rem;
-    background: linear-gradient(to right, #0073e6, #004080);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-size: 1.2rem;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2);
-    margin-top: 1rem;
-    text-align: center;
-    display: inline-block;
+    margin-top: 1rem; /* Margines od góry */
+    margin-right: 1rem; /* Margines z prawej */
 }
 
+/* Stylizacja tabel */
+table {
+    width: 100%; /* Pełna szerokość */
+    border-collapse: collapse; /* Łączenie obramówek */
+    margin: 20px 0; /* Marginesy */
+}
+
+/* Komórki tabeli */
+th, td {
+    border: 1px solid #dddddd; /* Szara obramówka */
+    text-align: left; /* Wyrównanie do lewej */
+    padding: 8px; /* Wewnętrzny odstęp */
+}
+
+/* Nagłówki tabeli */
+th {
+    background-color: #f2f2f2; /* Jasnoszare tło */
+}
+
+/* Naprzemienne wiersze tabeli */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Bardzo jasnoszare tło */
+}
+
+/* Efekt hover dla wierszy tabeli */
+tr:hover {
+    background-color: #f1f1f1; /* Jasnoszare tło */
+}
+
+/* Logo w nagłówku */
+.logo {
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
+    vertical-align: middle; /* Wyrównanie w pionie */
+}
+
+/* Tytuł obok logo */
+header h1 {
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
+    margin-left: 20px; /* Odstęp od logo */
+    vertical-align: middle; /* Wyrównanie w pionie */
+}
+
+/* Ogólne style przycisków */
+.button {
+    padding: 1rem 2rem; /* Wewnętrzny odstęp */
+    background: linear-gradient(to right, #0073e6, #004080); /* Niebieski gradient */
+    color: white; /* Biały tekst */
+    border: none; /* Brak obramówki */
+    border-radius: 10px; /* Zaokrąglone rogi */
+    cursor: pointer; /* Kursor wskazujący */
+    font-size: 1.2rem; /* Rozmiar czcionki */
+    font-weight: 600; /* Pogrubienie */
+    transition: all 0.3s ease; /* Płynne przejścia */
+    box-shadow: 0 4px 15px rgba(0, 64, 128, 0.2); /* Cień */
+    margin-top: 1rem; /* Margines od góry */
+    text-align: center; /* Wyśrodkowanie tekstu */
+    display: inline-block; /* Wyświetlanie jako element liniowo-blokowy */
+}
+
+/* Efekty hover i active dla przycisków */
 .button:hover {
-    background: linear-gradient(to right, #0066cc, #003366);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3);
+    background: linear-gradient(to right, #0066cc, #003366); /* Ciemniejszy gradient */
+    transform: translateY(-2px); /* Lekkie uniesienie */
+    box-shadow: 0 6px 20px rgba(0, 64, 128, 0.3); /* Większy cień */
 }
 
 .button:active {
-    transform: translateY(0);
-    box-shadow: 0 2px 10px rgba(0, 64, 128, 0.2);
+    transform: translateY(0); /* Powrót do normalnej pozycji */
+    box-shadow: 0 2px 10px rgba(0, 64, 128, 0.2); /* Mniejszy cień */
 }
 
 /* Dodatkowe style dla przycisków w formularzach */
 form .button {
-    width: 100%;
-    max-width: 300px;
-    margin: 1rem auto;
+    width: 100%; /* Pełna szerokość */
+    max-width: 300px; /* Maksymalna szerokość */
+    margin: 1rem auto; /* Marginesy i wyśrodkowanie */
 }
