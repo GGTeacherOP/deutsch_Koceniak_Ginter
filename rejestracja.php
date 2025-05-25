@@ -1,6 +1,11 @@
 <?php
 session_start();
 require_once 'config.php';
+if (isset($_SESSION['user_id'])) {
+    header('Location: konto.php');
+    exit();
+}
+
 
 $error = '';
 $success = '';
@@ -100,6 +105,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="opinie.php">opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
+            <?php endif; ?>
+                        <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'pracodawca'): ?>
+            <li><a href="panel_pracodawcy.php">panel pracodawcy</a></li>
             <?php endif; ?>
         </ul>
     </nav>

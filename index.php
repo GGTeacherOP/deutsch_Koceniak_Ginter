@@ -1,4 +1,7 @@
 <?php
+session_start();
+$user_id = $_SESSION['user_id'];
+$user_data = [];
 /**
  * Skrypt strony głównej portalu z ofertami pracy
  * 
@@ -97,6 +100,9 @@ try {
             <li><a href="opinie.php">opinie</a></li>
             <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'admin'): ?>
             <li><a href="admin_panel.php">Panel Admina</a></li>
+            <?php endif; ?>
+                        <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'pracodawca'): ?>
+            <li><a href="panel_pracodawcy.php">panel pracodawcy</a></li>
             <?php endif; ?>
         </ul>
     </nav>

@@ -121,6 +121,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <li><a href="kontakt.php">Kontakt</a></li>
             <li><a href="o_nas.php">O nas</a></li>
             <li><a href="opinie.php">opinie</a></li>
+                        <?php if (isset($_SESSION['rola']) && $_SESSION['rola'] === 'pracodawca'): ?>
+            <li><a href="panel_pracodawcy.php">panel pracodawcy</a></li>
+            <?php endif; ?>
         </ul>
     </nav>
 </header>
