@@ -7,21 +7,19 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'admin') {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_user'])) {
-    $user_id = $_POST['user_id'];
-    $imie = $_POST['imie'];
-    $nazwisko = $_POST['nazwisko'];
-    $email = $_POST['email'];
-    $rola = $_POST['rola'];
-    $pensja = $_POST['pensja'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_aplikacja'])) {
+    $id = $_POST['id'];
+    $id_uzytkownika = $_POST['id_uzytkownika'];
+    $id_oferty = $_POST['id_oferty'];
+    $status = $_POST['status'];
 
-    $stmt = $conn->prepare("UPDATE uzytkownicy SET imie = ?, nazwisko = ?, email = ?, rola = ?, pensja = ? WHERE id = ?");
-    $stmt->bind_param('ssssdi', $imie, $nazwisko, $email, $rola, $pensja, $user_id);
+    $stmt = $conn->prepare("UPDATE aplikacje SET id_uzytkownika = ?, id_oferty = ?, status = ? WHERE id = ?");
+    $stmt->bind_param('iisi', $id_uzytkownika, $id_oferty, $status, $id);
     $stmt->execute();
     $stmt->close();
 }
 
-$stmt = $conn->prepare("SELECT * FROM uzytkownicy");
+$stmt = $conn->prepare("SELECT * FROM aplikacje");
 $stmt->execute();
 $result = $stmt->get_result();
 ?>
@@ -30,7 +28,7 @@ $result = $stmt->get_result();
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Admina</title>
+    <title>Panel Admina - Aplikacje</title>
     <link rel="stylesheet" href="styleindex.css">
 </head>
 <body>
@@ -85,7 +83,7 @@ $result = $stmt->get_result();
         }
         </style>
 <header>
-    <h1>Panel Admina</h1>
+    <h1>Panel Admina - Aplikacje</h1>
     <nav>
         <ul>
             <li><a href="index.php">Strona główna</a></li>
@@ -102,8 +100,6 @@ $result = $stmt->get_result();
 </header>
 
 <main>
-    <h2>Witaj w panelu admina!</h2>
-    
     <div class="admin-links">
         <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
@@ -119,68 +115,62 @@ $result = $stmt->get_result();
         <a href="admin_wiadomosci.php">Wiadomości</a>
     </div>
 
-    <h3>Lista użytkowników</h3>
+    <h3>Lista aplikacji</h3>
     <table>
         <thead>
             <tr>
                 <th>ID</th>
-                <th>Imię</th>
-                <th>Nazwisko</th>
-                <th>Email</th>
-                <th>Rola</th>
-                <th>Pensja</th>
-                <th>Data rejestracji</th>
+                <th>ID Użytkownika</th>
+                <th>ID Oferty</th>
+                <th>Status</th>
+                <th>Data aplikacji</th>
+                <th>Data aktualizacji</th>
                 <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
             <?php
             if ($result->num_rows > 0) {
-                while ($user = $result->fetch_assoc()) {
+                while ($aplikacja = $result->fetch_assoc()) {
                     echo "<tr>
-                            <td>{$user['id']}</td>
-                            <td>{$user['imie']}</td>
-                            <td>{$user['nazwisko']}</td>
-                            <td>{$user['email']}</td>
-                            <td>{$user['rola']}</td>
-                            <td>{$user['pensja']}</td>
-                            <td>{$user['data_rejestracji']}</td>
+                            <td>{$aplikacja['id']}</td>
+                            <td>{$aplikacja['id_uzytkownika']}</td>
+                            <td>{$aplikacja['id_oferty']}</td>
+                            <td>{$aplikacja['status']}</td>
+                            <td>{$aplikacja['data_aplikacji']}</td>
+                            <td>{$aplikacja['data_aktualizacji']}</td>
                             <td>
-                                <button class='edit-button' onclick='editUser ({$user['id']}, \"{$user['imie']}\", \"{$user['nazwisko']}\", \"{$user['email']}\", \"{$user['rola']}\", \"{$user['pensja']}\")'>Edytuj</button>
+                                <button class='edit-button' onclick='editAplikacja({$aplikacja['id']}, {$aplikacja['id_uzytkownika']}, {$aplikacja['id_oferty']}, \"{$aplikacja['status']}\")'>Edytuj</button>
                             </td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='8'>Brak użytkowników w bazie danych.</td></tr>";
+                echo "<tr><td colspan='7'>Brak aplikacji w bazie danych.</td></tr>";
             }
             ?>
         </tbody>
     </table>
 
     <div id="editForm" style="display:none;">
-        <h3>Edytuj użytkownika</h3>
+        <h3>Edytuj aplikację</h3>
         <form method="POST">
-            <input type="hidden" name="user_id" id="user_id">
-            <label for="imie">Imię:</label>
-            <input type="text" name="imie" id="imie" required>
+            <input type="hidden" name="id" id="id">
+            <label for="id_uzytkownika">ID Użytkownika:</label>
+            <input type="number" name="id_uzytkownika" id="id_uzytkownika" required>
             <br>
-            <label for="nazwisko">Nazwisko:</label>
-            <input type="text" name="nazwisko" id="nazwisko" required>
+            <label for="id_oferty">ID Oferty:</label>
+            <input type="number" name="id_oferty" id="id_oferty" required>
             <br>
-            <label for="email">Email:</label>
-            <input type="email" name="email" id="email" required>
-            <br>
-            <label for="rola">Rola:</label>
-            <select name="rola" id="rola" required>
-                <option value="admin">Admin</option>
-                <option value="uzytkownik">Użytkownik</option>
-                <option value="pracodawca">Pracodawca</option>
+            <label for="status">Status:</label>
+            <select name="status" id="status" required>
+                <option value="złożona">Złożona</option>
+                <option value="w recenzji">W recenzji</option>
+                <option value="odrzucona">Odrzucona</option>
+                <option value="zaakceptowana">Zaakceptowana</option>
+                <option value="w trakcie rozmowy">W trakcie rozmowy</option>
             </select>
             <br>
-            <label for="pensja">Pensja:</label>
-            <input type="number" name="pensja" id="pensja" step="0.01" required>
-            <br>
-            <button type="submit" name="update_user">Zaktualizuj</button>
+            <button type="submit" name="update_aplikacja">Zaktualizuj</button>
             <button type="button" onclick="closeEditForm()">Anuluj</button>
         </form>
     </div>
@@ -192,13 +182,11 @@ $result = $stmt->get_result();
 </footer>
 
 <script>
-    function editUser (id, imie, nazwisko, email, rola, pensja) {
-        document.getElementById('user_id').value = id;
-        document.getElementById('imie').value = imie;
-        document.getElementById('nazwisko').value = nazwisko;
-        document.getElementById('email').value = email;
-        document.getElementById('rola').value = rola;
-        document.getElementById('pensja').value = pensja;
+    function editAplikacja(id, id_uzytkownika, id_oferty, status) {
+        document.getElementById('id').value = id;
+        document.getElementById('id_uzytkownika').value = id_uzytkownika;
+        document.getElementById('id_oferty').value = id_oferty;
+        document.getElementById('status').value = status;
         document.getElementById('editForm').style.display = 'block';
     }
 
