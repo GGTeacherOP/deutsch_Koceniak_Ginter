@@ -81,7 +81,33 @@ $result = $stmt->get_result();
         .admin-links a:hover {
             background-color: #45a049;
         }
-        </style>
+        /* Nowe style dla przycisków */
+        #editForm button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #editForm button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #editForm button[type="button"] {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin-top: 10px;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        #editForm button[type="button"]:hover {
+            background-color: #d32f2f;
+        }
+    </style>
 <header>
     <h1>Panel Admina - Aplikacje</h1>
     <nav>
