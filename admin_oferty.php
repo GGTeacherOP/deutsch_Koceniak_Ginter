@@ -72,6 +72,34 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
         button[onclick="showAddForm()"]:hover {
             background-color: #1976D2;
         }
+
+        /* Style dla przycisków Zaktualizuj i Anuluj w formularzu edycji */
+        #editForm button[name="update_oferta"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        #editForm button[name="update_oferta"]:hover {
+            background-color: #45a049;
+        }
+
+        #editForm button[type="button"] {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #editForm button[type="button"]:hover {
+            background-color: #da190b;
+        }
     </style>
 </head>
 <body>
