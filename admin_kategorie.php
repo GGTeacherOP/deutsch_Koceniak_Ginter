@@ -38,18 +38,88 @@ $result = $stmt->get_result();
     <title>Panel Admina - Kategorie</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-        
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
         tr:nth-child(even) { background-color: #f9f9f9; }
         tr:hover { background-color: #f1f1f1; }
-        .edit-button { background-color: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; }
-        .delete-button { background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer; }
-        #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
-        .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
-        .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .admin-links a:hover { background-color: #45a049; }
+        
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px 0;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+        
+        #addButton {
+            background-color: #2196F3;
+            padding: 12px 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        
+        #addButton:hover {
+            background-color: #0b7dda;
+        }
+        
+        .edit-button { 
+            background-color: #4CAF50; 
+        }
+        
+        .delete-button { 
+            background-color: #f44336; 
+        }
+        
+        .delete-button:hover {
+            background-color: #d32f2f;
+        }
+        
+        #editForm, #addForm { 
+            margin-top: 20px; 
+            padding: 20px; 
+            background-color: #f8f8f8; 
+            border-radius: 5px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .admin-links { 
+            display: flex; 
+            flex-wrap: wrap; 
+            gap: 10px; 
+            margin-bottom: 20px; 
+        }
+        
+        .admin-links a { 
+            padding: 10px; 
+            background-color: #4CAF50; 
+            color: white; 
+            text-decoration: none; 
+            border-radius: 5px; 
+            transition: background-color 0.3s;
+        }
+        
+        .admin-links a:hover { 
+            background-color: #45a049; 
+        }
+        
+        input[type="text"] {
+            padding: 8px;
+            width: 100%;
+            max-width: 300px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
     </style>
 </head>
 <body>
@@ -86,7 +156,7 @@ $result = $stmt->get_result();
     </div>
 
     <h3>Lista kategorii</h3>
-    <button onclick="showAddForm()">Dodaj nową kategorię</button>
+    <button id="addButton" onclick="showAddForm()">Dodaj nową kategorię</button>
     <table>
         <thead>
             <tr>
@@ -150,11 +220,19 @@ $result = $stmt->get_result();
         document.getElementById('edit_nazwa').value = nazwa;
         document.getElementById('editForm').style.display = 'block';
         document.getElementById('addForm').style.display = 'none';
+        window.scrollTo({
+            top: document.getElementById('editForm').offsetTop - 20,
+            behavior: 'smooth'
+        });
     }
 
     function showAddForm() {
         document.getElementById('addForm').style.display = 'block';
         document.getElementById('editForm').style.display = 'none';
+        window.scrollTo({
+            top: document.getElementById('addForm').offsetTop - 20,
+            behavior: 'smooth'
+        });
     }
 
     function closeEditForm() {
