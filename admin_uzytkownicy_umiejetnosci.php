@@ -53,7 +53,7 @@ $skills = $conn->query("SELECT id, nazwa FROM umiejetnosci");
     <title>Panel Admina - Użytkownicy-Umiejętności</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
         tr:nth-child(even) { background-color: #f9f9f9; }
@@ -63,7 +63,36 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .admin-links a:hover { background-color: #45a049; }    </style>
+        .admin-links a:hover { background-color: #45a049; }
+
+        /* Nowe style */
+        .add-button {
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .add-button:hover {
+            background-color: #007BB5;
+        }
+
+        .cancel-button {
+            background-color: #cccccc;
+            color: black;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .cancel-button:hover {
+            background-color: #bbb;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -84,7 +113,7 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
 </header>
 <main>
     <div class="admin-links">
-   <a href="admin_panel.php">Użytkownicy</a>
+        <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
@@ -94,45 +123,46 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         <a href="admin_powiadomienia.php">Powiadomienia</a>
         <a href="admin_umiejetnosci.php">Umiejętności</a>
         <a href="admin_uzytkownicy_umiejetnosci.php">Użytkownicy-Umiejętności</a>
-        <a href="admin_wiadomosci.php">Wiadomości</a>    </div>
+        <a href="admin_wiadomosci.php">Wiadomości</a>
+    </div>
 
     <h3>Relacje Użytkownicy-Umiejętności</h3>
-    <button onclick="showAddForm()">Dodaj nową relację</button>
+    <button onclick="showAddForm()" class="add-button">Dodaj nową relację</button>
     <table>
         <thead>
-            <tr>
-                <th>ID Użytkownika</th>
-                <th>Użytkownik</th>
-                <th>ID Umiejętności</th>
-                <th>Umiejętność</th>
-                <th>Poziom</th>
-                <th>Akcje</th>
-            </tr>
+        <tr>
+            <th>ID Użytkownika</th>
+            <th>Użytkownik</th>
+            <th>ID Umiejętności</th>
+            <th>Umiejętność</th>
+            <th>Poziom</th>
+            <th>Akcje</th>
+        </tr>
         </thead>
         <tbody>
-            <?php
-            if ($relations->num_rows > 0) {
-                while ($relacja = $relations->fetch_assoc()) {
-                    echo "<tr>
-                            <td>{$relacja['id_uzytkownika']}</td>
-                            <td>{$relacja['imie']} {$relacja['nazwisko']}</td>
-                            <td>{$relacja['id_umiejetnosci']}</td>
-                            <td>{$relacja['umiejetnosc_nazwa']}</td>
-                            <td>{$relacja['poziom']}</td>
-                            <td>
-                                <button class='edit-button' onclick='editRelation({$relacja['id_uzytkownika']}, {$relacja['id_umiejetnosci']}, \"{$relacja['poziom']}\")'>Edytuj</button>
-                                <form method='POST' style='display:inline;'>
-                                    <input type='hidden' name='id_uzytkownika' value='{$relacja['id_uzytkownika']}'>
-                                    <input type='hidden' name='id_umiejetnosci' value='{$relacja['id_umiejetnosci']}'>
-                                    <button type='submit' name='delete_relation' class='delete-button'>Usuń</button>
-                                </form>
-                            </td>
-                          </tr>";
-                }
-            } else {
-                echo "<tr><td colspan='6'>Brak relacji w bazie danych.</td></tr>";
+        <?php
+        if ($relations->num_rows > 0) {
+            while ($relacja = $relations->fetch_assoc()) {
+                echo "<tr>
+                        <td>{$relacja['id_uzytkownika']}</td>
+                        <td>{$relacja['imie']} {$relacja['nazwisko']}</td>
+                        <td>{$relacja['id_umiejetnosci']}</td>
+                        <td>{$relacja['umiejetnosc_nazwa']}</td>
+                        <td>{$relacja['poziom']}</td>
+                        <td>
+                            <button class='edit-button' onclick='editRelation({$relacja['id_uzytkownika']}, {$relacja['id_umiejetnosci']}, \"{$relacja['poziom']}\")'>Edytuj</button>
+                            <form method='POST' style='display:inline;'>
+                                <input type='hidden' name='id_uzytkownika' value='{$relacja['id_uzytkownika']}'>
+                                <input type='hidden' name='id_umiejetnosci' value='{$relacja['id_umiejetnosci']}'>
+                                <button type='submit' name='delete_relation' class='delete-button'>Usuń</button>
+                            </form>
+                        </td>
+                      </tr>";
             }
-            ?>
+        } else {
+            echo "<tr><td colspan='6'>Brak relacji w bazie danych.</td></tr>";
+        }
+        ?>
         </tbody>
     </table>
 
@@ -150,7 +180,7 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
             </select>
             <br>
             <button type="submit" name="update_relation">Zaktualizuj</button>
-            <button type="button" onclick="closeEditForm()">Anuluj</button>
+            <button type="button" class="cancel-button" onclick="closeEditForm()">Anuluj</button>
         </form>
     </div>
 
@@ -179,8 +209,8 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
                 <option value="ekspert">Ekspert</option>
             </select>
             <br>
-            <button type="submit" name="add_relation">Dodaj</button>
-            <button type="button" onclick="closeAddForm()">Anuluj</button>
+            <button type="submit" name="add_relation" class="add-button">Dodaj</button>
+            <button type="button" class="cancel-button" onclick="closeAddForm()">Anuluj</button>
         </form>
     </div>
 </main>
