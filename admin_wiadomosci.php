@@ -34,7 +34,7 @@ $messages = $conn->query("SELECT w.*,
     <title>Panel Admina - Wiadomości</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
- table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
         tr:nth-child(even) { background-color: #f9f9f9; }
@@ -44,7 +44,38 @@ $messages = $conn->query("SELECT w.*,
         #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .admin-links a:hover { background-color: #45a049; }    </style>
+        .admin-links a:hover { background-color: #45a049; }
+
+        /* Added styles for submit and cancel buttons */
+        #editForm button[type="submit"],
+        #editForm button[type="button"] {
+            padding: 8px 16px;
+            margin-right: 10px;
+            border: none;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #editForm button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        #editForm button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        #editForm button[type="button"] {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #editForm button[type="button"]:hover {
+            background-color: #da190b;
+        }
+    </style>
 </head>
 <body>
 <header>
