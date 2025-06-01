@@ -32,7 +32,7 @@ $result = $stmt->get_result();
     <title>Panel Admina - Opinie</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
- table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
         tr:nth-child(even) { background-color: #f9f9f9; }
@@ -40,10 +40,33 @@ $result = $stmt->get_result();
         .edit-button { background-color: #4CAF50; color: white; border: none; padding: 5px 10px; cursor: pointer; }
         .delete-button { background-color: #f44336; color: white; border: none; padding: 5px 10px; cursor: pointer; }
         #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
+
+        /* Added styles for "Zaktualizuj" and "Anuluj" buttons */
+        #editForm button[type="submit"], #editForm button[type="button"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin-right: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+        #editForm button[type="button"] {
+            background-color: #f44336;
+        }
+        #editForm button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        #editForm button[type="button"]:hover {
+            background-color: #d32f2f;
+        }
+
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
         .admin-links a:hover { background-color: #45a049; }
-        </style>
+    </style>
 </head>
 <body>
 <header>
@@ -64,7 +87,7 @@ $result = $stmt->get_result();
 </header>
 <main>
     <div class="admin-links">
-   <a href="admin_panel.php">Użytkownicy</a>
+        <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
@@ -74,7 +97,8 @@ $result = $stmt->get_result();
         <a href="admin_powiadomienia.php">Powiadomienia</a>
         <a href="admin_umiejetnosci.php">Umiejętności</a>
         <a href="admin_uzytkownicy_umiejetnosci.php">Użytkownicy-Umiejętności</a>
-        <a href="admin_wiadomosci.php">Wiadomości</a>    </div>
+        <a href="admin_wiadomosci.php">Wiadomości</a>    
+    </div>
 
     <h3>Opinie użytkowników</h3>
     <table>
