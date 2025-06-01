@@ -54,7 +54,20 @@ $kategorie = $conn->query("SELECT id, nazwa FROM kategorie");
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
         .admin-links a:hover { background-color: #45a049; }
-        </style>
+
+        button[onclick="showAddForm()"] {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        button[onclick="showAddForm()"]:hover {
+            background-color: #1976D2;
+        }
+    </style>
 </head>
 <body>
 <header>
@@ -74,10 +87,9 @@ $kategorie = $conn->query("SELECT id, nazwa FROM kategorie");
     </nav>
 </header>
 
-
 <main>
     <div class="admin-links">
-           <a href="admin_panel.php">Użytkownicy</a>
+        <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
