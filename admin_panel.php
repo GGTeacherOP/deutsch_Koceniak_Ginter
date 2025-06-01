@@ -113,7 +113,6 @@ $result = $stmt->get_result();
         <a href="admin_oferty_kategorie.php">Oferty-Kategorie</a>
         <a href="admin_opinie.php">Opinie</a>
         <a href="admin_powiadomienia.php">Powiadomienia</a>
-        <a href="admin_ulubione_oferty.php">Ulubione oferty</a>
         <a href="admin_umiejetnosci.php">Umiejętności</a>
         <a href="admin_uzytkownicy_umiejetnosci.php">Użytkownicy-Umiejętności</a>
         <a href="admin_wiadomosci.php">Wiadomości</a>

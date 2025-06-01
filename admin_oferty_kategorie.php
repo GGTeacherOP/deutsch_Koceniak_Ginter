@@ -8,37 +8,41 @@ if (!isset($_SESSION['user_id']) || $_SESSION['rola'] !== 'admin') {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['update_kategoria'])) {
-        $id = $_POST['id'];
-        $nazwa = $_POST['nazwa'];
+    if (isset($_POST['add_relation'])) {
+        $id_oferty = $_POST['id_oferty'];
+        $id_kategorii = $_POST['id_kategorii'];
 
-        $stmt = $conn->prepare("UPDATE kategorie SET nazwa = ? WHERE id = ?");
-        $stmt->bind_param('si', $nazwa, $id);
+        $stmt = $conn->prepare("INSERT INTO oferty_kategorie (id_oferty, id_kategorii) VALUES (?, ?)");
+        $stmt->bind_param('ii', $id_oferty, $id_kategorii);
         $stmt->execute();
         $stmt->close();
-    } elseif (isset($_POST['add_kategoria'])) {
-        $nazwa = $_POST['nazwa'];
+    } elseif (isset($_POST['delete_relation'])) {
+        $id_oferty = $_POST['id_oferty'];
+        $id_kategorii = $_POST['id_kategorii'];
 
-        $stmt = $conn->prepare("INSERT INTO kategorie (nazwa) VALUES (?)");
-        $stmt->bind_param('s', $nazwa);
+        $stmt = $conn->prepare("DELETE FROM oferty_kategorie WHERE id_oferty = ? AND id_kategorii = ?");
+        $stmt->bind_param('ii', $id_oferty, $id_kategorii);
         $stmt->execute();
         $stmt->close();
     }
 }
 
-$stmt = $conn->prepare("SELECT * FROM kategorie");
-$stmt->execute();
-$result = $stmt->get_result();
+$relations = $conn->query("SELECT ok.*, o.tytul, k.nazwa 
+                          FROM oferty_kategorie ok
+                          JOIN oferty o ON ok.id_oferty = o.id
+                          JOIN kategorie k ON ok.id_kategorii = k.id");
+
+$oferty = $conn->query("SELECT id, tytul FROM oferty");
+$kategorie = $conn->query("SELECT id, nazwa FROM kategorie");
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Panel Admina - Kategorie</title>
+    <title>Panel Admina - Oferty-Kategorie</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-        
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
@@ -50,7 +54,7 @@ $result = $stmt->get_result();
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
         .admin-links a:hover { background-color: #45a049; }
-    </style>
+        </style>
 </head>
 <body>
 <header>
@@ -70,9 +74,10 @@ $result = $stmt->get_result();
     </nav>
 </header>
 
+
 <main>
     <div class="admin-links">
-        <a href="admin_panel.php">Użytkownicy</a>
+           <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
@@ -85,55 +90,61 @@ $result = $stmt->get_result();
         <a href="admin_wiadomosci.php">Wiadomości</a>
     </div>
 
-    <h3>Lista kategorii</h3>
-    <button onclick="showAddForm()">Dodaj nową kategorię</button>
+    <h3>Relacje Oferty-Kategorie</h3>
+    <button onclick="showAddForm()">Dodaj nową relację</button>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Nazwa</th>
+                <th>ID Oferty</th>
+                <th>Tytuł oferty</th>
+                <th>ID Kategorii</th>
+                <th>Nazwa kategorii</th>
                 <th>Akcje</th>
             </tr>
         </thead>
         <tbody>
             <?php
-            if ($result->num_rows > 0) {
-                while ($kategoria = $result->fetch_assoc()) {
+            if ($relations->num_rows > 0) {
+                while ($relacja = $relations->fetch_assoc()) {
                     echo "<tr>
-                            <td>{$kategoria['id']}</td>
-                            <td>{$kategoria['nazwa']}</td>
+                            <td>{$relacja['id_oferty']}</td>
+                            <td>{$relacja['tytul']}</td>
+                            <td>{$relacja['id_kategorii']}</td>
+                            <td>{$relacja['nazwa']}</td>
                             <td>
-                                <button class='edit-button' onclick='editKategoria({$kategoria['id']}, \"{$kategoria['nazwa']}\")'>Edytuj</button>
-                                <button class='delete-button' onclick='confirmDelete({$kategoria['id']})'>Usuń</button>
+                                <form method='POST' style='display:inline;'>
+                                    <input type='hidden' name='id_oferty' value='{$relacja['id_oferty']}'>
+                                    <input type='hidden' name='id_kategorii' value='{$relacja['id_kategorii']}'>
+                                    <button type='submit' name='delete_relation' class='delete-button'>Usuń</button>
+                                </form>
                             </td>
                           </tr>";
                 }
             } else {
-                echo "<tr><td colspan='3'>Brak kategorii w bazie danych.</td></tr>";
+                echo "<tr><td colspan='5'>Brak relacji w bazie danych.</td></tr>";
             }
             ?>
         </tbody>
     </table>
 
-    <div id="editForm" style="display:none;">
-        <h3>Edytuj kategorię</h3>
-        <form method="POST">
-            <input type="hidden" name="id" id="edit_id">
-            <label for="edit_nazwa">Nazwa:</label>
-            <input type="text" name="nazwa" id="edit_nazwa" required>
-            <br>
-            <button type="submit" name="update_kategoria">Zaktualizuj</button>
-            <button type="button" onclick="closeEditForm()">Anuluj</button>
-        </form>
-    </div>
-
     <div id="addForm" style="display:none;">
-        <h3>Dodaj nową kategorię</h3>
+        <h3>Dodaj nową relację</h3>
         <form method="POST">
-            <label for="add_nazwa">Nazwa:</label>
-            <input type="text" name="nazwa" id="add_nazwa" required>
+            <label for="id_oferty">Oferta:</label>
+            <select name="id_oferty" id="id_oferty" required>
+                <?php while ($oferta = $oferty->fetch_assoc()): ?>
+                    <option value="<?= $oferta['id'] ?>"><?= $oferta['tytul'] ?></option>
+                <?php endwhile; ?>
+            </select>
             <br>
-            <button type="submit" name="add_kategoria">Dodaj</button>
+            <label for="id_kategorii">Kategoria:</label>
+            <select name="id_kategorii" id="id_kategorii" required>
+                <?php while ($kategoria = $kategorie->fetch_assoc()): ?>
+                    <option value="<?= $kategoria['id'] ?>"><?= $kategoria['nazwa'] ?></option>
+                <?php endwhile; ?>
+            </select>
+            <br>
+            <button type="submit" name="add_relation">Dodaj</button>
             <button type="button" onclick="closeAddForm()">Anuluj</button>
         </form>
     </div>
@@ -145,30 +156,12 @@ $result = $stmt->get_result();
 </footer>
 
 <script>
-    function editKategoria(id, nazwa) {
-        document.getElementById('edit_id').value = id;
-        document.getElementById('edit_nazwa').value = nazwa;
-        document.getElementById('editForm').style.display = 'block';
-        document.getElementById('addForm').style.display = 'none';
-    }
-
     function showAddForm() {
         document.getElementById('addForm').style.display = 'block';
-        document.getElementById('editForm').style.display = 'none';
-    }
-
-    function closeEditForm() {
-        document.getElementById('editForm').style.display = 'none';
     }
 
     function closeAddForm() {
         document.getElementById('addForm').style.display = 'none';
-    }
-
-    function confirmDelete(id) {
-        if (confirm('Czy na pewno chcesz usunąć tę kategorię?')) {
-            window.location.href = 'delete_kategoria.php?id=' + id;
-        }
     }
 </script>
 </body>
