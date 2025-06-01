@@ -154,7 +154,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
         /* Responsywny układ formularza */
         #wyszukiwarka form {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 1rem;
             align-items: end;
         }
@@ -162,11 +162,12 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
         /* Stylowanie ofert pracy */
         #lista-ofert {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
             gap: 2rem;
         }
         
         .oferta {
+            text-align:center;
             background-color: #fff;
             padding: 1.5rem;
             border-radius: 10px;
@@ -270,6 +271,7 @@ function getFilteredOffers($keyword, $location, $category, $conn) {
     <!-- Sekcja listy ofert -->
     <section id="lista-ofert">
         <h2 id="results-count">Znalezione oferty pracy</h2>
+        <br>
         <div class="loading">Ładowanie...</div>
         <div id="offers-container">
             <?php getFilteredOffers($keyword, $location, $category, $conn); ?>
