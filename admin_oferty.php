@@ -46,9 +46,6 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
     <title>Panel Admina - Oferty</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-        
-          
-        
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
@@ -60,8 +57,21 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
         .admin-links a:hover { background-color: #45a049; }
-    
-    
+
+        /* Dodany styl do przycisku Dodaj nową ofertę */
+        button[onclick="showAddForm()"] {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+
+        button[onclick="showAddForm()"]:hover {
+            background-color: #1976D2;
+        }
     </style>
 </head>
 <body>
@@ -84,8 +94,7 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
 
 <main>
     <div class="admin-links">
-    
-          <a href="admin_panel.php">Użytkownicy</a>
+        <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
@@ -96,7 +105,6 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
         <a href="admin_umiejetnosci.php">Umiejętności</a>
         <a href="admin_uzytkownicy_umiejetnosci.php">Użytkownicy-Umiejętności</a>
         <a href="admin_wiadomosci.php">Wiadomości</a>
-  
     </div>
 
     <h3>Lista ofert pracy</h3>
@@ -149,23 +157,17 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
         <form method="POST">
             <input type="hidden" name="id" id="oferta_id">
             <label for="tytul">Tytuł:</label>
-            <input type="text" name="tytul" id="oferta_tytul" required>
-            <br>
+            <input type="text" name="tytul" id="oferta_tytul" required><br>
             <label for="opis">Opis:</label>
-            <textarea name="opis" id="oferta_opis" required></textarea>
-            <br>
+            <textarea name="opis" id="oferta_opis" required></textarea><br>
             <label for="firma">Firma:</label>
-            <input type="text" name="firma" id="oferta_firma" required>
-            <br>
+            <input type="text" name="firma" id="oferta_firma" required><br>
             <label for="lokalizacja">Lokalizacja:</label>
-            <input type="text" name="lokalizacja" id="oferta_lokalizacja">
-            <br>
+            <input type="text" name="lokalizacja" id="oferta_lokalizacja"><br>
             <label for="wynagrodzenie_min">Wynagrodzenie min:</label>
-            <input type="number" step="0.01" name="wynagrodzenie_min" id="oferta_wynagrodzenie_min">
-            <br>
+            <input type="number" step="0.01" name="wynagrodzenie_min" id="oferta_wynagrodzenie_min"><br>
             <label for="wynagrodzenie_max">Wynagrodzenie max:</label>
-            <input type="number" step="0.01" name="wynagrodzenie_max" id="oferta_wynagrodzenie_max">
-            <br>
+            <input type="number" step="0.01" name="wynagrodzenie_max" id="oferta_wynagrodzenie_max"><br>
             <label for="typ_pracy">Typ pracy:</label>
             <select name="typ_pracy" id="oferta_typ_pracy" required>
                 <option value="pełny etat">Pełny etat</option>
@@ -174,24 +176,19 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
                 <option value="staż">Staż</option>
                 <option value="praktyka">Praktyka</option>
                 <option value="freelance">Freelance</option>
-            </select>
-            <br>
+            </select><br>
             <label for="zdalna">Zdalna:</label>
-            <input type="checkbox" name="zdalna" id="oferta_zdalna" value="1">
-            <br>
+            <input type="checkbox" name="zdalna" id="oferta_zdalna" value="1"><br>
             <label for="termin_aplikacji">Termin aplikacji:</label>
-            <input type="date" name="termin_aplikacji" id="oferta_termin_aplikacji">
-            <br>
+            <input type="date" name="termin_aplikacji" id="oferta_termin_aplikacji"><br>
             <label for="kategoria">Kategoria:</label>
-            <input type="text" name="kategoria" id="oferta_kategoria">
-            <br>
+            <input type="text" name="kategoria" id="oferta_kategoria"><br>
             <label for="id_pracodawcy">ID Pracodawcy:</label>
             <select name="id_pracodawcy" id="oferta_id_pracodawcy" required>
                 <?php while ($pracodawca = $pracodawcy->fetch_assoc()): ?>
                     <option value="<?= $pracodawca['id'] ?>"><?= $pracodawca['imie'] ?> <?= $pracodawca['nazwisko'] ?></option>
                 <?php endwhile; ?>
-            </select>
-            <br>
+            </select><br>
             <button type="submit" name="update_oferta">Zaktualizuj</button>
             <button type="button" onclick="closeEditForm()">Anuluj</button>
         </form>
@@ -221,6 +218,10 @@ $pracodawcy = $conn->query("SELECT id, imie, nazwisko FROM uzytkownicy WHERE rol
 
     function closeEditForm() {
         document.getElementById('editForm').style.display = 'none';
+    }
+
+    function showAddForm() {
+        alert("Dodawanie oferty jeszcze niezaimplementowane.");
     }
 </script>
 </body>
