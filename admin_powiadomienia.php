@@ -44,7 +44,27 @@ table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .admin-links a:hover { background-color: #45a049; }    </style>
+        .admin-links a:hover { background-color: #45a049; }
+
+        /* Styles for Dodaj and Anuluj buttons */
+        button[type="submit"], button[type="button"] {
+            background-color: #008CBA; /* blue */
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            margin-right: 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+        button[type="submit"]:hover {
+            background-color: #007B9E;
+        }
+        button[type="button"]:hover {
+            background-color: #005f73;
+        }
+    </style>
 </head>
 <body>
 <header>
