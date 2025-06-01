@@ -36,54 +36,81 @@ $result = $stmt->get_result();
 <body>
     <style>
     table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-        tr:hover {
-            background-color: #f1f1f1;
-        }
-        .edit-button {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-        }
-        #editForm {
-            margin-top: 20px;
-            padding: 20px;
-            background-color: #f8f8f8;
-            border-radius: 5px;
-        }
-        .admin-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-        .admin-links a {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .admin-links a:hover {
-            background-color: #45a049;
-        }
-        </style>
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+    }
+    th, td {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    .edit-button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+    }
+    #editForm {
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f8f8f8;
+        border-radius: 5px;
+    }
+    .admin-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+    .admin-links a {
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    .admin-links a:hover {
+        background-color: #45a049;
+    }
+    /* Dodane style do przycisków Zaktualizuj i Anuluj */
+    #editForm button[type="submit"],
+    #editForm button[type="button"] {
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    #editForm button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #editForm button[type="button"] {
+        background-color: #f44336;
+        color: white;
+    }
+
+    #editForm button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    #editForm button[type="button"]:hover {
+        background-color: #e53935;
+    }
+    </style>
 <header>
     <h1>Panel Admina</h1>
     <nav>
