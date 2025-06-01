@@ -32,8 +32,6 @@ $result = $stmt->get_result();
     <title>Panel Admina - Kontakt</title>
     <link rel="stylesheet" href="styleindex.css">
     <style>
-          
-        
         table { width: 100%; border-collapse: collapse; margin: 20px 0; }
         th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
         th { background-color: #f2f2f2; }
@@ -45,7 +43,30 @@ $result = $stmt->get_result();
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
         .admin-links a:hover { background-color: #45a049; }
-    
+
+        /* Dodane style */
+        #editForm button[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin-right: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #editForm button[type="button"] {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        #editForm button:hover {
+            opacity: 0.9;
+        }
     </style>
 </head>
 <body>
@@ -67,7 +88,7 @@ $result = $stmt->get_result();
 </header>
 <main>
     <div class="admin-links">
-          <a href="admin_panel.php">Użytkownicy</a>
+        <a href="admin_panel.php">Użytkownicy</a>
         <a href="admin_aplikacje.php">Aplikacje</a>
         <a href="admin_kategorie.php">Kategorie</a>
         <a href="admin_kontakt.php">Kontakt</a>
