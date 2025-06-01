@@ -132,6 +132,38 @@ INSERT INTO `oferty` (`id`, `tytul`, `opis`, `firma`, `lokalizacja`, `wynagrodze
 (3, 'Pielęgniarka', 'Praca na oddziale internistycznym w szpitalu miejskim.', 'Szpital Miejski', 'Gdańsk', 5500.00, 6500.00, 'pełny etat', 0, '2024-07-10', 'Medycyna', '2024-05-12 11:45:00', 2),
 (4, 'Nauczyciel matematyki', 'Prowadzenie zajęć z matematyki w liceum ogólnokształcącym.', 'Liceum Ogólnokształcące nr 1', 'Poznań', 4500.00, 5500.00, 'pełny etat', 0, '2024-08-20', 'Edukacja', '2024-05-13 13:15:00', 5),
 (5, 'Kierownik sklepu', 'Zarządzanie zespołem w sklepie spożywczym.', 'SuperMarket', 'Wrocław', 6000.00, 8000.00, 'pełny etat', 0, '2024-07-05', 'Handel', '2024-05-14 14:30:00', 2);
+INSERT INTO `oferty` (`id`,`tytul`, `opis`, `firma`, `lokalizacja`, `wynagrodzenie_min`, `wynagrodzenie_max`, `typ_pracy`, `zdalna`, `termin_aplikacji`, `kategoria`, `id_pracodawcy`) VALUES
+(6,'Programista Java', 'Poszukujemy doświadczonego programisty Java do pracy nad projektami finansowymi.', 'TechSolutions GmbH', 'Berlin', 7500.00, 11000.00, 'pełny etat', 1, '2025-08-15', 'IT', 2),
+(7,'Architekt IT', 'Projektowanie i wdrażanie rozwiązań IT dla dużych przedsiębiorstw.', 'IT-Systeme AG', 'Monachium', 9000.00, 13000.00, 'pełny etat', 0, '2025-07-30', 'IT', 5),
+(8,'Kierownik Projektu', 'Zarządzanie projektami IT w międzynarodowym zespole.', 'Global Projects', 'Hamburg', 8000.00, 12000.00, 'pełny etat', 1, '2025-09-10', 'IT', 2),
+(9,'Analityk Danych', 'Analiza dużych zbiorów danych dla klientów z branży e-commerce.', 'Data Insights', 'Frankfurt', 7000.00, 10000.00, 'pełny etat', 1, '2025-08-20', 'IT', 5),
+(10,'Deweloper Python', 'Rozwój aplikacji backendowych w Python/Django.', 'Python Experts', 'Kolonia', 6500.00, 9500.00, 'pełny etat', 1, '2025-09-05', 'IT', 2),
+(11,'Specjalista SEO', 'Optymalizacja stron internetowych pod kątem wyszukiwarek.', 'Digital Marketing', 'Düsseldorf', 5500.00, 8000.00, 'pełny etat', 1, '2025-08-25', 'IT', 5),
+(12,'Inżynier DevOps', 'Automatyzacja procesów wdrożeniowych i monitorowanie systemów.', 'Cloud Systems', 'Stuttgart', 8500.00, 11500.00, 'pełny etat', 0, '2025-09-15', 'IT', 2),
+(13,'Tester Oprogramowania', 'Testowanie manualne i automatyczne aplikacji webowych.', 'Quality Assurance', 'Lipsk', 6000.00, 8500.00, 'pełny etat', 0, '2025-08-10', 'IT', 5),
+(14,'Projektant UI/UX', 'Projektowanie interfejsów użytkownika dla aplikacji mobilnych.', 'Creative Design', 'Hanower', 6500.00, 9000.00, 'pełny etat', 1, '2025-09-20', 'IT', 2),
+(15,'Administrator Baz Danych', 'Zarządzanie i optymalizacja baz danych Oracle.', 'DB Solutions', 'Norymberga', 7500.00, 10500.00, 'pełny etat', 0, '2025-08-30', 'IT', 5),
+(16,'Murarz', 'Prace murarskie przy budowie obiektów komercyjnych.', 'BauProjekt', 'Dortmund', 4500.00, 6500.00, 'pełny etat', 0, '2025-07-25', 'Budownictwo', 2),
+(17,'Kierownik Budowy', 'Nadzór nad realizacją projektów budowlanych.', 'Construction Plus', 'Brema', 7000.00, 9500.00, 'pełny etat', 0, '2025-08-05', 'Budownictwo', 5),
+(18,'Elektryk', 'Instalacje elektryczne w budynkach mieszkalnych.', 'Elektro-Service', 'Drezno', 5000.00, 7000.00, 'pełny etat', 0, '2025-08-15', 'Budownictwo', 2),
+(19,'Hydraulik', 'Instalacje i naprawy systemów hydraulicznych.', 'Sanitär Technik', 'Essen', 4800.00, 6800.00, 'pełny etat', 0, '2025-08-20', 'Budownictwo', 5),
+(20,'Architekt', 'Projektowanie budynków mieszkalnych i komercyjnych.', 'Architektur Design', 'Bonn', 8000.00, 11000.00, 'pełny etat', 1, '2025-09-01', 'Budownictwo', 2),
+(21,'Lekarz Rodzinny', 'Prowadzenie praktyki lekarskiej w przychodni.', 'Medizin Zentrum', 'Mannheim', 9000.00, 12500.00, 'pełny etat', 0, '2025-08-10', 'Medycyna', 5),
+(22,'Pielęgniarka', 'Praca na oddziale chirurgicznym w szpitalu.', 'Klinikum', 'Augsburg', 5500.00, 7500.00, 'pełny etat', 0, '2025-08-25', 'Medycyna', 2),
+(23,'Fizjoterapeuta', 'Rehabilitacja pacjentów po urazach i operacjach.', 'Reha Team', 'Wiesbaden', 6000.00, 8500.00, 'część etatu', 0, '2025-09-05', 'Medycyna', 5),
+(24,'Dentysta', 'Leczenie zachowawcze i protetyka stomatologiczna.', 'Zahnarzt Praxis', 'Gelsenkirchen', 9500.00, 13000.00, 'pełny etat', 0, '2025-08-15', 'Medycyna', 2),
+(25,'Nauczyciel Matematyki', 'Prowadzenie zajęć z matematyki w szkole średniej.', 'Bildung Schule', 'Mönchengladbach', 5000.00, 7000.00, 'pełny etat', 0, '2025-09-10', 'Edukacja', 5),
+(26,'Wychowawca Przedszkolny', 'Praca z dziećmi w wieku przedszkolnym.', 'Kinder Garten', 'Braunschweig', 4500.00, 6000.00, 'pełny etat', 0, '2025-08-20', 'Edukacja', 2),
+(27,'Doradca Zawodowy', 'Pomoc w wyborze ścieżki zawodowej dla młodzieży.', 'Berufsberatung', 'Chemnitz', 5500.00, 7500.00, 'pełny etat', 1, '2025-09-15', 'Edukacja', 5),
+(28,'Kierownik Sklepu', 'Zarządzanie sklepem spożywczym i zespołem pracowników.', 'SuperMarkt', 'Krefeld', 6000.00, 8500.00, 'pełny etat', 0, '2025-08-30', 'Handel', 2),
+(29,'Sprzedawca', 'Obsługa klienta w sklepie odzieżowym.', 'Mode Haus', 'Halle', 4000.00, 5500.00, 'część etatu', 0, '2025-09-05', 'Handel', 5),
+(30,'Specjalista ds. Zakupów', 'Zarządzanie łańcuchem dostaw i negocjacje z dostawcami.', 'Einkauf Solutions', 'Magdeburg', 7000.00, 9500.00, 'pełny etat', 1, '2025-09-20', 'Handel', 2),
+(31,'Logistyk', 'Koordynacja transportu i magazynowania towarów.', 'Logistik Team', 'Freiburg', 6500.00, 9000.00, 'pełny etat', 0, '2025-08-25', 'Handel', 5),
+(32,'Marketingowiec', 'Tworzenie strategii marketingowych dla marek luksusowych.', 'Luxury Brands', 'Lübeck', 7500.00, 10000.00, 'pełny etat', 1, '2025-09-10', 'Handel', 2),
+(33,'Programista C++', 'Rozwój oprogramowania wbudowanego dla przemysłu.', 'Embedded Systems', 'Rostock', 8000.00, 11500.00, 'pełny etat', 0, '2025-09-25', 'IT', 5),
+(34,'Specjalista Cyberbezpieczeństwa', 'Ochrona systemów IT przed zagrożeniami cybernetycznymi.', 'Cyber Security', 'Erfurt', 8500.00, 12000.00, 'pełny etat', 1, '2025-09-15', 'IT', 2),
+(35,'Tłumacz Języka Niemieckiego', 'Tłumaczenia pisemne i ustne dla klientów biznesowych.', 'Übersetzung Service', 'Potsdam', 6000.00, 8500.00, 'freelance', 1, '2025-09-30', 'Edukacja', 5);
+
 
 -- --------------------------------------------------------
 
@@ -154,6 +186,10 @@ INSERT INTO `oferty_kategorie` (`id_oferty`, `id_kategorii`) VALUES
 (3, 3),
 (4, 4),
 (5, 5);
+-- Dodanie 10 rekordów do tabeli oferty_kategorie
+INSERT INTO `oferty_kategorie` (`id_oferty`, `id_kategorii`) VALUES
+(6, 1), (7, 1), (8, 1), (9, 1), (10, 1),
+(11, 2), (12, 2), (13, 2), (14, 2), (15, 2);
 
 -- --------------------------------------------------------
 
