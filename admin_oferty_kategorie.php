@@ -67,6 +67,19 @@ $kategorie = $conn->query("SELECT id, nazwa FROM kategorie");
         button[onclick="showAddForm()"]:hover {
             background-color: #1976D2;
         }
+
+        button[onclick="closeAddForm()"] {
+            background-color: #9E9E9E;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+        button[onclick="closeAddForm()"]:hover {
+            background-color: #757575;
+        }
     </style>
 </head>
 <body>
