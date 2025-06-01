@@ -46,7 +46,37 @@ $skills = $conn->query("SELECT * FROM umiejetnosci");
         #editForm, #addForm { margin-top: 20px; padding: 20px; background-color: #f8f8f8; border-radius: 5px; }
         .admin-links { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
         .admin-links a { padding: 10px; background-color: #4CAF50; color: white; text-decoration: none; border-radius: 5px; }
-        .admin-links a:hover { background-color: #45a049; }    </style>
+        .admin-links a:hover { background-color: #45a049; }
+
+        button[onclick="showAddForm()"] {
+            background-color: #2196F3;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        button[onclick="showAddForm()"]:hover {
+            background-color: #1976D2;
+        }
+
+        button[onclick="closeEditForm()"],
+        button[onclick="closeAddForm()"] {
+            background-color: #9E9E9E;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+
+        button[onclick="closeEditForm()"]:hover,
+        button[onclick="closeAddForm()"]:hover {
+            background-color: #7E7E7E;
+        }
+    </style>
 </head>
 <body>
 <header>
